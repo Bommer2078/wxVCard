@@ -4,13 +4,12 @@ let baseUrl = 'http://hugo.lingqi100.cn/api'
 let httpNum = 0;
 let http = {
 	post: "",
-    get: "",
-    put: ''
+    get: ""
 };
 let typeArr = ['/user/register','/ticket/writeOffYearTicket','/ticket/writeOffSpecialTicket']
 http.post = (api, data) => {    
     let header = {
-        'token': uni.getStorageSync('token'),
+        'Authorization': `Bearer ${uni.getStorageSync('api_token')}`,
         'isApplet': 'true'
     }
     if (typeArr.indexOf(api) >= 0) {              
@@ -39,6 +38,7 @@ http.post = (api, data) => {
                             setTimeout(() => {                                
                                 store.commit('SET_USER_INFO', null)
                                 store.commit('SET_ROLE_TYPE', null)
+                                uni.removeStorageSync('api_token')
                             },1000)
                             uni.navigateTo({
                                 url: '/pages/login/login'
@@ -71,7 +71,7 @@ http.get = (api, data) => {
             method:'get',
             url: baseUrl + api,
             header: {  
-                'token': uni.getStorageSync('token'),       
+                'Authorization': `Bearer ${uni.getStorageSync('api_token')}`,       
                 'isApplet': 'true'
             },
             success: function (res) {
@@ -84,6 +84,7 @@ http.get = (api, data) => {
                         tip.alertDialog('请重新登录').then((val) => {
                             store.commit('SET_USER_INFO', null)
                             store.commit('SET_ROLE_TYPE', null)
+                            uni.removeStorageSync('api_token')
                             uni.navigateTo({
                                 url: '/pages/login/login'
                             })
@@ -104,49 +105,5 @@ http.get = (api, data) => {
     });
 }
 
-http.put = (api, data) => {
-    if (httpNum <= 0) {
-        tip.loading()
-    }
-    httpNum++;
-    return new Promise((resolve, reject) => {
-        uni.request({
-            data:data,
-            method:'put',
-            url: baseUrl + api,
-            header: {
-                'content-type': 'application/x-www-form-urlencoded',
-                'token': uni.getStorageSync('token'),
-                'isApplet': 'true'
-            },
-            success: function (res) {
-                httpNum--;
-                if (httpNum <= 0) {
-                    tip.loaded();
-                }
-                if(res.statusCode == 200) {
-                    if(res.data.code == '401') {
-                        tip.alertDialog('请重新登录').then((val) => {
-                            store.commit('SET_USER_INFO', null)
-                            store.commit('SET_ROLE_TYPE', null)
-                            uni.navigateTo({
-                                url: '/pages/login/login'
-                            })
-                        })
-                    } else {                            
-                        resolve(res.data)
-                    }
-                } else {
-                    tip.alertDialog(res.statusCode + '错误，请稍后再试')
-                }
-            },
-            fail:function (err) {
-                httpNum--;
-                tip.loaded();
-                reject(err)
-            }
-        })
-    });
-}
 
 export default http;

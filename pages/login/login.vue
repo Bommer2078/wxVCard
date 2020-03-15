@@ -12,66 +12,74 @@
 </template>
 
 <script>
-	export default {
-    	name: 'login',
-		data() {
-			return {
-				title: 'Hi~ 请 登 录',
-			}
-		},
-		onLoad() {
-
-		},
-		methods: {
-			handleLogin () {
-				wx.login({
-					success: (res) => {
-						if (res.code) {
-							let params = {
-								code: res.code
-							}
-							//发起网络请求
-							this.wxLogin(params)
-						} else {
-							console.log('登录失败！' + res.errMsg)
+import { mapState } from 'vuex'
+export default {
+	name: 'login',
+	data() {
+		return {
+			title: 'Hi~ 请 登 录',
+		}
+	},	
+    computed: {
+        ...mapState(['locationObj'])
+    },
+	methods: {
+		handleLogin () {
+			wx.login({
+				success: (res) => {
+					if (res.code) {
+						let params = {
+							code: res.code
 						}
+						//发起网络请求
+						this.wxLogin(params)
+					} else {
+						console.log('登录失败！' + res.errMsg)
 					}
-				})
-			},
-			async wxLogin (params) {
-				const res = await this.$api.login(params)				
-				if (res.code === 0) {										
-					this.getUserInfo(res.data.api_token)
 				}
-			},
-			async getUserInfo (token) {
-				wx.getSetting({
-					success: (res) => {
-						if (res.authSetting['scope.userInfo']) {
-							wx.getUserInfo({
-								success: (data) => {
-            						this.$store.commit('SET_USER_INFO', data.userInfo)
-									data.api_token = token
-									this.saveUserInfo(data)
-								}
-							})
-						} else {
-							this.$tip.alertDialog('请允许登录授权')
-						}
-					}
-				})
-			},
-			async saveUserInfo (params) {
-				const res = await this.$api.saveUserInfo(params)
-				uni.redirectTo({
-					url: 'pages/main/main'
-				})
-			},									
-			handleCheckBoxClick () {
-				this.agreeGetLocationInfo = !this.agreeGetLocationInfo
+			})
+		},
+		async wxLogin (params) {
+			const res = await this.$api.login(params)				
+			if (res.code === 0) {				          
+                uni.setStorageSync('api_token',res.data.api_token)									
+				this.getUserInfo(res.data.api_token)
 			}
+		},
+		async getUserInfo (token) {
+			wx.getSetting({
+				success: (res) => {
+					if (res.authSetting['scope.userInfo']) {
+						wx.getUserInfo({
+							success: (data) => {
+								this.$store.commit('SET_USER_INFO', data.userInfo)
+								data.api_token = token
+								this.saveUserInfo(data)
+							}
+						})
+					} else {
+						this.$tip.alertDialog('请允许登录授权')
+					}
+				}
+			})
+		},
+		async saveUserInfo (params) {
+			const res = await this.$api.saveUserInfo(params)
+			if (!this.locationObj) {				
+				uni.redirectTo({
+					url: '/pages/city/city'
+				})
+			} else {				
+				uni.redirectTo({
+					url: '/pages/main/main'
+				})
+			}
+		},									
+		handleCheckBoxClick () {
+			this.agreeGetLocationInfo = !this.agreeGetLocationInfo
 		}
 	}
+}
 </script>
 
 <style lang="scss">

@@ -1,0 +1,1 @@
+<view class="city-page"><view class="city-grid-cover"><block wx:for="{{cityArr}}" wx:for-item="item" wx:for-index="__i0__" wx:key="id"><view data-event-opts="{{[['tap',[['choseCity',['$0'],[[['cityArr','id',item.id]]]]]]]}}" class="{{['city-item',(locationObj&&locationObj.id===item.id)?'active':'']}}" bindtap="__e">{{''+item.name+''}}</view></block></view></view>

@@ -1,38 +1,25 @@
 <template>
     <view class="content">
         <view class="ticket-banner">
-            <img class="bg" src="/static/img/bannerBg.png">
             <view class="ticket-container">
                 <view class="header">
-                    <view>                        
-                        <img src="/static/img/address.svg">
-                        <text>{{locationObj.name}}</text>
+                    <view>                      
+                        <text class="city-name">{{locationObj.name}}</text>
+                        <text class="city-tip">可享受6家场馆权益</text>
                     </view>
-                    <view @tap="callPhone">                        
-                        <text>客服</text> 
-                        <img src="/static/img/ask.svg">
+                    <view>                        
+                        <text class="welcome-tip">{{userInfo.nickName}},早上好!</text> 
                     </view>
                 </view>
                 <view class="search-container" @click="gotoSearchPage">
                     <view class="search-input">快来输入点什么～</view>
                 </view>
                 <view class="banner" @click="intoTicket">
-                    <img :src="ticketBaseInfo.photo">
+                    <img :src="vCardBaseInfo.banner ? vCardBaseInfo.banner[0] : ''">
                 </view>
             </view>            
         </view>
         <view class="mian-container">
-            <view class="item-container" v-if="goodsArr.length > 0">
-                <view class="tip">
-                    <view class="title">
-                        <text>特惠产品</text>
-                    </view>
-                </view>
-                <view class="card" v-for="item in goodsArr" :key='item' @click="gotoGoods(item)">
-                    <img :src="item.photo" >
-                    <view class="tip goods-tip">{{item.name}}</view>
-                </view>
-            </view>
             <view class="item-container" v-if="venueArr.length > 0">
                 <view class="tip"  @click="gotoMoreVenue">
                     <view class="title">
@@ -44,8 +31,7 @@
                 </view>
                 <view class="card" v-for="item in venueArr" :key='item' @click="intoVenueDetail(item)">
                     <img :src="item.photo" >
-                    <view class="book-tip" v-if="item.booking">本场馆需要提前预约</view>
-                    <view class="tip">
+                    <view class="card-tip">
                         <view class="mask">                          
                         </view>
                         <view style="z-index: 5;">{{item.name}}</view>
@@ -63,68 +49,73 @@
         data() {
             return {
                 venueArr: [],
-                goodsArr: [],
                 phoneCall :'4006099109'
             }
         },
         computed: {
-            ...mapState(['locationObj','ticketBaseInfo','venueTypeArr','roleType'])
+            ...mapState(['locationObj','vCardBaseInfo','venueTypeArr','roleType','userInfo'])
         },
         created() {            
             // uni.setEnableDebug({            
             //     enableDebug: true            
             // })
-            if (this.roleType === 'business') {
-                uni.reLaunch({
-                    url: '/pages/business/business'
-                });
-                return
-            }
+            this.initParams()
             // this.getVenueTypeList()
         },
         onShow() {                     
             // this.initGlobalData()    
         },
         methods: {
+            initParams () {
+                if (this.roleType === 'business') {
+                    uni.reLaunch({
+                        url: '/pages/business/business'
+                    });
+                    return
+                }
+                if (!this.userInfo) {                				
+                    uni.redirectTo({
+                        url: '/pages/login/login'
+                    })
+                    return
+                }
+                // 后期迭代开放多个城市后需要进行城市得选择
+                // if (!this.locationObj) {                				
+                //     uni.redirectTo({
+                //         url: '/pages/city/city'
+                //     })
+                //     return
+                // }
+                // this.getVenueTypeList()
+                this.initGlobalData()
+            },
             async initGlobalData () {
-                if (!this.ticketBaseInfo.id) {              
+                if (!this.vCardBaseInfo.id) {    
+                    // 后期迭代之后不在此页请求城市接口          
                     const res1 = await this.$api.getPlaceList()
-                    if (res1.code === '0') {
-                        this.$store.commit('SET_LOCATION_OBJ',res1.data[0])
+                    const cityObj = res1.data.data[0]
+                    if (res1.code === 0) {
+                        this.$store.commit('SET_LOCATION_OBJ',cityObj)
                     }                     
                     let params = {
-                        pageNum: 1,
-                        pageSize: 10,
-                        placeId: this.locationObj.id
+                        id: cityObj.card_id
                     }               
-                    const res2 = await this.$api.getTickeList(params)
-                    if (res2.code === '0') {
-                        this.$store.commit('SET_TICKET_OBJ',res2.data.list[0])
+                    const res2 = await this.$api.getCardDetail(params)
+                    if (res2.code === 0) {
+                        this.$store.commit('SET_TICKET_OBJ',res2.data)
                     }          
                 }                 
-                this.getGoodsData()
                 this.getVenueData()
             },
             async getVenueData () {                       
                 let params = {
-                    yearTicketId: this.ticketBaseInfo.id,
+                    yearTicketId: this.vCardBaseInfo.id,
                     pageNum: 1,
                     pageSize: 10,
                 }                
                 const res = await this.$api.getVenueList(params)
                 if (res.code === '0') {
                     this.venueArr = res.data.list
-                }
-            },
-            async getGoodsData () {                       
-                let params = {
-                    pageNum: 1,
-                    pageSize: 10,
-                    status: 1
-                }                
-                const res = await this.$api.getGoodsList(params)
-                if (res.code === '0') {
-                    this.goodsArr = res.data.list
                 }
             },
             async getVenueTypeList() {
@@ -144,19 +135,9 @@
                     url: `/pages/venueDetail/venueDetail?id=${item.id}&str=${tempStr}`
                 })
             },
-            intoAppoinment (id) {
-                uni.navigateTo({
-                    url: `/pages/appointmentPage/appointmentPage?id=${id}`
-                })
-            },
             intoTicket () {
                 uni.switchTab({
                     url: `/pages/ticket/ticket`
-                })
-            },
-            gotoGoods(item) {
-                uni.navigateTo({
-                    url: `/pages/goodsDetail/goodsDetail?id=${item.id}`
                 })
             },
             gotoMoreVenue () {
@@ -164,232 +145,203 @@
                     url: '../venueList/venueList'
                 })
             },
-            callPhone () {
-                let phoneCall = [this.phoneCall]
-                uni.showActionSheet({
-                    itemList: [phoneCall[0]],
-                    success: function (res) {
-                        console.log(res)
-                        wx.makePhoneCall({
-                            phoneNumber: phoneCall[res.tapIndex], 
-                            success: function () {
-                                console.log("拨打电话成功！")
-                            },
-                            fail: function () {
-                                console.log("拨打电话失败！")
-                            }
-                        })
-                    },
-                    fail: function (res) {
-                        console.log(res.errMsg)
-                    }
-                })
-            }
         },
     }
 </script>
 
-<style>
+<style lang="scss">
 .content {
     width: 100%;
     color: #353535;
-}
-.ticket-banner {
-    position: relative;
-    width: 100%;
-    height: 454upx;
-    margin-bottom: 5px;
-}
-.ticket-banner .bg{
-    position: absolute;
-    bottom: -80upx;
-    width: 100%;
-}
-.ticket-container {
-    position: absolute;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    width: 100%;
-    z-index: 1;
-}
-.ticket-container .banner {
-    width: 93%;
-    height: 310upx;
-    background: #F6F6F6;
-    border-radius: 6px;
-    overflow: hidden;
-}
-.banner img{
-    width: 100%;
-    height: 310upx;
-}
-.ticket-container .header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    padding-left: 14upx;
-    padding-right: 14upx;
-    height: 66upx;
-    font-size: 14px;
-    font-weight: 400;
-    background: #FFCC00;
-}
-.header img {
-    width: 18px;
-    height: 18px;
-    margin-left: 5px;
-    margin-right: 5px;
-}
-.header view {
-    display: flex;
-    align-items: center;
-}
-.ticket-container .search-container {
-    width: 100%;
-    padding-left: 14upx;
-    padding-right: 14upx;
-    padding-top: 10upx; 
-    height: 60upx;
-    margin-bottom: 29upx;    
-    background: #FFCC00;
-}
-.search-input {
-    width: 100%;
-    height: 60upx;
-    background: #fff;
-    border-radius: 4px;
-    color:#B0B0B0;
-    font-size: 12px;
-    line-height: 60upx;
-    padding-left: 10px;
-}
-.mian-container {    
-    width: 100%;
-    z-index: 1;
-    position: absolute;
-}
-.item-container {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-left: 14upx;
-    padding-right: 14upx;
-    border-bottom: 2px solid #F6F6F6;
-}
-.item-container .tip {   
-    width: 100%; 
-    display: flex;
-    flex-direction: row;
-    padding-top: 30upx;
-    padding-bottom: 30upx;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10upx;
-}
-.item-container .appoinment-btn {
-    position:absolute;
-    top: 20upx;
-    right: 20upx;
-    width: 114upx !important;
-    height: 116upx !important;
-    z-index: 1;
-}
-.book-tip {
-    height: 80upx;
-    line-height: 80upx;
-    width: 100%;
-    position: absolute;
-    top: 40%;
-    color: #fff;
-    padding-right: 15px;
-    text-align: right;
-    background: linear-gradient(-53deg,rgba(255,144,14,.9),rgba(255,204,0,.2));
-}
-.tip .title {
-    width: 100px;
-    height: 16px;
-    position: relative;
-    font-size: 16px;
-    font-weight: 700;
-    flex-shrink: 0;
-}
-.tip .title text {
-    position: absolute;
-    z-index: 3;
-}
-.tip .title::before {
-    position: absolute;
-    top: 16px;
-    left: 12px;
-    content: '';
-    width: 40px;
-    height: 6px;
-    background: #FFCC00;
-    border-radius: 3px;
-    z-index: 2;
-}
-.tip .title::after {
-    position: absolute;    
-    top: 20px;
-    left: 16px;
-    content: '';
-    width: 30px;
-    height: 6px;
-    background: #FFEA98;
-    border-radius: 3px;
-    z-index: 1;
-}
-.tip .more {
-    font-size: 12px;
-    color: #B0B0B0;
-}
-.item-container .card {
-    position: relative;
-    width: 100%;
-    height: 350upx;
-    background: #F6F6F6;
-    border-radius: 12px;
-    margin-bottom: 10px;
-    overflow: hidden;
-}
-.item-container .goods-tip {
-    color: #ffcc00;
-}
-.item-container .card img{
-    width: 100%;
-    height: 350upx;
-}
-.item-container .card .tip .mask{
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    right: 1px;
-    background: #000;
-    opacity: .5;
-    background: linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
-    z-index: 1;
-}
-.item-container .card .tip{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    position: absolute;
-    bottom: 0;
-    padding: 0;
-    padding-left: 30upx;
-    padding-bottom: 10upx;
-    margin: 0;
-    width: 100%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    font-size: 13px;
-    color: #fff;
-    z-index: 1;
+    .ticket-banner {
+        position: relative;
+        width: 100%;
+        height: 454rpx;
+        margin-bottom: 5px;
+        .ticket-container {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            width: 100%;
+            z-index: 1;
+            .header {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                width: 100%;
+                padding-left: 24rpx;
+                padding-right: 24rpx;
+                height: 100rpx;
+                font-size: 14px;
+                font-weight: 400;
+                background: #fff;
+                view {
+                    display: flex;
+                    align-items: flex-start;
+                    flex-direction: column;
+                    .city-name {
+                        position: relative;
+                        font-size: 34rpx;
+                        font-weight: 700;
+                        &::after {
+                            content: '';
+                            position: absolute;
+                            top: 10rpx;
+                            right: -30rpx;
+                            width: 12rpx;
+                            height: 12rpx;
+                            transform: rotate(-45deg);
+                            border: 4rpx solid;
+                            border-color: transparent transparent #000 #000;
+                        }
+                    }
+                    .city-tip {
+                        font-size: 20rpx;
+                        color: #909090;
+                    }
+                    .welcome-tip {
+                        font-size: 30rpx;
+                        font-weight: 700;
+                    }
+                }
+            }
+            .banner {
+                width: 93%;
+                height: 310rpx;
+                background: #F6F6F6;
+                border-radius: 6px;
+                overflow: hidden;
+                img{
+                    width: 100%;
+                    height: 310rpx;
+                }
+            }
+            .search-container {
+                width: 100%;
+                padding-left: 14rpx;
+                padding-right: 14rpx;
+                padding-top: 10rpx; 
+                height: 60rpx;
+                margin-bottom: 29rpx;    
+                background: #fff;                
+                .search-input {
+                    width: 100%;
+                    height: 60rpx;
+                    background: #fff;
+                    border-radius: 4px;
+                    color:#B0B0B0;
+                    font-size: 12px;
+                    line-height: 60rpx;
+                    padding-left: 10px;
+                }
+            }
+        }
+        .mian-container {    
+            width: 100%;
+            z-index: 1;
+            position: absolute;
+            .item-container {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding-left: 14rpx;
+                padding-right: 14rpx;
+                border-bottom: 2px solid #F6F6F6;
+                .tip {   
+                    width: 100%; 
+                    display: flex;
+                    flex-direction: row;
+                    padding-top: 30rpx;
+                    padding-bottom: 30rpx;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 10rpx;
+                    .title {
+                        width: 100px;
+                        height: 16px;
+                        position: relative;
+                        font-size: 16px;
+                        font-weight: 700;
+                        flex-shrink: 0;
+                        &::before {
+                            position: absolute;
+                            top: 16px;
+                            left: 12px;
+                            content: '';
+                            width: 40px;
+                            height: 6px;
+                            background: #FFCC00;
+                            border-radius: 3px;
+                            z-index: 2;
+                        }
+                        &::after {
+                            position: absolute;    
+                            top: 20px;
+                            left: 16px;
+                            content: '';
+                            width: 30px;
+                            height: 6px;
+                            background: #FFEA98;
+                            border-radius: 3px;
+                            z-index: 1;
+                        }
+                        .more {
+                            font-size: 12px;
+                            color: #B0B0B0;
+                        }
+                        text {
+                            position: absolute;
+                            z-index: 3;
+                        }
+                    }
+                }
+                .card {
+                    position: relative;
+                    width: 100%;
+                    height: 350rpx;
+                    background: #F6F6F6;
+                    border-radius: 12px;
+                    margin-bottom: 10px;
+                    overflow: hidden;
+                    img{
+                        width: 100%;
+                        height: 350rpx;
+                    }
+                     .card-tip{
+                        display: flex;
+                        flex-direction: column;
+                        align-items: flex-start;
+                        position: absolute;
+                        bottom: 0;
+                        padding: 0;
+                        padding-left: 30rpx;
+                        padding-bottom: 10rpx;
+                        margin: 0;
+                        width: 100%;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                        font-size: 13px;
+                        color: #fff;
+                        z-index: 1;
+                        .mask{
+                            position: absolute;
+                            left: 0;
+                            top: 0;
+                            bottom: 0;
+                            right: 1px;
+                            background: #000;
+                            opacity: .5;
+                            background: linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+                            z-index: 1;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 </style>

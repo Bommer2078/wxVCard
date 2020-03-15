@@ -10,7 +10,7 @@ const store = new Vuex.Store({
         systemInfo: {},
         isIphoneX: false,
         locationObj: uni.getStorageSync('locationObj'),
-        ticketBaseInfo: uni.getStorageSync('ticketBaseInfo'),
+        vCardBaseInfo: uni.getStorageSync('vCardBaseInfo'),
         venueTypeArr: uni.getStorageSync('venueTypeArr'),
     },
     mutations: {
@@ -31,19 +31,19 @@ const store = new Vuex.Store({
             }
         },
         SET_LOCATION_OBJ(state, locationObj){
-            state.locationObj = locationObj || ''
+            state.locationObj = locationObj || null
             if (locationObj) {
                 uni.setStorageSync('locationObj', locationObj)
             } else {
                 uni.removeStorageSync('locationObj')
             }
         },
-        SET_TICKET_OBJ(state, ticketBaseInfo){
-            state.ticketBaseInfo = ticketBaseInfo || ''
-            if (ticketBaseInfo) {
-                uni.setStorageSync('ticketBaseInfo', ticketBaseInfo)
+        SET_TICKET_OBJ(state, vCardBaseInfo){
+            state.vCardBaseInfo = vCardBaseInfo || ''
+            if (vCardBaseInfo) {
+                uni.setStorageSync('vCardBaseInfo', vCardBaseInfo)
             } else {
-                uni.removeStorageSync('ticketBaseInfo')
+                uni.removeStorageSync('vCardBaseInfo')
             }
         },
         SET_VENUE_TYPE_ARR(state, venueTypeArr){

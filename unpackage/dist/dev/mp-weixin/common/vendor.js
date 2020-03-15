@@ -241,7 +241,7 @@ var promiseInterceptor = {
 
 
 var SYNC_API_RE =
-/^\$|getMenuButtonBoundingClientRect|^report|interceptors|Interceptor$|getSubNVueById|requireNativePlugin|upx2px|hideKeyboard|canIUse|^create|Sync$|Manager$|base64ToArrayBuffer|arrayBufferToBase64/;
+/^\$|getMenuButtonBoundingClientRect|^report|interceptors|Interceptor$|getSubNVueById|requireNativePlugin|rpx2px|hideKeyboard|canIUse|^create|Sync$|Manager$|base64ToArrayBuffer|arrayBufferToBase64/;
 
 var CONTEXT_API_RE = /^create|Manager$/;
 
@@ -323,7 +323,7 @@ function checkDeviceWidth() {var _wx$getSystemInfoSync =
   isIOS = platform === 'ios';
 }
 
-function upx2px(number, newDeviceWidth) {
+function rpx2px(number, newDeviceWidth) {
   if (deviceWidth === 0) {
     checkDeviceWidth();
   }
@@ -354,7 +354,7 @@ var interceptors = {
 
 
 var baseApi = /*#__PURE__*/Object.freeze({
-  upx2px: upx2px,
+  rpx2px: rpx2px,
   interceptors: interceptors,
   addInterceptor: addInterceptor,
   removeInterceptor: removeInterceptor });
@@ -733,7 +733,7 @@ function initData(vueOptions, context) {
     try {
       data = data.call(context); // 支持 Vue.prototype 上挂的数据
     } catch (e) {
-      if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.warn('根据 Vue 的 data 函数初始化小程序 data 失败，请尽量确保 data 函数中不访问 vm 对象，否则可能影响首次数据渲染速度。', data);
       }
     }
@@ -6978,7 +6978,7 @@ function type(obj) {
 
 function flushCallbacks$1(vm) {
     if (vm.__next_tick_callbacks && vm.__next_tick_callbacks.length) {
-        if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+        if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:flushCallbacks[' + vm.__next_tick_callbacks.length + ']');
@@ -6999,14 +6999,14 @@ function nextTick$1(vm, cb) {
     //1.nextTick 之前 已 setData 且 setData 还未回调完成
     //2.nextTick 之前存在 render watcher
     if (!vm.__next_tick_pending && !hasRenderWatcher(vm)) {
-        if(Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:nextVueTick');
         }
         return nextTick(cb, vm)
     }else{
-        if(Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance$1 = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance$1.is || mpInstance$1.route) + '][' + vm._uid +
                 ']:nextMPTick');
@@ -7082,7 +7082,7 @@ var patch = function(oldVnode, vnode) {
     });
     var diffData = diff(data, mpData);
     if (Object.keys(diffData).length) {
-      if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + this._uid +
           ']差量更新',
           JSON.stringify(diffData));
@@ -8400,7 +8400,7 @@ module.exports = {"_from":"@dcloudio/uni-stat@next","_id":"@dcloudio/uni-stat@2.
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/main/main": { "navigationBarTitleText": "首页" }, "pages/login/login": { "navigationBarTitleText": "请登录" } }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "uni-app", "navigationBarBackgroundColor": "#F8F8F8", "backgroundColor": "#F8F8F8" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/main/main": { "navigationBarTitleText": "首页", "navigationBarBackgroundColor": "#ffffff", "usingComponents": {} }, "pages/login/login": { "navigationBarTitleText": "请登录", "usingComponents": {} }, "pages/city/city": { "navigationBarTitleText": "选择城市", "usingComponents": {} } }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "uni-app", "navigationBarBackgroundColor": "#F8F8F8", "backgroundColor": "#F8F8F8" } };exports.default = _default;
 
 /***/ }),
 /* 8 */
@@ -8545,7 +8545,7 @@ var store = new _vuex.default.Store({
     systemInfo: {},
     isIphoneX: false,
     locationObj: uni.getStorageSync('locationObj'),
-    ticketBaseInfo: uni.getStorageSync('ticketBaseInfo'),
+    vCardBaseInfo: uni.getStorageSync('vCardBaseInfo'),
     venueTypeArr: uni.getStorageSync('venueTypeArr') },
 
   mutations: {
@@ -8566,19 +8566,19 @@ var store = new _vuex.default.Store({
       }
     },
     SET_LOCATION_OBJ: function SET_LOCATION_OBJ(state, locationObj) {
-      state.locationObj = locationObj || '';
+      state.locationObj = locationObj || null;
       if (locationObj) {
         uni.setStorageSync('locationObj', locationObj);
       } else {
         uni.removeStorageSync('locationObj');
       }
     },
-    SET_TICKET_OBJ: function SET_TICKET_OBJ(state, ticketBaseInfo) {
-      state.ticketBaseInfo = ticketBaseInfo || '';
-      if (ticketBaseInfo) {
-        uni.setStorageSync('ticketBaseInfo', ticketBaseInfo);
+    SET_TICKET_OBJ: function SET_TICKET_OBJ(state, vCardBaseInfo) {
+      state.vCardBaseInfo = vCardBaseInfo || '';
+      if (vCardBaseInfo) {
+        uni.setStorageSync('vCardBaseInfo', vCardBaseInfo);
       } else {
-        uni.removeStorageSync('ticketBaseInfo');
+        uni.removeStorageSync('vCardBaseInfo');
       }
     },
     SET_VENUE_TYPE_ARR: function SET_VENUE_TYPE_ARR(state, venueTypeArr) {
@@ -9567,12 +9567,10 @@ var updatePassword = function updatePassword(params) {return _serve.default.put(
 var resetPassword = function resetPassword(params) {return _serve.default.put("/user/resetPassword", params);}; //用户修改密码
 var login = function login(params) {return _serve.default.get('/mini/login', params);}; //用户登录
 var saveUserInfo = function saveUserInfo(params) {return _serve.default.get('/mini/save', params);}; //用户登录
-var getPlaceList = function getPlaceList() {return _serve.default.get('/place/list');}; //归属地列表
+var getPlaceList = function getPlaceList(params) {return _serve.default.post('/city/list', params);}; //归属地列表
 var getTickeList = function getTickeList(params) {return _serve.default.get('/yearTicket/list', params);}; //联票列表
-var getVenueList = function getVenueList(params) {return _serve.default.get('/venue/listByYearTicketId', params);}; //场馆列表
-var getGoodsList = function getGoodsList(params) {return _serve.default.get('/specialItem/list', params);}; //商品列表
-var getGoodsDetail = function getGoodsDetail(params) {return _serve.default.get("/specialItem/".concat(params));}; //商品列表
-var getTicketDetail = function getTicketDetail(id) {return _serve.default.get("/yearTicket/".concat(id));}; //联票详情
+var getVenueList = function getVenueList(params) {return _serve.default.get('/venue/list', params);}; //场馆列表
+var getCardDetail = function getCardDetail(id) {return _serve.default.get("/card/details", id);}; //权益卡详情
 var getVenueTypeList = function getVenueTypeList() {return _serve.default.get("/dictionaryItem/listByDictionaryId?dictionaryId=10");}; //取场馆分类列表
 var creatOrder = function creatOrder(params) {return _serve.default.post("/order", params);}; //新增订单
 var bindTicket = function bindTicket(params) {return _serve.default.put("/ticket/bandingNameAndPhoto", params);}; //票绑定
@@ -9600,8 +9598,7 @@ var api = (_api = {
   getPlaceList: getPlaceList,
   getTickeList: getTickeList,
   getVenueList: getVenueList,
-  getGoodsList: getGoodsList,
-  getTicketDetail: getTicketDetail,
+  getCardDetail: getCardDetail,
   getVenueTypeList: getVenueTypeList,
   creatOrder: creatOrder,
   bindTicket: bindTicket,
@@ -9614,7 +9611,6 @@ var api = (_api = {
   getAllCount: getAllCount,
   getStatisList: getStatisList,
   getVenueDetail: getVenueDetail,
-  getGoodsDetail: getGoodsDetail,
   wxPay: wxPay }, _defineProperty(_api, "resetPassword",
 resetPassword), _defineProperty(_api, "getAboutList",
 getAboutList), _defineProperty(_api, "getAbout",
@@ -9639,13 +9635,12 @@ var baseUrl = 'http://hugo.lingqi100.cn/api';
 var httpNum = 0;
 var http = {
   post: "",
-  get: "",
-  put: '' };
+  get: "" };
 
 var typeArr = ['/user/register', '/ticket/writeOffYearTicket', '/ticket/writeOffSpecialTicket'];
 http.post = function (api, data) {
   var header = {
-    'token': uni.getStorageSync('token'),
+    'Authorization': "Bearer ".concat(uni.getStorageSync('api_token')),
     'isApplet': 'true' };
 
   if (typeArr.indexOf(api) >= 0) {
@@ -9674,6 +9669,7 @@ http.post = function (api, data) {
               setTimeout(function () {
                 _store.default.commit('SET_USER_INFO', null);
                 _store.default.commit('SET_ROLE_TYPE', null);
+                uni.removeStorageSync('api_token');
               }, 1000);
               uni.navigateTo({
                 url: '/pages/login/login' });
@@ -9706,7 +9702,7 @@ http.get = function (api, data) {
       method: 'get',
       url: baseUrl + api,
       header: {
-        'token': uni.getStorageSync('token'),
+        'Authorization': "Bearer ".concat(uni.getStorageSync('api_token')),
         'isApplet': 'true' },
 
       success: function success(res) {
@@ -9719,51 +9715,7 @@ http.get = function (api, data) {
             _tip.default.alertDialog('请重新登录').then(function (val) {
               _store.default.commit('SET_USER_INFO', null);
               _store.default.commit('SET_ROLE_TYPE', null);
-              uni.navigateTo({
-                url: '/pages/login/login' });
-
-            });
-          } else {
-            resolve(res.data);
-          }
-        } else {
-          _tip.default.alertDialog(res.statusCode + '错误，请稍后再试');
-        }
-      },
-      fail: function fail(err) {
-        httpNum--;
-        _tip.default.loaded();
-        reject(err);
-      } });
-
-  });
-};
-
-http.put = function (api, data) {
-  if (httpNum <= 0) {
-    _tip.default.loading();
-  }
-  httpNum++;
-  return new Promise(function (resolve, reject) {
-    uni.request({
-      data: data,
-      method: 'put',
-      url: baseUrl + api,
-      header: {
-        'content-type': 'application/x-www-form-urlencoded',
-        'token': uni.getStorageSync('token'),
-        'isApplet': 'true' },
-
-      success: function success(res) {
-        httpNum--;
-        if (httpNum <= 0) {
-          _tip.default.loaded();
-        }
-        if (res.statusCode == 200) {
-          if (res.data.code == '401') {
-            _tip.default.alertDialog('请重新登录').then(function (val) {
-              _store.default.commit('SET_USER_INFO', null);
-              _store.default.commit('SET_ROLE_TYPE', null);
+              uni.removeStorageSync('api_token');
               uni.navigateTo({
                 url: '/pages/login/login' });
 
@@ -9783,6 +9735,7 @@ http.put = function (api, data) {
 
   });
 };var _default =
+
 
 http;exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
