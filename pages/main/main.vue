@@ -12,10 +12,15 @@
                     </view>
                 </view>
                 <view class="search-container" @click="gotoSearchPage">
-                    <view class="search-input">快来输入点什么～</view>
+                    <view class="search-input">快来输入点什么～
+                        <image src="../../static/search.svg" class="search-img">
+                    </view>
+                    <view class="search-btn">搜 索</view>
                 </view>
-                <view class="banner" @click="intoTicket">
-                    <img :src="vCardBaseInfo.banner ? vCardBaseInfo.banner[0] : ''">
+                <view class="banner-cover">                    
+                    <view class="banner" @click="intoTicket">
+                        <img :src="vCardBaseInfo.banner ? vCardBaseInfo.banner[0] : ''">
+                    </view>
                 </view>
             </view>            
         </view>
@@ -23,21 +28,24 @@
             <view class="item-container" v-if="venueArr.length > 0">
                 <view class="tip"  @click="gotoMoreVenue">
                     <view class="title">
-                        <text>本期精选场馆</text>
+                        <text>场馆推荐</text>
                     </view>
                     <view class="more">
                         更多 >
                     </view>
                 </view>
-                <view class="card" v-for="item in venueArr" :key='item' @click="intoVenueDetail(item)">
-                    <img :src="item.photo" >
-                    <view class="card-tip">
-                        <view class="mask">                          
+                <template v-for="item in venueArr" >                
+                    <view class="card" @click="intoVenueDetail(item)" :key='item'>
+                        <img :src="item.banner[0]" >
+                        <view class="card-tip">
+                            <view class="mask">                          
+                            </view>
+                            <view style="z-index: 5;">{{item.name}}</view>
+                            <!-- <view style="z-index: 5;">{{item | rulesText}}</view> -->
                         </view>
-                        <view style="z-index: 5;">{{item.name}}</view>
-                        <view style="z-index: 5;">{{item | rulesText}}</view>
                     </view>
-                </view>
+                    <view class="border-split" :key='item'></view>
+                </template>
             </view>
         </view>        
     </view>
@@ -109,13 +117,13 @@
             },
             async getVenueData () {                       
                 let params = {
-                    yearTicketId: this.vCardBaseInfo.id,
-                    pageNum: 1,
+                    city_id: this.locationObj.id,
+                    page: 1,
                     pageSize: 10,
                 }                
                 const res = await this.$api.getVenueList(params)
-                if (res.code === '0') {
-                    this.venueArr = res.data.list
+                if (res.code === 0) {
+                    this.venueArr = res.data.data
                 }
             },
             async getVenueTypeList() {
@@ -152,11 +160,12 @@
 <style lang="scss">
 .content {
     width: 100%;
+    background: #F7F7F7;
     color: #353535;
     .ticket-banner {
         position: relative;
         width: 100%;
-        height: 454rpx;
+        height: 510rpx;
         margin-bottom: 5px;
         .ticket-container {
             position: absolute;
@@ -207,139 +216,170 @@
                     }
                 }
             }
-            .banner {
-                width: 93%;
-                height: 310rpx;
-                background: #F6F6F6;
-                border-radius: 6px;
-                overflow: hidden;
-                img{
-                    width: 100%;
-                    height: 310rpx;
-                }
-            }
-            .search-container {
+            .banner-cover {
                 width: 100%;
-                padding-left: 14rpx;
-                padding-right: 14rpx;
-                padding-top: 10rpx; 
-                height: 60rpx;
-                margin-bottom: 29rpx;    
-                background: #fff;                
-                .search-input {
-                    width: 100%;
-                    height: 60rpx;
-                    background: #fff;
-                    border-radius: 4px;
-                    color:#B0B0B0;
-                    font-size: 12px;
-                    line-height: 60rpx;
-                    padding-left: 10px;
-                }
-            }
-        }
-        .mian-container {    
-            width: 100%;
-            z-index: 1;
-            position: absolute;
-            .item-container {
-                width: 100%;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                padding-left: 14rpx;
-                padding-right: 14rpx;
-                border-bottom: 2px solid #F6F6F6;
-                .tip {   
-                    width: 100%; 
-                    display: flex;
-                    flex-direction: row;
-                    padding-top: 30rpx;
-                    padding-bottom: 30rpx;
-                    justify-content: space-between;
-                    align-items: center;
-                    margin-bottom: 10rpx;
-                    .title {
-                        width: 100px;
-                        height: 16px;
-                        position: relative;
-                        font-size: 16px;
-                        font-weight: 700;
-                        flex-shrink: 0;
-                        &::before {
-                            position: absolute;
-                            top: 16px;
-                            left: 12px;
-                            content: '';
-                            width: 40px;
-                            height: 6px;
-                            background: #FFCC00;
-                            border-radius: 3px;
-                            z-index: 2;
-                        }
-                        &::after {
-                            position: absolute;    
-                            top: 20px;
-                            left: 16px;
-                            content: '';
-                            width: 30px;
-                            height: 6px;
-                            background: #FFEA98;
-                            border-radius: 3px;
-                            z-index: 1;
-                        }
-                        .more {
-                            font-size: 12px;
-                            color: #B0B0B0;
-                        }
-                        text {
-                            position: absolute;
-                            z-index: 3;
-                        }
-                    }
-                }
-                .card {
-                    position: relative;
-                    width: 100%;
-                    height: 350rpx;
+                height: 360rpx;
+                padding-top: 13rpx; 
+                background: #fff;
+                margin-bottom: 8rpx;
+                .banner {
+                    width: 85%;
+                    height: 300rpx;
+                    margin: 0 auto;
                     background: #F6F6F6;
-                    border-radius: 12px;
-                    margin-bottom: 10px;
+                    border-radius: 6px;
                     overflow: hidden;
                     img{
                         width: 100%;
-                        height: 350rpx;
-                    }
-                     .card-tip{
-                        display: flex;
-                        flex-direction: column;
-                        align-items: flex-start;
-                        position: absolute;
-                        bottom: 0;
-                        padding: 0;
-                        padding-left: 30rpx;
-                        padding-bottom: 10rpx;
-                        margin: 0;
-                        width: 100%;
-                        overflow: hidden;
-                        text-overflow: ellipsis;
-                        white-space: nowrap;
-                        font-size: 13px;
-                        color: #fff;
-                        z-index: 1;
-                        .mask{
-                            position: absolute;
-                            left: 0;
-                            top: 0;
-                            bottom: 0;
-                            right: 1px;
-                            background: #000;
-                            opacity: .5;
-                            background: linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
-                            z-index: 1;
-                        }
+                        height: 310rpx;
                     }
                 }
+            }            
+            .search-container {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                width: 100%;
+                padding-left: 24rpx;
+                padding-right: 24rpx;
+                height: 50rpx;   
+                background: #fff;                
+                .search-input {
+                    position: relative;
+                    width: 85%;
+                    height: 50rpx;
+                    background: #F4F1F1;
+                    border-radius: 25rpx;
+                    color:#B1B1B1;
+                    font-size: 22rpx;
+                    line-height: 50rpx;
+                    padding-left: 48rpx;
+                   .search-img {
+                        position: absolute;
+                        left: 15rpx;
+                        top: 10rpx;
+                        width: 30rpx;
+                        height: 30rpx;
+                    }
+                }
+                .search-btn {
+                    width: 91rpx;
+                    height: 50rpx;
+                    font-size: 26rpx;
+                    line-height: 50rpx;
+                    text-align: center;
+                    background: #FF3276;
+                    color: #fff;
+                    border-radius: 10rpx;
+                }
+            }
+        }        
+    }
+    .mian-container {    
+        width: 100%;
+        z-index: 1;
+        background: #fff;
+        .item-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-left: 14rpx;
+            padding-right: 14rpx;
+            .tip {   
+                width: 100%; 
+                display: flex;
+                flex-direction: row;
+                padding-top: 30rpx;
+                justify-content: space-between;
+                align-items: center;
+                .title {
+                    width: 100px;
+                    height: 16px;
+                    position: relative;
+                    font-size: 32rpx;
+                    font-weight: 700;
+                    flex-shrink: 0;
+                    &::before {
+                        position: absolute;
+                        top: 16px;
+                        left: 12px;
+                        content: '';
+                        width: 82rpx;
+                        height: 6px;
+                        background: #FF3276;
+                        border-radius: 3px;
+                        z-index: 2;
+                    }
+                    &::after {
+                        position: absolute;    
+                        top: 20px;
+                        left: 24px;
+                        content: '';
+                        width: 60rpx;
+                        height: 6px;
+                        background: #FFA8C5;
+                        border-radius: 3px;
+                        z-index: 1;
+                    }
+                    text {
+                        position: absolute;
+                        z-index: 3;
+                    }
+                }                
+                .more {
+                    font-size: 22rpx;
+                    color: #FF3276;
+                }
+            }
+            .card {
+                position: relative;
+                width: 100%;
+                height: 410rpx;
+                padding-top: 30rpx;
+                padding-bottom: 30rpx;
+                background: #fff;
+                overflow: hidden;
+                img{
+                    width: 100%;
+                    height: 350rpx;
+                    border-radius: 12px;
+                }
+                    .card-tip{
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    position: absolute;
+                    bottom: 30rpx;
+                    padding: 0;
+                    padding-left: 30rpx;
+                    padding-bottom: 10rpx;
+                    margin: 0;
+                    width: 100%;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    font-size: 13px;
+                    color: #fff;
+                    z-index: 1;
+                    border-radius: 0 0 12px 12px;
+                    .mask{
+                        position: absolute;
+                        left: 0;
+                        top: 0;
+                        bottom: 0;
+                        right: 1px;
+                        background: #000;
+                        opacity: .5;
+                        background: linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+                        z-index: 1;
+                    }
+                }
+            }
+            .border-split {
+                width: 100%;
+                height: 6rpx;
+                background: #F7F7F7;;
             }
         }
     }

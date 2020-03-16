@@ -90,23 +90,6 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  var l0 = _vm.__map(_vm.venueArr, function(item, __i0__) {
-    var f0 = _vm._f("rulesText")(item)
-
-    return {
-      $orig: _vm.__get_orig(item),
-      f0: f0
-    }
-  })
-
-  _vm.$mp.data = Object.assign(
-    {},
-    {
-      $root: {
-        l0: l0
-      }
-    }
-  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -140,6 +123,14 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 27));
+
+
+
+
+
+
+
+
 
 
 
@@ -250,13 +241,13 @@ var _vuex = __webpack_require__(/*! vuex */ 16);function _interopRequireDefault(
 
     getVenueData: function () {var _getVenueData = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var params, res;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:
                 params = {
-                  yearTicketId: this.vCardBaseInfo.id,
-                  pageNum: 1,
+                  city_id: this.locationObj.id,
+                  page: 1,
                   pageSize: 10 };_context2.next = 3;return (
 
                   this.$api.getVenueList(params));case 3:res = _context2.sent;
-                if (res.code === '0') {
-                  this.venueArr = res.data.list;
+                if (res.code === 0) {
+                  this.venueArr = res.data.data;
                 }case 5:case "end":return _context2.stop();}}}, _callee2, this);}));function getVenueData() {return _getVenueData.apply(this, arguments);}return getVenueData;}(),
 
     getVenueTypeList: function () {var _getVenueTypeList = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee3() {var res;return _regenerator.default.wrap(function _callee3$(_context3) {while (1) {switch (_context3.prev = _context3.next) {case 0:_context3.next = 2;return (
