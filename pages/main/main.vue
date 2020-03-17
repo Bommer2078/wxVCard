@@ -138,9 +138,8 @@
                 })
             },
             intoVenueDetail(item) {                
-                let tempStr = this.$options.filters['rulesText'](item)
                 uni.navigateTo({
-                    url: `/pages/venueDetail/venueDetail?id=${item.id}&str=${tempStr}`
+                    url: `/pages/venueDetail/venueDetail?id=${item.id}`
                 })
             },
             intoTicket () {

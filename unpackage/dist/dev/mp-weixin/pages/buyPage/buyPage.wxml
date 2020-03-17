@@ -1,0 +1,1 @@
+<view class="buy-page"><view class="container-cover"><block wx:for="{{specsArr}}" wx:for-item="item" wx:for-index="index" wx:key="index"><view class="specs"><view class="specs-title">{{''+item.name+''}}<view class="specs-tip">场馆特惠</view></view><view class="price">{{'￥'+$root.g0+''}}</view></view></block></view></view>

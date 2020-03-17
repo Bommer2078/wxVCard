@@ -262,9 +262,8 @@ var _vuex = __webpack_require__(/*! vuex */ 16);function _interopRequireDefault(
 
     },
     intoVenueDetail: function intoVenueDetail(item) {
-      var tempStr = this.$options.filters['rulesText'](item);
       uni.navigateTo({
-        url: "/pages/venueDetail/venueDetail?id=".concat(item.id, "&str=").concat(tempStr) });
+        url: "/pages/venueDetail/venueDetail?id=".concat(item.id) });
 
     },
     intoTicket: function intoTicket() {

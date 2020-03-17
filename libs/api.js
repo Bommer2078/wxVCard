@@ -20,7 +20,7 @@ const writeOffYearTicket = (params) => http.post(`/ticket/writeOffYearTicket`,pa
 const writeOffSpecialTicket = (params) => http.post(`/ticket/writeOffSpecialTicket`,params); 
 const getAllCount = (params) => http.get(`/verify/listCountByVerifyUsername`,params); 
 const getStatisList = (params) => http.get(`/verify/listByVerifyUsername`,params); 
-const getVenueDetail = (params) => http.get(`/venue/${params}`); 
+const getVenueDetail = (params) => http.get(`/venue/details`,params); 
 const wxPay = (params) => http.get(`/wx/appletPay`,params); 
 const getAboutList = (params) => http.get(`/notice/list`,params); 
 const getAbout = (id) => http.get(`/notice/${id}`); 

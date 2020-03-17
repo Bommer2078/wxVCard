@@ -1,6 +1,20 @@
 {
 	"pages": [
 		{
+			"path": "pages/buyPage/buyPage",
+            "style": {
+				"navigationBarTitleText": "加入会员",
+				"navigationBarBackgroundColor": "#ffffff"
+            }
+		},
+		{
+			"path": "pages/venueDetail/venueDetail",
+            "style": {
+				"navigationBarTitleText": "场馆详情",
+				"navigationStyle": "custom"
+            }
+		},
+		{
 			"path": "pages/main/main",
             "style": {
 				"navigationBarTitleText": "首页",
