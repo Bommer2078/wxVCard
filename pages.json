@@ -1,5 +1,19 @@
 {
-	"pages": [
+	"pages": [		
+		{
+			"path": "pages/user/user",
+            "style": {
+				"navigationBarTitleText": "我的",
+				"navigationBarBackgroundColor": "#ffffff"
+            }
+		},
+		{
+			"path": "pages/exchangePage/exchangePage",
+            "style": {
+				"navigationBarTitleText": "兑换优惠",
+				"navigationBarBackgroundColor": "#ffffff"
+            }
+		},
 		{
 			"path": "pages/buyPage/buyPage",
             "style": {
