@@ -132,6 +132,21 @@
                 align-items: flex-start;
         margin-bottom: 4rpx;
 }
+.detail-page .venue-info-cover .venue-summray .venue-info1 .phone-btn {
+          display: -webkit-box;
+          display: -webkit-flex;
+          display: -ms-flexbox;
+          display: flex;
+          -webkit-box-align: center;
+          -webkit-align-items: center;
+              -ms-flex-align: center;
+                  align-items: center;
+}
+.detail-page .venue-info-cover .venue-summray .venue-info1 .phone-btn image {
+            width: 21rpx;
+            height: 27rpx;
+            margin-right: 12rpx;
+}
 .detail-page .venue-info-cover .venue-summray .venue-info2 {
         -webkit-box-align: end;
         -webkit-align-items: flex-end;

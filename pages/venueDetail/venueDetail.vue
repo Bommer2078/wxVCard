@@ -30,8 +30,14 @@
                 <view class="venue-summray">                    
                     <view class="venue-title">{{venueData.name}}</view>
                     <view class="venue-info1">
-                        <view>{{venueData.address}}></view>
-                        <view>原价：{{venueData.price/100}}元</view>
+                        <view @click="gotoMap">{{venueData.address}}></view>
+                        <view>
+                            <view class="phone-btn" @click="callPhone">
+                                <image src="/static/phone.png"/>
+                                <text>客服电话</text>
+                            </view>
+                            <text>原价：{{venueData.price/100}}元</text>
+                        </view>
                     </view>
                     <view class="venue-info2">
                         <view>早11:30——晚22:00点营业</view>
@@ -143,11 +149,6 @@ export default {
                 fail: function (res) {
                     console.log(res.errMsg)
                 }
-            })
-        },
-        gotoAppointment () {            
-            uni.navigateTo({
-                url: `/pages/appointmentPage/appointmentPage?id=${this.venueId}`
             })
         },
         gotoMap () {
@@ -262,6 +263,15 @@ export default {
             .venue-info1 {
                 align-items: flex-start;
                 margin-bottom: 4rpx;
+                .phone-btn {
+                    display: flex;
+                    align-items: center;
+                    image {
+                        width: 21rpx;
+                        height: 27rpx;
+                        margin-right: 12rpx;
+                    }
+                }
             }
             .venue-info2 {
                 align-items: flex-end;

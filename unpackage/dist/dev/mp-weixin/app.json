@@ -1,11 +1,13 @@
 {
   "pages": [
+    "pages/searchPage/searchPage",
+    "pages/main/main",
+    "pages/cardDetail/cardDetail",
+    "pages/login/login",
+    "pages/venueDetail/venueDetail",
     "pages/user/user",
     "pages/exchangePage/exchangePage",
     "pages/buyPage/buyPage",
-    "pages/venueDetail/venueDetail",
-    "pages/main/main",
-    "pages/login/login",
     "pages/city/city"
   ],
   "subPackages": [],
@@ -15,5 +17,6 @@
     "navigationBarBackgroundColor": "#F8F8F8",
     "backgroundColor": "#F8F8F8"
   },
-  "usingComponents": {}
+  "usingComponents": {},
+  "sitemapLocation": "sitemap95.json"
 }

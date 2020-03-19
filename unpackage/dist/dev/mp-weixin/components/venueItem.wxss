@@ -1,0 +1,48 @@
+.venue-item {
+  width: 720rpx;
+  padding: 20rpx;
+  font-size: 0;
+}
+.venue-item image {
+    width: 150rpx;
+    height: 150rpx;
+    border-radius: 8rpx;
+    margin-right: 19rpx;
+}
+.venue-item .venue-info {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: start;
+    -webkit-align-items: flex-start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+}
+.venue-item .venue-info .venue-title {
+      font-size: 30px;
+      font-family: PingFang SC;
+      font-weight: 700;
+      color: black;
+      margin-bottom: 20rpx;
+}
+.venue-item .venue-info .venue-summray {
+      font-size: 24px;
+      font-family: PingFang SC;
+      font-weight: 400;
+      color: #666666;
+}
+.venue-item .venue-info .created-time {
+      font-size: 22px;
+      font-family: PingFang SC;
+      font-weight: 400;
+      margin-top: auto;
+      margin-bottom: 2rpx;
+      color: #666666;
+}
+

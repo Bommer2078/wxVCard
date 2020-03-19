@@ -733,7 +733,7 @@ function initData(vueOptions, context) {
     try {
       data = data.call(context); // 支持 Vue.prototype 上挂的数据
     } catch (e) {
-      if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.warn('根据 Vue 的 data 函数初始化小程序 data 失败，请尽量确保 data 函数中不访问 vm 对象，否则可能影响首次数据渲染速度。', data);
       }
     }
@@ -6978,7 +6978,7 @@ function type(obj) {
 
 function flushCallbacks$1(vm) {
     if (vm.__next_tick_callbacks && vm.__next_tick_callbacks.length) {
-        if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+        if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:flushCallbacks[' + vm.__next_tick_callbacks.length + ']');
@@ -6999,14 +6999,14 @@ function nextTick$1(vm, cb) {
     //1.nextTick 之前 已 setData 且 setData 还未回调完成
     //2.nextTick 之前存在 render watcher
     if (!vm.__next_tick_pending && !hasRenderWatcher(vm)) {
-        if(Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:nextVueTick');
         }
         return nextTick(cb, vm)
     }else{
-        if(Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance$1 = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance$1.is || mpInstance$1.route) + '][' + vm._uid +
                 ']:nextMPTick');
@@ -7082,7 +7082,7 @@ var patch = function(oldVnode, vnode) {
     });
     var diffData = diff(data, mpData);
     if (Object.keys(diffData).length) {
-      if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + this._uid +
           ']差量更新',
           JSON.stringify(diffData));
@@ -8400,7 +8400,7 @@ module.exports = {"_from":"@dcloudio/uni-stat@next","_id":"@dcloudio/uni-stat@2.
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/exchangePage/exchangePage": { "navigationBarTitleText": "兑换优惠", "navigationBarBackgroundColor": "#ffffff", "usingComponents": {} }, "pages/buyPage/buyPage": { "navigationBarTitleText": "加入会员", "navigationBarBackgroundColor": "#ffffff", "usingComponents": {} }, "pages/venueDetail/venueDetail": { "navigationBarTitleText": "场馆详情", "navigationStyle": "custom", "usingComponents": {} }, "pages/main/main": { "navigationBarTitleText": "首页", "navigationBarBackgroundColor": "#ffffff", "usingComponents": {} }, "pages/login/login": { "navigationBarTitleText": "请登录", "usingComponents": {} }, "pages/city/city": { "navigationBarTitleText": "选择城市", "usingComponents": {} }, "pages/user/user": { "navigationBarTitleText": "我的", "navigationBarBackgroundColor": "#ffffff", "usingComponents": {} } }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "uni-app", "navigationBarBackgroundColor": "#F8F8F8", "backgroundColor": "#F8F8F8" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/searchPage/searchPage": { "navigationBarTitleText": "搜索", "navigationBarBackgroundColor": "#ffffff" }, "pages/main/main": { "navigationBarTitleText": "首页", "navigationBarBackgroundColor": "#ffffff" }, "pages/cardDetail/cardDetail": { "navigationStyle": "custom" }, "pages/login/login": { "navigationBarTitleText": "请登录" }, "pages/venueDetail/venueDetail": { "navigationBarTitleText": "场馆详情", "navigationStyle": "custom" }, "pages/user/user": { "navigationStyle": "custom" }, "pages/exchangePage/exchangePage": { "navigationBarTitleText": "兑换优惠", "navigationBarBackgroundColor": "#ffffff" }, "pages/buyPage/buyPage": { "navigationBarTitleText": "加入会员", "navigationBarBackgroundColor": "#ffffff" }, "pages/city/city": { "navigationBarTitleText": "选择城市" } }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "uni-app", "navigationBarBackgroundColor": "#F8F8F8", "backgroundColor": "#F8F8F8" } };exports.default = _default;
 
 /***/ }),
 /* 8 */
@@ -9960,22 +9960,18 @@ timeText;exports.default = _default;
 /* 32 */,
 /* 33 */,
 /* 34 */,
-/* 35 */,
-/* 36 */,
-/* 37 */,
-/* 38 */,
-/* 39 */
+/* 35 */
 /*!**********************************************************!*\
   !*** ./node_modules/@babel/runtime/regenerator/index.js ***!
   \**********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! regenerator-runtime */ 40);
+module.exports = __webpack_require__(/*! regenerator-runtime */ 36);
 
 
 /***/ }),
-/* 40 */
+/* 36 */
 /*!************************************************************!*\
   !*** ./node_modules/regenerator-runtime/runtime-module.js ***!
   \************************************************************/
@@ -10006,7 +10002,7 @@ var oldRuntime = hadRuntime && g.regeneratorRuntime;
 // Force reevalutation of runtime.js.
 g.regeneratorRuntime = undefined;
 
-module.exports = __webpack_require__(/*! ./runtime */ 41);
+module.exports = __webpack_require__(/*! ./runtime */ 37);
 
 if (hadRuntime) {
   // Restore the original runtime.
@@ -10022,7 +10018,7 @@ if (hadRuntime) {
 
 
 /***/ }),
-/* 41 */
+/* 37 */
 /*!*****************************************************!*\
   !*** ./node_modules/regenerator-runtime/runtime.js ***!
   \*****************************************************/

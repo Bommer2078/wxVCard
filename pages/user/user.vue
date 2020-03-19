@@ -1,14 +1,28 @@
 <template>
     <view class="user-content">
+        <view class="navegation-title">个人中心</view>
         <view class="user-banner">
-            <img class="bg" src="/static/img/bannerBg.png">
+            <img class="bg" src="/static/bannerBg.png">
             <view class="user-bottom"></view>
             <view class="user-container">
                 <view class="user-header">
-                    <img src="/static/img/logo.png">
+                    <img :src="userInfo.avatarUrl" v-if="userInfo">
+                    <img src="/static/log1o.png" v-else>
                     <view class="info">
                         <text>欢迎，</text>
-                        <text class="tip">{{userInfo ? userInfo.username : '游客'}}</text>
+                        <text class="tip">{{userInfo ? userInfo.nickName : '游客'}}</text>
+                    </view>
+                </view>
+                <view class="user-body">
+                    <view class="item" @click="intoOrder">
+                        <img src="/static/img/iconGroup/rules.svg">
+                        <text class="lable">我的权益卡</text>
+                        <view class="icon-arrow"></view>
+                    </view>
+                    <view class="item" @click="intoChangePassword">
+                        <img src="/static/img/iconGroup/set.svg">
+                        <text class="lable">我的足迹</text>
+                        <view class="icon-arrow"></view>
                     </view>
                 </view>
                 <view class="user-body">
@@ -19,18 +33,13 @@
                     </view>
                     <view class="item" @click="intoChangePassword">
                         <img src="/static/img/iconGroup/set.svg">
-                        <text class="lable">修改密码</text>
+                        <text class="lable">我是商家</text>
                         <view class="icon-arrow"></view>
                     </view>
                 </view>
                 <view class="user-body user-body-end">
                     <view class="item" @tap="gotoLoginOut">
                         <img src="/static/img/iconGroup/login.svg">
-                        <text class="lable">登录设置</text>
-                        <view class="icon-arrow"></view>
-                    </view>
-                    <view class="item" @click="tapAbout">
-                        <img src="/static/img/iconGroup/about.svg">
                         <text class="lable">关于</text>
                         <view class="icon-arrow"></view>
                     </view>
@@ -122,6 +131,13 @@
 </script>
 
 <style>
+.navegation-title {
+    text-align: center;
+    padding-top: 60rpx;
+    color: #fff;
+    background:#FF3177;
+    height: 160rpx;
+}
 .user-content {
     width: 100%;
     min-height: 100vh;
@@ -132,8 +148,8 @@
     justify-content: center;
     position: relative;
     width: 100%;
-    height: 500upx;
-    margin-bottom: 68upx;
+    height: 500rpx;
+    margin-bottom: 68rpx;
 }
 .user-banner .bg{
     position: absolute;
@@ -142,9 +158,9 @@
 }
 .user-bottom {    
     position: absolute;
-    top: 50upx;
+    top: 50rpx;
     width: 95%;
-    height: 660upx;
+    height: 660rpx;
     border-radius: 8px;
     background: #F3F3F3;
     z-index: 1;
@@ -155,7 +171,7 @@
     flex-direction: column;
     align-items: center;
     position: absolute;
-    top: 50upx;
+    top: 50rpx;
     width: 95%;
     border-radius: 8px;
     z-index: 2;
@@ -163,26 +179,27 @@
 .user-container .user-header {
     position: relative;
     width: 100%;
-    height: 187upx;
-    padding-left: 100upx;
+    height: 187rpx;
+    padding-left: 100rpx;
     background: #fff;
-    margin-bottom: 10upx;
+    margin-bottom: 10rpx;
     border-radius: 8px 8px 0 0;
 }
 .user-header .info {
     position: absolute;
-    top: 47upx;
-    left: 310upx;
+    top: 47rpx;
+    left: 310rpx;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
 }
-.user-container .user-header img {
+.user-container .user-header image {
     position: absolute;
-    top: -90upx;
-    width: 249upx;
-    height: 250upx;
-    left: 60upx;
+    top: -33rpx;
+    width: 192rpx;
+    height: 192rpx;
+    left: 98rpx;
+    border-radius: 27rpx;
 }
 .user-container .user-header text {
     font-weight: 700;
@@ -198,24 +215,24 @@
 .user-body {
     width: 100%;
     background: #fff;
-    padding-left: 22upx;
-    padding-right: 22upx;
-    margin-bottom: 10upx;
+    padding-left: 22rpx;
+    padding-right: 22rpx;
+    margin-bottom: 10rpx;
     background: #fff;
 }
 .user-body .item {
     width: 100%;
     display: flex;
     align-items: center;
-    height: 90upx;
+    height: 90rpx;
 }
 .item + .item {
     border-top: 1px solid #eee;
 }
-.user-body .item img {    
-    width: 38upx;
-    height: 38upx;
-    margin-right: 20upx;
+.user-body .item image {    
+    width: 38rpx;
+    height: 38rpx;
+    margin-right: 20rpx;
 }
 .user-body .lable {
     font-size: 15px;
@@ -236,7 +253,7 @@
 }
 .box {
         position: fixed;
-        top: -50upx;
+        top: -50rpx;
         bottom: 0;
         left: 0;
         right: 0;
@@ -244,7 +261,7 @@
         flex-direction: column;
         align-items: center;
         margin: auto;
-        width: 550upx;
+        width: 550rpx;
         max-height: 80vh;
         background: #fff;
         border-radius: 8px;
@@ -254,16 +271,16 @@
     }
     .box .title {
         width: 100%;
-        height: 60upx;
+        height: 60rpx;
         text-align: center;
-        margin-bottom: 10upx;
+        margin-bottom: 10rpx;
         background: #ffcc00;
     }
     .box .box-name {
         width: 100%;
         text-align: left;
         font-size: 13px;
-        padding: 20upx;
+        padding: 20rpx;
     }
     .mask {
         position: fixed;

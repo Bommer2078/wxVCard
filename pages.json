@@ -1,10 +1,42 @@
 {
-	"pages": [		
+	"pages": [	
+		{
+			"path": "pages/searchPage/searchPage",
+            "style": {
+				"navigationBarTitleText": "搜索",
+				"navigationBarBackgroundColor": "#ffffff"
+            }
+		},
+		{
+			"path": "pages/main/main",
+            "style": {
+				"navigationBarTitleText": "首页",
+				"navigationBarBackgroundColor": "#ffffff"
+            }
+		},
+		{
+			"path": "pages/cardDetail/cardDetail",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/login/login",
+			"style": {
+				"navigationBarTitleText": "请登录"
+			}
+		},
+		{
+			"path": "pages/venueDetail/venueDetail",
+            "style": {
+				"navigationBarTitleText": "场馆详情",
+				"navigationStyle": "custom"
+            }
+		},	
 		{
 			"path": "pages/user/user",
             "style": {
-				"navigationBarTitleText": "我的",
-				"navigationBarBackgroundColor": "#ffffff"
+				"navigationStyle": "custom"
             }
 		},
 		{
@@ -20,26 +52,6 @@
 				"navigationBarTitleText": "加入会员",
 				"navigationBarBackgroundColor": "#ffffff"
             }
-		},
-		{
-			"path": "pages/venueDetail/venueDetail",
-            "style": {
-				"navigationBarTitleText": "场馆详情",
-				"navigationStyle": "custom"
-            }
-		},
-		{
-			"path": "pages/main/main",
-            "style": {
-				"navigationBarTitleText": "首页",
-				"navigationBarBackgroundColor": "#ffffff"
-            }
-		},
-		{
-			"path": "pages/login/login",
-			"style": {
-				"navigationBarTitleText": "请登录"
-			}
 		},
 		{
 			"path": "pages/city/city",

@@ -1,4 +1,11 @@
 
+.navegation-title {
+    text-align: center;
+    padding-top: 60rpx;
+    color: #fff;
+    background:#FF3177;
+    height: 160rpx;
+}
 .user-content {
     width: 100%;
     min-height: 100vh;
@@ -81,12 +88,13 @@
         -ms-flex-align: start;
             align-items: flex-start;
 }
-.user-container .user-header ._img {
+.user-container .user-header image {
     position: absolute;
-    top: -90rpx;
-    width: 249rpx;
-    height: 250rpx;
-    left: 60rpx;
+    top: -33rpx;
+    width: 192rpx;
+    height: 192rpx;
+    left: 98rpx;
+    border-radius: 27rpx;
 }
 .user-container .user-header text {
     font-weight: 700;
@@ -121,7 +129,7 @@
 .item + .item {
     border-top: 1px solid #eee;
 }
-.user-body .item ._img {    
+.user-body .item image {    
     width: 38rpx;
     height: 38rpx;
     margin-right: 20rpx;

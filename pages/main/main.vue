@@ -17,8 +17,8 @@
                     </view>
                     <view class="search-btn">搜 索</view>
                 </view>
-                <view class="banner-cover">                    
-                    <view class="banner" @click="intoTicket">
+                <view class="banner-cover" @click="intoVCard">                    
+                    <view class="banner">
                         <img :src="vCardBaseInfo.banner ? vCardBaseInfo.banner[0] : ''">
                     </view>
                 </view>
@@ -142,9 +142,10 @@
                     url: `/pages/venueDetail/venueDetail?id=${item.id}`
                 })
             },
-            intoTicket () {
-                uni.switchTab({
-                    url: `/pages/ticket/ticket`
+            intoVCard () {
+                // uni.switchTab({
+                uni.navigateTo({
+                    url: `/pages/cardDetail/cardDetail?id=${this.vCardBaseInfo.id}`
                 })
             },
             gotoMoreVenue () {
