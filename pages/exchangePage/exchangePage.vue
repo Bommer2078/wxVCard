@@ -4,14 +4,52 @@
             <view class="exchange-box">
                 <view class="exchange-title">兑换码/优惠券</view>
                 <view class="exchange-frame">
-                    <input type="text" placeholder="请输入券码 不区分大小写">
+                    <input type="text" placeholder="请输入券码 不区分大小写" v-model.trim="exchangeCode" maxlength="20">
                 </view>
-                <view class="exchange-btn">兑换</view>
+                <view class="exchange-btn" @click="handleExchange">兑换</view>
                 <view class="exchange-tip">优惠优惠优惠优惠优惠优惠优惠优惠优惠优惠优惠优惠</view>
             </view>
         </view>
     </view>
 </template>
+
+<script>
+export default {    
+    onLoad (option) {
+        this.vCardId = option.id
+    },
+    data() {
+        return {
+            exchangeCode: '',
+            forbidClick: false,
+            vCardId: ''
+        }
+    },
+    methods: {
+        async handleExchange () {
+            if (this.forbidClick) return
+            if (!this.checkForm()) return
+            this.forbidClick = true
+            let params = {
+                code: this.exchangeCode,
+                card_id: this.vCardId
+            }
+            const res = await this.$api.exchangeCard(params)
+            this.forbidClick = false
+            if (res.data.code === 0) {
+                this.$tip.toast('兑换成功')
+            }
+        },
+        checkForm () {
+            if (!this.exchangeCode) {
+                this.$tip.toast('请输入券码', 'none')
+                return false
+            }
+            return true
+        }
+    },
+}
+</script>
 
 <style lang="scss">
 .exchange-page {

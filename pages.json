@@ -1,12 +1,5 @@
 {
-	"pages": [	
-		{
-			"path": "pages/searchPage/searchPage",
-            "style": {
-				"navigationBarTitleText": "搜索",
-				"navigationBarBackgroundColor": "#ffffff"
-            }
-		},
+	"pages": [		
 		{
 			"path": "pages/main/main",
             "style": {
@@ -15,9 +8,57 @@
             }
 		},
 		{
+			"path": "pages/recodeList/recodeList",
+            "style": {
+				"navigationBarTitleText": "我的足迹",
+				"navigationBarBackgroundColor": "#ffffff"
+            }
+		},
+		{
+			"path": "pages/statistics/statistics",
+            "style": {
+				"navigationBarTitleText": "统计",
+				"navigationBarBackgroundColor": "#ffffff"
+            }
+		},
+		{
+			"path": "pages/orderList/orderList",
+            "style": {
+				"navigationBarTitleText": "我的订单",
+				"navigationBarBackgroundColor": "#ffffff"
+            }
+		},
+		{
+			"path": "pages/myCard/myCard",
+            "style": {
+				"navigationBarTitleText": "我的权益卡",
+				"navigationBarBackgroundColor": "#ffffff"
+            }
+		},
+		{
+			"path": "pages/more/more",
+            "style": {
+				"navigationBarTitleText": "更多场馆",
+				"navigationBarBackgroundColor": "#ffffff"
+            }
+		},
+		{
+			"path": "pages/searchPage/searchPage",
+            "style": {
+				"navigationBarTitleText": "搜索",
+				"navigationBarBackgroundColor": "#ffffff"
+            }
+		},
+		{
 			"path": "pages/cardDetail/cardDetail",
 			"style": {
 				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/map/map",
+			"style": {
+				"navigationBarTitleText": "地址信息"
 			}
 		},
 		{

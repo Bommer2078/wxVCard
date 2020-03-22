@@ -1,0 +1,81 @@
+.my-card {
+  min-height: 100vh;
+  background: #F5F2F5;
+}
+.my-card .swiper {
+    height: 411rpx;
+}
+.my-card .swiper .swiper-item {
+      padding-left: 20rpx;
+      padding-right: 20rpx;
+      padding-top: 20rpx;
+}
+.my-card .swiper .swiper-item image {
+        width: 100%;
+        height: 325rpx;
+        margin-left: auto;
+        margin-right: auto;
+        border-radius: 27rpx;
+}
+.my-card .swiper .swiper-item .scale-img {
+        -webkit-transform: scale(0.9);
+            -ms-transform: scale(0.9);
+                transform: scale(0.9);
+}
+.my-card-container {
+  padding-left: 14rpx;
+  padding-right: 14rpx;
+}
+.my-card-container .part-container {
+    width: 100%;
+    border-radius: 20rpx;
+    background: #fff;
+    font-size: 0;
+    margin-bottom: 40rpx;
+}
+.my-card-container .part-container .part-title {
+      height: 70rpx;
+      width: 100%;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+          -ms-flex-align: center;
+              align-items: center;
+}
+.my-card-container .part-container .part-title image {
+        width: 22rpx;
+        height: 24rpx;
+        margin-left: 38rpx;
+        margin-right: 9rpx;
+}
+.my-card-container .part-container .part-title text {
+        font-size: 32rpx;
+        color: #000;
+        font-weight: 700;
+}
+.my-card-container .part-container .part-body > text {
+      padding-left: 38rpx;
+      display: block;
+      font-size: 24rpx;
+      color: #666666;
+}
+.my-card-container .part-container .QR-part {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+          -ms-flex-align: center;
+              align-items: center;
+      -webkit-box-pack: center;
+      -webkit-justify-content: center;
+          -ms-flex-pack: center;
+              justify-content: center;
+      width: 100%;
+      height: 290rpx;
+}
+

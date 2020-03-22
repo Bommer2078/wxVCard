@@ -1,8 +1,14 @@
 {
   "pages": [
-    "pages/searchPage/searchPage",
     "pages/main/main",
+    "pages/recodeList/recodeList",
+    "pages/statistics/statistics",
+    "pages/orderList/orderList",
+    "pages/myCard/myCard",
+    "pages/more/more",
+    "pages/searchPage/searchPage",
     "pages/cardDetail/cardDetail",
+    "pages/map/map",
     "pages/login/login",
     "pages/venueDetail/venueDetail",
     "pages/user/user",
@@ -17,6 +23,5 @@
     "navigationBarBackgroundColor": "#F8F8F8",
     "backgroundColor": "#F8F8F8"
   },
-  "usingComponents": {},
-  "sitemapLocation": "sitemap95.json"
+  "usingComponents": {}
 }

@@ -24,24 +24,26 @@
 </template>
 
 <script>
+import { mapState } from 'vuex' 
 export default {
     data() {
         return {
-            specsArr: [{
-                name: '一个月',
-                price: 1000,
-                id: 1
-            },{
-                name: '三个月',
-                price: 3000,
-                id: 2
-            },{
-                name: '十二个月',
-                price: 12000,
-                id: 3
-            }],
-            skuId: 1
+            skuId: '',
+            vCardId: '',
+            forbidClick: false
         }
+    },       
+    computed: {
+        ...mapState(['vCardBaseInfo']),
+        specsArr() {
+            let obj =  JSON.parse(JSON.stringify(this.vCardBaseInfo))
+            if (obj) {
+                return obj.sku_arr
+            }
+        }
+    },
+    onLoad (option) {
+        this.vCardId = option.id
     },
     filters: {
         priceText(price) {
@@ -54,11 +56,29 @@ export default {
         },
         gotoExchange () {
             uni.navigateTo({
-                url: '/pages/exchangePage/exchangePage'
+                url: `/pages/exchangePage/exchangePage?id=${this.vCardId}`
             })
         },
-        handlePay () {
-
+        async handlePay () {
+            if (this.forbidClick) return
+            if (!this.skuId) {
+                this.$tip.toast('请选择规格','none')
+                return
+            }
+            this.forbidClick = true
+            let pramas = {
+                card_id: this.vCardId,
+                card_sku_id: this.skuId
+            }
+            const res = await this.$api.purchase(pramas)
+            if (res.code === 0) {
+                this.$tip.toast('下单成功','none')
+            } else {  
+                this.$tip.alertDialog(res.msg) 
+                setTimeout(() => {                    
+                    this.forbidClick = false
+                },3000)             
+            }
         }
     },
 }

@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "我的足迹",
+  "navigationBarBackgroundColor": "#ffffff",
+  "usingComponents": {
+    "venue-item": "/components/venueItem"
+  }
+}

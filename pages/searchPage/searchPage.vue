@@ -9,43 +9,43 @@
                 @enter="handleSearch">
             <view class="search-btn" @click="handleSearch">搜索</view>
         </view>
-        <template v-if="recodeArr.length > 0">            
+        <!-- <template v-if="recodeArr.length > 0">             -->
             <view class="clear-row">
                 <image src="/static/close.svg" />
-                <text>清空所有记录</text>
+                <text @click="clearAllRecode">清空所有记录</text>
             </view>
             <view class="recode-items-group">
                 <view 
                     class="recode-item" 
                     v-for="(item,index) in recodeArr" 
-                    :key="index">{{item}}</view>
+                    :key="index"
+                    @click="handleRecodeClick(item)">{{item}}</view>
             </view>
-        </template>
+        <!-- </template> -->
         <template v-if="venueArr.length > 0">
-            <venue-item v-for="(item,index) in venueArr" :key="index" :venue-data="item"></venue-item>
+            <view class="venue-list">
+                <venue-item v-for="(item,index) in venueArr" :key="index" :venue-data="item"></venue-item>
+            </view>           
         </template>
     </view>
 </template>
 
 <script>
 import venueItem from '../../components/venueItem.vue'
+import { mapState } from 'vuex'
 export default {
     components: {
         venueItem
     },
     data () {
         return {
-            searchContent: ''
+            searchContent: '',
+            recodeArr: uni.getStorageSync('recodeArr') || [],
+            venueArr: []
         }
     },
     computed: {
-        recodeArr() {
-            const str = uni.getStorageSync('recodeArr')
-            if (typeof str === 'Object') {
-                return str
-            }
-            return []
-        },
+        ...mapState(['locationObj'])
     },
     methods: {
         handleSearch () {
@@ -56,21 +56,42 @@ export default {
             this.setRecode()
             this.getArrData()
         },
+        handleRecodeClick (item) {
+            this.searchContent = item
+            this.handleSearch()
+        },
         setRecode () {
             let index = this.recodeArr.findIndex(i => {
                 return i === this.searchContent
             })
-            let recodeArr = this.recodeArr
+            let recodeArr = JSON.parse(JSON.stringify(this.recodeArr))
             if (index >= 0) {
-                let item = this.recodeArr.splice(index,1)
-                recodeArr.unshift(item)
+                let item = recodeArr.splice(index,1)
+                recodeArr.unshift(item[0])
             } else {
-                recodeArr.push(this.searchContent)
+                if (recodeArr.length > 4) {                    
+                    recodeArr.pop()
+                }
+                recodeArr.unshift(this.searchContent)
             }
+            this.recodeArr = recodeArr
             uni.setStorageSync('recodeArr', recodeArr)
         },
-        getArrData () {
-
+        async getArrData () {
+            let params = {
+                page: 1,
+                pageSize: 100,
+                city_id: this.locationObj.id,
+                search: this.searchContent
+            }
+            const res = await this.$api.getVenueList(params)
+            if (res.code === 0) {
+                this.venueArr = res.data.data
+            }
+        },
+        clearAllRecode () {
+            this.recodeArr = []
+            uni.removeStorageSync('recodeArr')
         }
     }
 }
@@ -108,6 +129,44 @@ export default {
             color: #fff;
             background:rgba(255,50,74,1);
             border-radius:7rpx;
+        }
+    }
+    .clear-row {
+        font-size: 0;
+        height: 55rpx;
+        line-height: 55rpx;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        image {
+            width: 24rpx;
+            height: 24rpx;
+            margin-right: 10rpx;
+        }
+        text {
+            color: #6F6F6F;
+            font-size: 22rpx;
+            margin-right: 15rpx;
+        }
+    }
+    .recode-items-group {
+        display: flex;
+        flex-direction: row;
+        padding-left: 30rpx;
+        flex-wrap: wrap;
+        .recode-item {
+            padding: 10rpx 16rpx;
+            background: #fff;
+            margin-right: 30rpx;            
+            margin-bottom: 30rpx;
+        }
+    }
+    .venue-list {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .venue-item {
+            margin-bottom: 20rpx;
         }
     }
 }

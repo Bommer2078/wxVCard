@@ -1,0 +1,31 @@
+.recode-list {
+  width: 100%;
+  min-height: 100vh;
+  background: #F5F2F5;
+}
+.recode-list .recode-item-cover {
+    position: relative;
+    background: #fff;
+    padding-left: 50rpx;
+    padding-right: 20rpx;
+}
+.recode-list .recode-item-cover::before {
+      content: '';
+      position: absolute;
+      height: 220rpx;
+      left: 35rpx;
+      width: 1px;
+      background: #eee;
+      height: 300rpx;
+}
+.recode-list .recode-item-cover .recode-time {
+      color: #FF7474;
+      font-size: 28rpx;
+      margin-left: 20rpx;
+}
+.recode-list .recode-item-cover .venue-split {
+      margin-top: 20rpx;
+      margin-left: 20rpx;
+      border-bottom: 1px solid #eee;
+}
+

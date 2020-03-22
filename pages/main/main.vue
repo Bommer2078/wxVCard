@@ -4,8 +4,8 @@
             <view class="ticket-container">
                 <view class="header">
                     <view>                      
-                        <text class="city-name">{{locationObj.name}}</text>
-                        <text class="city-tip">可享受6家场馆权益</text>
+                        <text class="city-name" @click="handleChoseCity">{{locationObj.name}}</text>
+                        <text class="city-tip">可享受{{total}}家场馆权益</text>
                     </view>
                     <view>                        
                         <text class="welcome-tip">{{userInfo.nickName}},早上好!</text> 
@@ -56,6 +56,7 @@
     export default {
         data() {
             return {
+                total: 0,
                 venueArr: [],
                 phoneCall :'4006099109'
             }
@@ -124,6 +125,7 @@
                 const res = await this.$api.getVenueList(params)
                 if (res.code === 0) {
                     this.venueArr = res.data.data
+                    this.total = res.data.total
                 }
             },
             async getVenueTypeList() {
@@ -131,6 +133,13 @@
                 if (res.code === '0') {
                     this.$store.commit('SET_VENUE_TYPE_ARR',res.data)
                 }
+            },
+            handleChoseCity () {                
+                this.$tip.toast('暂未开放其它城市','none')
+                // 后期迭代开放多个城市后需要开放这段代码
+                // uni.navigateTo({
+                //     url: '/pages/city/city'
+                // })
             },
             gotoSearchPage () {
                 uni.navigateTo({
@@ -150,10 +159,10 @@
             },
             gotoMoreVenue () {
                 uni.navigateTo({                
-                    url: '../venueList/venueList'
+                    url: '/pages/more/more'
                 })
-            },
-        },
+            }
+        }
     }
 </script>
 

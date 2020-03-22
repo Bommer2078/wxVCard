@@ -106,7 +106,7 @@ export default {
         gotoPay () {
             if (this.vCardData.sell_type === 1) {
                 wx.redirectTo({
-                     url: '/pages/buyPage/buyPage'
+                     url: `/pages/buyPage/buyPage?id=${this.vCardId}`
                 });
             }
         }

@@ -87,12 +87,9 @@ export default {
     },
     data() {
         return {
-            showLoading: false,
             venueData: null,
-            rulesStr: '',
             venueId: '',
             phoneCall: '',
-            timer: null,
             currentBannerIndex: 0 
         }
     },
@@ -152,8 +149,8 @@ export default {
             })
         },
         gotoMap () {
-            let lng = this.venueData.addressLng
-            let lat = this.venueData.addressLat
+            let lng = this.venueData.longitude
+            let lat = this.venueData.latitude
             let name = this.venueData.name
 
             uni.navigateTo({

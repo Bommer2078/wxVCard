@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "更多场馆",
+  "navigationBarBackgroundColor": "#ffffff",
+  "usingComponents": {
+    "venue-item": "/components/venueItem"
+  }
+}

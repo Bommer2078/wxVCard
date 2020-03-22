@@ -4,7 +4,7 @@
         <view class="venue-info">
             <view class="venue-title">{{venueData.name}}</view>
             <view class="venue-summray">{{venueData.remark}}</view>
-            <view class="created-time">{{venueData.created_time}}}</view>
+            <view class="created-time">{{venueData.create_at}}</view>
         </view>
     </view>
 </template>
@@ -29,9 +29,14 @@ export default {
 
 <style lang="scss">
     .venue-item {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
         width: 720rpx;
         padding: 20rpx;
         font-size: 0;
+        background: #fff;
+        border-radius:8rpx;
         image {
             width:150rpx;
             height:150rpx;
@@ -41,22 +46,24 @@ export default {
         .venue-info {
             display: flex;
             flex-direction: column;
+            height: 150rpx;
             align-items: flex-start;
+            justify-content: flex-start;
             .venue-title {
-                font-size:30px;
+                font-size:30rpx;
                 font-family:PingFang SC;
                 font-weight:700;
                 color:rgba(0,0,0,1);
                 margin-bottom: 20rpx;
             }
             .venue-summray {
-                font-size:24px;
+                font-size:24rpx;
                 font-family:PingFang SC;
                 font-weight:400;
                 color:rgba(102,102,102,1);
             }
             .created-time {
-                font-size:22px;
+                font-size:22rpx;
                 font-family:PingFang SC;
                 font-weight:400;
                 margin-top: auto;
