@@ -23,5 +23,37 @@
     "navigationBarBackgroundColor": "#F8F8F8",
     "backgroundColor": "#F8F8F8"
   },
-  "usingComponents": {}
+  "tabBar": {
+    "color": "#7a7e83",
+    "selectedColor": "#FF3276",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/main/main",
+        "text": "首页",
+        "iconPath": "static/home.png",
+        "selectedIconPath": "static/homeA.png"
+      },
+      {
+        "pagePath": "pages/cardDetail/cardDetail",
+        "text": "权益卡",
+        "iconPath": "static/card.png",
+        "selectedIconPath": "static/cardA.png"
+      },
+      {
+        "pagePath": "pages/myCard/myCard",
+        "text": "验卡",
+        "iconPath": "static/check.png",
+        "selectedIconPath": "static/checkA.png"
+      },
+      {
+        "pagePath": "pages/user/user",
+        "text": "我的",
+        "iconPath": "static/user.png",
+        "selectedIconPath": "static/userA.png"
+      }
+    ]
+  },
+  "usingComponents": {},
+  "sitemapLocation": "sitemap11.json"
 }

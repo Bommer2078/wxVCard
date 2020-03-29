@@ -99,7 +99,7 @@
                 this.initGlobalData()
             },
             async initGlobalData () {
-                if (!this.vCardBaseInfo.id) {    
+                if (!this.locationObj || !this.vCardBaseInfo.id) {    
                     // 后期迭代之后不在此页请求城市接口          
                     const res1 = await this.$api.getPlaceList()
                     const cityObj = res1.data.data[0]
@@ -152,8 +152,7 @@
                 })
             },
             intoVCard () {
-                // uni.switchTab({
-                uni.navigateTo({
+                uni.switchTab({
                     url: `/pages/cardDetail/cardDetail?id=${this.vCardBaseInfo.id}`
                 })
             },

@@ -199,11 +199,13 @@ var _default =
   methods: {
     changeTabs: function changeTabs(type) {
       this.currentTab = type;
+      this.getOrderList();
     },
     getOrderList: function () {var _getOrderList = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var params, res;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
                 params = {
                   page: 1,
-                  pageSize: 100 };_context.next = 3;return (
+                  pageSize: 100,
+                  type: this.currentTab === 'venue' ? 0 : 1 };_context.next = 3;return (
 
                   this.$api.getOrderList(params));case 3:res = _context.sent;
                 if (res.data.code === 0) {

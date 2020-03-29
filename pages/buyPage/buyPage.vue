@@ -16,6 +16,7 @@
                 <view class="price">
                     ￥{{item.price | priceText}}
                 </view>
+                <image class="confirm-img" src="../../static/confirm.png" v-if="skuId === item.id"/>
             </view>
             <view class="exchange-btn" @click="gotoExchange">兑换码/优惠券</view>
             <view class="open-btn" @click="handlePay">立即开通</view>
@@ -25,6 +26,7 @@
 
 <script>
 import { mapState } from 'vuex' 
+import md5 from '../../libs/md5.min.js'
 export default {
     data() {
         return {
@@ -47,7 +49,7 @@ export default {
     },
     filters: {
         priceText(price) {
-            return (price/100).toFixed(1)
+            return (price/100).toFixed(2)
         }
     },
     methods: {
@@ -72,6 +74,7 @@ export default {
             }
             const res = await this.$api.purchase(pramas)
             if (res.code === 0) {
+                this.handleWxPay(res.data.id)
                 this.$tip.toast('下单成功','none')
             } else {  
                 this.$tip.alertDialog(res.msg) 
@@ -79,7 +82,49 @@ export default {
                     this.forbidClick = false
                 },3000)             
             }
-        }
+        },
+        async handleWxPay (id) {
+            let pramas = {
+                order_id: id
+            }
+            const res = await this.$api.wxPay(pramas)
+            if (res.code === 0) {
+                this.payConfirm(res.data)
+            } else {  
+                this.$tip.alertDialog(res.msg) 
+                setTimeout(() => {                    
+                    this.forbidClick = false
+                },3000)             
+            }
+        },
+        payConfirm (obj) {
+            let timeStamp = new Date().getTime()
+            let paySign = `appId=wx2016b1a490fe007c&nonceStr=${obj.nonce_str}&package=prepay_id=${obj.prepay_id}&signType=MD5&timeStamp=${timeStamp}&key=X69wh8eS7GRTLvvJzBzfEFEwiKkilfWf`
+            paySign = md5(paySign)
+            let that = this
+            uni.requestPayment({
+                timeStamp: String(timeStamp),
+                nonceStr: obj.nonce_str,
+                package: `prepay_id=${obj.prepay_id}`,
+                signType: 'MD5',
+                paySign: paySign,
+                success: function() {                    
+                    that.$tip.alertDialog(
+                        '支付成功，请跳转订单查看',
+                        '好的','不用了').then(() => {
+                            uni.redirectTo({
+                                url: '/pages/orderList/orderList',
+                            });
+                        }).catch(() => {
+                            uni.navigateBack()
+                        }) 
+                },
+                fail: function(err) {                       
+                    that.$tip.toast(`支付失败，请查看订单`,'none')                 
+                    uni.navigateBack()
+                }
+            })
+        }, 
     },
 }
 </script>
@@ -100,6 +145,7 @@ export default {
             padding-top: 25rpx;
             background: #fff;
             .specs {
+                position: relative;
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
@@ -177,6 +223,13 @@ export default {
                 border-radius:20px;
                 background: #FF3276;
             }
+        }
+        .confirm-img {
+            width: 45rpx;
+            height: 37rpx;
+            position: absolute;
+            bottom:0;
+            right:0;
         }
     }
 </style>

@@ -56,12 +56,12 @@ export default {
     data () {
         return {
             currentBannerIndex: 0,
-            myCardArr: [this.vCardBaseInfo,this.vCardBaseInfo,this.vCardBaseInfo],
+            myCardArr: [],
             QRStr: '',
             currentTime: ''
         }
     },
-    created() {
+    onShow() {
         this.getMyCard()
         this.creatQrcode()
     },
@@ -76,7 +76,19 @@ export default {
     methods: {
         async getMyCard() {
             const res = await this.$api.myCardList()
-            if (res.data.code === 0) {                
+            if (res.code === 0) {
+                let myCardArr = res.data.data
+                if (myCardArr.length === 0) {                                     
+                    this.$tip.alertDialog(
+                        '还没有权益卡，快去加入吧',
+                        '去购买').then(() => {
+                            uni.navigateTo({
+                                url: `/pages/buyPage/buyPage?id=${this.vCardBaseInfo.id}`
+                            });
+                        })
+                    return
+                }
+                this.myCardArr = myCardArr
                 this.creatQrcode()
             }
         },  

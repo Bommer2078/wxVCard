@@ -14,32 +14,32 @@
                     </view>
                 </view>
                 <view class="user-body">
-                    <view class="item" @click="intoOrder">
-                        <img src="/static/img/iconGroup/rules.svg">
+                    <view class="item" @click="intoMyCard">
+                        <img src="/static/self/ticket.svg">
                         <text class="lable">我的权益卡</text>
                         <view class="icon-arrow"></view>
                     </view>
-                    <view class="item" @click="intoChangePassword">
-                        <img src="/static/img/iconGroup/set.svg">
+                    <view class="item" @click="intoRecodeList">
+                        <img src="/static/self/foot.svg">
                         <text class="lable">我的足迹</text>
                         <view class="icon-arrow"></view>
                     </view>
                 </view>
                 <view class="user-body">
                     <view class="item" @click="intoOrder">
-                        <img src="/static/img/iconGroup/rules.svg">
+                        <img src="/static/self/word.svg">
                         <text class="lable">我的订单</text>
                         <view class="icon-arrow"></view>
                     </view>
-                    <view class="item" @click="intoChangePassword">
-                        <img src="/static/img/iconGroup/set.svg">
+                    <view class="item" @click="intoBusiness" v-if="isBusiness">
+                        <img src="/static/self/user.svg">
                         <text class="lable">我是商家</text>
                         <view class="icon-arrow"></view>
                     </view>
                 </view>
                 <view class="user-body user-body-end">
-                    <view class="item" @tap="gotoLoginOut">
-                        <img src="/static/img/iconGroup/login.svg">
+                    <view class="item" @tap="showAbout">
+                        <img src="/static/self/edit.svg">
                         <text class="lable">关于</text>
                         <view class="icon-arrow"></view>
                     </view>
@@ -66,41 +66,31 @@
         data() {
             return {
                 showBox:false,
-                aboutInfo: ''
+                aboutInfo: '',
+                isBusiness: false
             }
         },
-        created() {
-            this.hasLogin()
+        onShow() {
+            this.checkBusiness()
         },
         computed: {
             ...mapState(['userInfo'])
         },
         methods: {
-            gotoLoginOut () {                
-                uni.navigateTo({
-                    url: '../login/login?pageType=loginOut',
-                });
-            },
-            bindLogin() {
-                uni.reLaunch({
-                    url: '../login/login',
-                });
-            },
-            hasLogin () {
-                let hasLogin = !!this.userInfo
-                if (!hasLogin) {
-                    this.bindLogin()
-                }
-            },
             intoOrder () {
                 uni.navigateTo({
-                    url: '../order/order',
+                    url: '/pages/orderList/orderList',
                 });
             },
-            intoChangePassword () {
-                uni.navigateTo({                
-                    url: '../signUp/signUp?page=changePassword'
-                })
+            intoMyCard () {                		
+				uni.switchTab({
+					url: '/pages/myCard/myCard'
+				})
+            },
+            intoRecodeList () {                		
+				uni.navigateTo({
+					url: '/pages/recodeList/recodeList'
+				})
             },
             async getAbout () {
                 if (!this.userInfo) return
@@ -119,7 +109,16 @@
                 }
                 
             },
-            tapAbout () {
+            async checkBusiness () {                
+                let res = await this.$api.checkBusiness().then((res) => {
+                    if (res.code === 0) {
+                        if (res.data.length > 0) {
+                            this.isBusiness = true
+                        }
+                    }
+                })
+            },
+            showAbout () {
                 this.getAbout()
                 this.showBox = true
             },
@@ -160,7 +159,7 @@
     position: absolute;
     top: 50rpx;
     width: 95%;
-    height: 660rpx;
+    height: 570rpx;
     border-radius: 8px;
     background: #F3F3F3;
     z-index: 1;

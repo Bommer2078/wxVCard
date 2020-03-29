@@ -122,7 +122,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 27));
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 27));
 
 
 
@@ -171,7 +171,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
-var _vuex = __webpack_require__(/*! vuex */ 16);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};var ownKeys = Object.keys(source);if (typeof Object.getOwnPropertySymbols === 'function') {ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {return Object.getOwnPropertyDescriptor(source, sym).enumerable;}));}ownKeys.forEach(function (key) {_defineProperty(target, key, source[key]);});}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var tkiQrcode = function tkiQrcode() {return Promise.all(/*! import() | components/tki-qrcode */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/tki-qrcode")]).then(__webpack_require__.bind(null, /*! ../../components/tki-qrcode */ 141));};var _default =
+var _vuex = __webpack_require__(/*! vuex */ 16);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};var ownKeys = Object.keys(source);if (typeof Object.getOwnPropertySymbols === 'function') {ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {return Object.getOwnPropertyDescriptor(source, sym).enumerable;}));}ownKeys.forEach(function (key) {_defineProperty(target, key, source[key]);});}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var tkiQrcode = function tkiQrcode() {return Promise.all(/*! import() | components/tki-qrcode */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/tki-qrcode")]).then(__webpack_require__.bind(null, /*! ../../components/tki-qrcode */ 151));};var _default =
 
 {
   components: {
@@ -180,12 +180,12 @@ var _vuex = __webpack_require__(/*! vuex */ 16);function _interopRequireDefault(
   data: function data() {
     return {
       currentBannerIndex: 0,
-      myCardArr: [this.vCardBaseInfo, this.vCardBaseInfo, this.vCardBaseInfo],
+      myCardArr: [],
       QRStr: '',
       currentTime: '' };
 
   },
-  created: function created() {
+  onShow: function onShow() {
     this.getMyCard();
     this.creatQrcode();
   },
@@ -198,11 +198,23 @@ var _vuex = __webpack_require__(/*! vuex */ 16);function _interopRequireDefault(
   (0, _vuex.mapState)(['vCardBaseInfo', 'userInfo'])),
 
   methods: {
-    getMyCard: function () {var _getMyCard = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var res;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:_context.next = 2;return (
-                  this.$api.myCardList());case 2:res = _context.sent;
-                if (res.data.code === 0) {
-                  this.creatQrcode();
-                }case 4:case "end":return _context.stop();}}}, _callee, this);}));function getMyCard() {return _getMyCard.apply(this, arguments);}return getMyCard;}(),
+    getMyCard: function () {var _getMyCard = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var _this = this;var res, myCardArr;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:_context.next = 2;return (
+                  this.$api.myCardList());case 2:res = _context.sent;if (!(
+                res.code === 0)) {_context.next = 10;break;}
+                myCardArr = res.data.data;if (!(
+                myCardArr.length === 0)) {_context.next = 8;break;}
+                this.$tip.alertDialog(
+                '还没有权益卡，快去加入吧',
+                '去购买').then(function () {
+                  uni.navigateTo({
+                    url: "/pages/buyPage/buyPage?id=".concat(_this.vCardBaseInfo.id) });
+
+                });return _context.abrupt("return");case 8:
+
+
+                this.myCardArr = myCardArr;
+                this.creatQrcode();case 10:case "end":return _context.stop();}}}, _callee, this);}));function getMyCard() {return _getMyCard.apply(this, arguments);}return getMyCard;}(),
+
 
     getQRBack: function getQRBack(res) {
 
@@ -210,11 +222,11 @@ var _vuex = __webpack_require__(/*! vuex */ 16);function _interopRequireDefault(
     handleBannerChange: function handleBannerChange(e) {
       this.currentBannerIndex = e.detail.current;
     },
-    creatQrcode: function creatQrcode() {var _this = this;
+    creatQrcode: function creatQrcode() {var _this2 = this;
       var temp = new Date();
       this.currentTime = new Date().getTime();
       this.$nextTick(function () {
-        _this.$refs.qrcode._makeCode();
+        _this2.$refs.qrcode._makeCode();
       });
     },
     changeQR: function changeQR() {
@@ -227,6 +239,7 @@ var _vuex = __webpack_require__(/*! vuex */ 16);function _interopRequireDefault(
 
       this.QRStr = JSON.stringify(obj);
     } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

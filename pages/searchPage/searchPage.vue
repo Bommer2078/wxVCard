@@ -21,6 +21,7 @@
                     :key="index"
                     @click="handleRecodeClick(item)">{{item}}</view>
             </view>
+            <text class="no-data" v-show="noDatatip">{{noDatatip}}</text>
         <!-- </template> -->
         <template v-if="venueArr.length > 0">
             <view class="venue-list">
@@ -41,7 +42,8 @@ export default {
         return {
             searchContent: '',
             recodeArr: uni.getStorageSync('recodeArr') || [],
-            venueArr: []
+            venueArr: [],
+            noDatatip: ''
         }
     },
     computed: {
@@ -87,6 +89,7 @@ export default {
             const res = await this.$api.getVenueList(params)
             if (res.code === 0) {
                 this.venueArr = res.data.data
+                this.noDatatip = this.venueArr.length === 0 ? '暂无数据' : ''
             }
         },
         clearAllRecode () {
@@ -160,6 +163,13 @@ export default {
             margin-right: 30rpx;            
             margin-bottom: 30rpx;
         }
+    }    
+    .no-data {
+        width: 100%;
+        display: inline-block;
+        text-align: center;
+        color: #353535;
+        font-size: 32rpx;
     }
     .venue-list {
         display: flex;

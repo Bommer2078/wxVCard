@@ -30,19 +30,13 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 1,
+			"current": 0,
 			"list": [
 				{
-					"id": -1,
-					"name": "pages/orderList/orderList",
-					"pathName": "pages/orderList/orderList",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/orderList/orderList",
-					"pathName": "pages/myCard/myCard",
+					"id": 0,
+					"name": "pages/main/main",
+					"pathName": "pages/buyPage/buyPage",
+					"query": "id=12",
 					"scene": null
 				}
 			]

@@ -75,11 +75,13 @@ export default {
     methods: {
         changeTabs (type) {
             this.currentTab = type
+            this.getOrderList()
         },
         async getOrderList () {
             const params  = {
                 page: 1,
-                pageSize: 100
+                pageSize: 100,
+                type: this.currentTab === 'venue' ? 0 : 1
             }
             const res = await this.$api.getOrderList(params)
             if (res.data.code === 0) {

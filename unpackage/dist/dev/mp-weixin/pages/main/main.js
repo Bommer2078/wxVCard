@@ -222,8 +222,8 @@ var _vuex = __webpack_require__(/*! vuex */ 16);function _interopRequireDefault(
       // this.getVenueTypeList()
       this.initGlobalData();
     },
-    initGlobalData: function () {var _initGlobalData = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var res1, cityObj, params, res2;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:if (
-                this.vCardBaseInfo.id) {_context.next = 11;break;}_context.next = 3;return (
+    initGlobalData: function () {var _initGlobalData = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var res1, cityObj, params, res2;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:if (!(
+                !this.locationObj || !this.vCardBaseInfo.id)) {_context.next = 11;break;}_context.next = 3;return (
 
                   this.$api.getPlaceList());case 3:res1 = _context.sent;
                 cityObj = res1.data.data[0];
@@ -276,8 +276,7 @@ var _vuex = __webpack_require__(/*! vuex */ 16);function _interopRequireDefault(
 
     },
     intoVCard: function intoVCard() {
-      // uni.switchTab({
-      uni.navigateTo({
+      uni.switchTab({
         url: "/pages/cardDetail/cardDetail?id=".concat(this.vCardBaseInfo.id) });
 
     },

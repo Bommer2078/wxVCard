@@ -6,7 +6,7 @@
             <view class="venue-info-cover">
                 <swiper class="swiper" 
                     :indicator-dots="false" 
-                    :autoplay="false" 
+                    :autoplay="true" 
                     :interval="5000" 
                     :duration="500"
                     :circular="true"
@@ -40,11 +40,11 @@
                         </view>
                     </view>
                     <view class="venue-info2">
-                        <view>早11:30——晚22:00点营业</view>
+                        <view>{{ venueData.business_hours }}</view>
                         <view class="price-info">
                             当前权益价 
                             <text class="price-unit">￥</text>
-                            <text class="price-num">{{venueData.price/100}}</text>
+                            <text class="price-num">{{venueData.card_vunue.price/100}}</text>
                         </view>
                     </view>
                 </view>
@@ -76,6 +76,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
     created() {
         this.$nextTick(() => {            
@@ -94,6 +95,7 @@ export default {
         }
     },
     computed: {
+         ...mapState(['vCardBaseInfo']),
         routeArr() {
             if (this.venueData) {
                 let arr = this.venueData.traffic_routes.split(/；|;/)
@@ -115,7 +117,8 @@ export default {
         },
         async getVenueDetail () {
             let params = {
-                id: this.venueId
+                id: this.venueId,
+                card_id: this.vCardBaseInfo.id
             }
             const res = await this.$api.getVenueDetail(params)
             if (res.code === 0) {

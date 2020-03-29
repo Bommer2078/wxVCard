@@ -89,6 +89,13 @@
       margin-right: 30rpx;
       margin-bottom: 30rpx;
 }
+.search-page .no-data {
+    width: 100%;
+    display: inline-block;
+    text-align: center;
+    color: #353535;
+    font-size: 32rpx;
+}
 .search-page .venue-list {
     display: -webkit-box;
     display: -webkit-flex;

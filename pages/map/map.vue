@@ -28,7 +28,7 @@ export default {
                     padding: '5px',
                     borderWidth: '2px'
                 },
-                iconPath: '../../static/img/home.png'
+                iconPath: '../../static/homeA.png'
             }]
         }
     },

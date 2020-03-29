@@ -36,8 +36,10 @@ export default {
             }
             const res = await this.$api.exchangeCard(params)
             this.forbidClick = false
-            if (res.data.code === 0) {
+            if (res.code === 0) {
                 this.$tip.toast('兑换成功')
+            } else {
+                this.$tip.toast(res.msg)
             }
         },
         checkForm () {

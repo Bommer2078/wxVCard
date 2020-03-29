@@ -39,6 +39,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
     created() {
         this.$nextTick(() => {            
@@ -46,7 +47,7 @@ export default {
         })
     },
     onLoad (option) {
-        this.vCardId = option.id
+        this.vCardId = option.id || this.vCardBaseInfo.id
     },
     data() {
         return {
@@ -55,6 +56,7 @@ export default {
         }
     },
     computed: {
+         ...mapState(['vCardBaseInfo']),
         venueText () {
             if (!this.vCardData) {
                 return '暂无优惠场馆'
@@ -91,11 +93,12 @@ export default {
         },
         async getVcardData () {
             let params = {
-                id: this.vCardId
+                id: this.vCardId 
             }
             const res = await this.$api.getCardDetail(params)
             if (res.code === 0) {
                 this.vCardData = res.data
+                this.$store.commit('SET_TICKET_OBJ',res.data)
             }
         },
         processImg (obj) {
@@ -105,8 +108,8 @@ export default {
         },
         gotoPay () {
             if (this.vCardData.sell_type === 1) {
-                wx.redirectTo({
-                     url: `/pages/buyPage/buyPage?id=${this.vCardId}`
+                uni.navigateTo({
+                    url: `/pages/buyPage/buyPage?id=${this.vCardId}`
                 });
             }
         }

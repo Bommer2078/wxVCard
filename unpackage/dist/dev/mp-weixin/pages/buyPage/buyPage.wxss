@@ -28,6 +28,7 @@
     background: #fff;
 }
 .buy-page .container-cover .specs {
+      position: relative;
       display: -webkit-box;
       display: -webkit-flex;
       display: -ms-flexbox;
@@ -124,5 +125,12 @@
       text-align: center;
       border-radius: 20px;
       background: #FF3276;
+}
+.buy-page .confirm-img {
+    width: 45rpx;
+    height: 37rpx;
+    position: absolute;
+    bottom: 0;
+    right: 0;
 }
 

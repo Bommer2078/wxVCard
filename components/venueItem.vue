@@ -3,7 +3,7 @@
         <image :src="venueData.banner[0]"/>
         <view class="venue-info">
             <view class="venue-title">{{venueData.name}}</view>
-            <view class="venue-summray">{{venueData.remark}}</view>
+            <view class="venue-summray">{{venueData.introduce}}</view>
             <view class="created-time">{{venueData.create_at}}</view>
         </view>
     </view>

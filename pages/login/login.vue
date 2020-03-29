@@ -65,15 +65,15 @@ export default {
 		},
 		async saveUserInfo (params) {
 			const res = await this.$api.saveUserInfo(params)
-			if (!this.locationObj) {				
-				uni.redirectTo({
-					url: '/pages/city/city'
-				})
-			} else {				
-				uni.redirectTo({
+			// if (!this.locationObj) {				
+			// 	uni.redirectTo({
+			// 		url: '/pages/city/city'
+			// 	})
+			// } else {				
+				uni.switchTab({
 					url: '/pages/main/main'
 				})
-			}
+			// }
 		},									
 		handleCheckBoxClick () {
 			this.agreeGetLocationInfo = !this.agreeGetLocationInfo
