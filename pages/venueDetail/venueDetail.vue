@@ -315,6 +315,7 @@ export default {
             font-weight: 700;
             margin-bottom: 20rpx;
             padding-left: 12px;
+            padding-top: 10rpx;
             .content-name-text {
                 position: relative;
                 &::before {
@@ -346,8 +347,8 @@ export default {
                 height: 50rpx;
             }
             .list-icon {
-                width: 33rpx;
-                height: 36rpx;
+                width: 40rpx;
+                height: 40rpx;
                 margin-right: 10rpx;
             }
         }

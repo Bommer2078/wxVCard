@@ -46,8 +46,8 @@
               align-items: center;
 }
 .my-card-container .part-container .part-title image {
-        width: 22rpx;
-        height: 24rpx;
+        width: 40rpx;
+        height: 42rpx;
         margin-left: 38rpx;
         margin-right: 9rpx;
 }
@@ -67,6 +67,11 @@
       display: -webkit-flex;
       display: -ms-flexbox;
       display: flex;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -webkit-flex-direction: column;
+          -ms-flex-direction: column;
+              flex-direction: column;
       -webkit-box-align: center;
       -webkit-align-items: center;
           -ms-flex-align: center;
@@ -77,5 +82,60 @@
               justify-content: center;
       width: 100%;
       height: 290rpx;
+}
+.my-card-container .part-container .QR-part .qr-tip {
+        font-size: 24rpx;
+        color: #353535;
+        text-align: center;
+        padding-bottom: 20rpx;
+}
+.my-card-container .qr-cover {
+    width: 300rpx;
+    height: 300rpx;
+    margin-bottom: 10rpx;
+}
+.QR-container {
+  width: 100vw;
+  height: 100vh;
+}
+.QR-container .mask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #888;
+    opacity: .5;
+    z-index: 10;
+}
+.QR-container .container {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    width: 600rpx;
+    height: 600rpx;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    background: #fff;
+    z-index: 11;
+    border-radius: 10rpx;
+    padding-top: 40rpx;
+}
+.QR-container .QR-warning {
+    margin-top: 10rpx;
 }
 

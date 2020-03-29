@@ -15,9 +15,9 @@
             }
 		},
 		{
-			"path": "pages/statistics/statistics",
+			"path": "pages/business/business",
             "style": {
-				"navigationBarTitleText": "统计",
+				"navigationBarTitleText": "商家页面",
 				"navigationBarBackgroundColor": "#ffffff"
             }
 		},

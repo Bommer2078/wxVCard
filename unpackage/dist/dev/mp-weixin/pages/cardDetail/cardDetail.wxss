@@ -145,6 +145,7 @@
       font-weight: 700;
       margin-bottom: 20rpx;
       padding-left: 12px;
+      padding-top: 10rpx;
 }
 .card-detail .info-content .content-name .content-name-text {
         position: relative;
@@ -177,8 +178,8 @@
         height: 50rpx;
 }
 .card-detail .info-content .content-name .list-icon {
-        width: 33rpx;
-        height: 36rpx;
+        width: 40rpx;
+        height: 40rpx;
         margin-right: 10rpx;
 }
 .card-detail .pay-btn {

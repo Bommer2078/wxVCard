@@ -216,23 +216,18 @@ var _vuex = __webpack_require__(/*! vuex */ 16);function _interopRequireDefault(
         url: '/pages/recodeList/recodeList' });
 
     },
-    getAbout: function () {var _getAbout = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var res, ele, temp;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:if (
-                this.userInfo) {_context.next = 2;break;}return _context.abrupt("return");case 2:_context.next = 4;return (
-                  this.$api.getAboutList({ type: 'about' }));case 4:res = _context.sent;if (!(
-                res.code === '0')) {_context.next = 10;break;}_context.next = 8;return (
-                  this.$api.getAbout(res.data[0].id));case 8:ele = _context.sent;
-                if (ele.code === '0') {
-                  this.aboutInfo = ele.data.content;
-                  this.version = ele.data.version;
-                  temp = uni.getStorageSync('about-version');
-                  if (temp !== this.version) {
-                    uni.setStorageSync('about-version', this.version);
-                    this.showBox = true;
-                  }
-                }case 10:case "end":return _context.stop();}}}, _callee, this);}));function getAbout() {return _getAbout.apply(this, arguments);}return getAbout;}(),
+    getAbout: function () {var _getAbout = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var res;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:_context.next = 2;return (
+                  this.$api.getAboutInfo());case 2:res = _context.sent;
+                if (res.code === 0) {
+                  this.aboutInfo = res.data.content;
+                }case 4:case "end":return _context.stop();}}}, _callee, this);}));function getAbout() {return _getAbout.apply(this, arguments);}return getAbout;}(),
 
+    intoBusiness: function intoBusiness() {
+      this.$store.commit('SET_ROLE_TYPE', 'business');
+      uni.reLaunch({
+        url: '/pages/business/business' });
 
-
+    },
     checkBusiness: function () {var _checkBusiness = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var _this = this;var res;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:_context2.next = 2;return (
                   this.$api.checkBusiness().then(function (res) {
                     if (res.code === 0) {

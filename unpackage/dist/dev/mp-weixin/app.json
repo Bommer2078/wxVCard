@@ -2,7 +2,7 @@
   "pages": [
     "pages/main/main",
     "pages/recodeList/recodeList",
-    "pages/statistics/statistics",
+    "pages/business/business",
     "pages/orderList/orderList",
     "pages/myCard/myCard",
     "pages/more/more",
@@ -55,5 +55,5 @@
     ]
   },
   "usingComponents": {},
-  "sitemapLocation": "sitemap11.json"
+  "sitemapLocation": "sitemap60.json"
 }

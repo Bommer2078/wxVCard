@@ -90,6 +90,23 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var l0 = _vm.__map(_vm.cardList, function(item, __i0__) {
+    var f0 = _vm._f("payText")(item.paid_state)
+
+    return {
+      $orig: _vm.__get_orig(item),
+      f0: f0
+    }
+  })
+
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        l0: l0
+      }
+    }
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -190,12 +207,37 @@ var _default =
 {
   data: function data() {
     return {
-      currentTab: 'vcard' };
+      currentTab: 'vcard',
+      cardList: [] };
 
   },
   created: function created() {
     this.getOrderList();
   },
+  filters: {
+    //paid_state：支付状态，-1：支付失败，0：未支付，1：预支付，10：已支付
+    payText: function payText(val) {
+      var text = '';
+      switch (val) {
+        case -1:
+          text = '支付失败';
+          break;
+        case 0:
+          text = '未支付';
+          break;
+        case 1:
+          text = '预支付';
+          break;
+        case 10:
+          text = '已支付';
+          break;
+        default:
+          text = '未支付';
+          break;}
+
+      return text;
+    } },
+
   methods: {
     changeTabs: function changeTabs(type) {
       this.currentTab = type;
@@ -208,8 +250,8 @@ var _default =
                   type: this.currentTab === 'venue' ? 0 : 1 };_context.next = 3;return (
 
                   this.$api.getOrderList(params));case 3:res = _context.sent;
-                if (res.data.code === 0) {
-                  console.log(res);
+                if (res.code === 0) {
+                  this.cardList = res.data.data;
                 }case 5:case "end":return _context.stop();}}}, _callee, this);}));function getOrderList() {return _getOrderList.apply(this, arguments);}return getOrderList;}() } };exports.default = _default;
 
 /***/ }),

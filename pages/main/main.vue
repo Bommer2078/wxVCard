@@ -8,7 +8,7 @@
                         <text class="city-tip">可享受{{total}}家场馆权益</text>
                     </view>
                     <view>                        
-                        <text class="welcome-tip">{{userInfo.nickName}},早上好!</text> 
+                        <text class="welcome-tip">{{userInfo.nickname}},早上好!</text> 
                     </view>
                 </view>
                 <view class="search-container" @click="gotoSearchPage">

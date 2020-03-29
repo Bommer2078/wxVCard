@@ -1,6 +1,7 @@
 <template>
     <view class="recode-list">
         <view class="recode-item-cover" v-for="(item,index) in venueArr" :key="index">
+            <img src="/static/self/foot.svg">
             <view class="recode-time">2020.02.22 20:45</view>
             <venue-item :venue-data="item"></venue-item>  
             <view class="venue-split"></view>  

@@ -37,21 +37,21 @@
         </template>
         <template v-if="currentTab === 'vcard'">            
             <view class="order-list-container">
-                <view class="order-item">
+                <view class="order-item" v-for="item in cardList" :key="item.id">
                     <view class="city-name">
-                        <text class="name">长沙</text>
-                        <text class="state">已支付</text>
+                        <text class="name">{{item.city.name}}</text>
+                        <text class="state">{{item.paid_state | payText}}</text>
                     </view>
                     <view class="order-info">
                         <view class="order-title">
-                            <image src=""/>
-                            <view class="order-name">乐吧小镇</view>
+                            <image src="/static/self/ticket.svg"/>
+                            <view class="order-name">{{item.card.name}}</view>
                         </view>
                         <view class="order-sku-price">
-                            <view class="order-sku">规格名称</view>
+                            <view class="order-sku">{{item.card_sku.name}}</view>
                             <view class="order-price">
                                 <text class="unit">￥</text>
-                                <text class="price">246.00</text>
+                                <text class="price">{{item.price / 100}}</text>
                             </view>
                         </view>                        
                         <view class="vcard-order-time">购买时间：2019.01.12</view>
@@ -66,11 +66,36 @@
 export default {
     data() {
         return {
-            currentTab: 'vcard'
+            currentTab: 'vcard',
+            cardList: []
         }
     },
     created() {
         this.getOrderList()
+    },
+    filters: {
+        //paid_state：支付状态，-1：支付失败，0：未支付，1：预支付，10：已支付
+        payText (val) {
+            let text = ''
+            switch (val) {
+                case -1:
+                    text = '支付失败'
+                    break;
+                case 0:
+                    text = '未支付'
+                    break;
+                case 1:
+                    text = '预支付'
+                    break;
+                case 10:
+                    text = '已支付'
+                    break;            
+                default:                    
+                    text = '未支付'
+                    break;
+            }
+            return text
+        }
     },
     methods: {
         changeTabs (type) {
@@ -84,8 +109,8 @@ export default {
                 type: this.currentTab === 'venue' ? 0 : 1
             }
             const res = await this.$api.getOrderList(params)
-            if (res.data.code === 0) {
-                console.log(res)
+            if (res.code === 0) {
+                this.cardList = res.data.data
             }
         }
     },
@@ -136,6 +161,7 @@ export default {
             height: 240rpx;
             background:rgba(255,255,255,1);
             border-radius:27rpx;
+            margin-bottom: 20rpx;
             box-shadow:3rpx 2rpx 15rpx 1rpx rgba(0,0,0,0.07);
             .city-name {
                 height: 60rpx;
@@ -148,7 +174,7 @@ export default {
                     font-size: 30rpx;
                 }
                 .state {
-                    color: #7C7C7C;
+                    color: #FF3276;
                     font-size: 28rpx;
                 }
             }

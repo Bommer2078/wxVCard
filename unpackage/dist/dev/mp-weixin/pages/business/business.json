@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "商家页面",
+  "navigationBarBackgroundColor": "#ffffff",
+  "usingComponents": {
+    "business-main-page": "/components/businessMainPage",
+    "statistics-page": "/components/statisticsPage"
+  }
+}

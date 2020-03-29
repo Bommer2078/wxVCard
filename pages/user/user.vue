@@ -6,11 +6,11 @@
             <view class="user-bottom"></view>
             <view class="user-container">
                 <view class="user-header">
-                    <img :src="userInfo.avatarUrl" v-if="userInfo">
+                    <img :src="userInfo.avatar" v-if="userInfo">
                     <img src="/static/log1o.png" v-else>
                     <view class="info">
                         <text>欢迎，</text>
-                        <text class="tip">{{userInfo ? userInfo.nickName : '游客'}}</text>
+                        <text class="tip">{{userInfo ? userInfo.nickname : '游客'}}</text>
                     </view>
                 </view>
                 <view class="user-body">
@@ -93,21 +93,16 @@
 				})
             },
             async getAbout () {
-                if (!this.userInfo) return
-                let res = await this.$api.getAboutList({type:'about'})
-                if (res.code === '0') {
-                    let ele = await this.$api.getAbout(res.data[0].id)
-                    if (ele.code === '0') {
-                        this.aboutInfo = ele.data.content
-                        this.version = ele.data.version
-                        let temp = uni.getStorageSync('about-version')
-                        if (temp !== this.version) {
-                            uni.setStorageSync('about-version',this.version)                            
-                            this.showBox = true
-                        }
-                    }
-                }
-                
+                let res = await this.$api.getAboutInfo()
+                if (res.code === 0) {
+                    this.aboutInfo = res.data.content
+                }                
+            },
+            intoBusiness () {
+                this.$store.commit('SET_ROLE_TYPE','business')
+                uni.reLaunch({
+                    url: '/pages/business/business'
+                });
             },
             async checkBusiness () {                
                 let res = await this.$api.checkBusiness().then((res) => {
@@ -273,7 +268,7 @@
         height: 60rpx;
         text-align: center;
         margin-bottom: 10rpx;
-        background: #ffcc00;
+        background: #FF3177;
     }
     .box .box-name {
         width: 100%;

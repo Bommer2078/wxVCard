@@ -52,7 +52,6 @@ export default {
 					if (res.authSetting['scope.userInfo']) {
 						wx.getUserInfo({
 							success: (data) => {
-								this.$store.commit('SET_USER_INFO', data.userInfo)
 								data.api_token = token
 								this.saveUserInfo(data)
 							}
@@ -65,14 +64,19 @@ export default {
 		},
 		async saveUserInfo (params) {
 			const res = await this.$api.saveUserInfo(params)
+			if (res.code === 0) {
+				this.$store.commit('SET_USER_INFO', res.data)
+				uni.switchTab({
+					url: '/pages/main/main'
+				})
+			}			
+				
 			// if (!this.locationObj) {				
 			// 	uni.redirectTo({
 			// 		url: '/pages/city/city'
 			// 	})
 			// } else {				
-				uni.switchTab({
-					url: '/pages/main/main'
-				})
+				
 			// }
 		},									
 		handleCheckBoxClick () {

@@ -78,7 +78,6 @@ var _vuex = __webpack_require__(/*! vuex */ 16);function _interopRequireDefault(
                     if (res.authSetting['scope.userInfo']) {
                       wx.getUserInfo({
                         success: function success(data) {
-                          _this2.$store.commit('SET_USER_INFO', data.userInfo);
                           data.api_token = token;
                           _this2.saveUserInfo(data);
                         } });
@@ -91,13 +90,18 @@ var _vuex = __webpack_require__(/*! vuex */ 16);function _interopRequireDefault(
 
     saveUserInfo: function () {var _saveUserInfo = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee3(params) {var res;return _regenerator.default.wrap(function _callee3$(_context3) {while (1) {switch (_context3.prev = _context3.next) {case 0:_context3.next = 2;return (
                   this.$api.saveUserInfo(params));case 2:res = _context3.sent;
+                if (res.code === 0) {
+                  this.$store.commit('SET_USER_INFO', res.data);
+                  uni.switchTab({
+                    url: '/pages/main/main' });
+
+                }
+
                 // if (!this.locationObj) {				
                 // 	uni.redirectTo({
                 // 		url: '/pages/city/city'
                 // 	})
                 // } else {				
-                uni.switchTab({
-                  url: '/pages/main/main' });
 
                 // }
               case 4:case "end":return _context3.stop();}}}, _callee3, this);}));function saveUserInfo(_x3) {return _saveUserInfo.apply(this, arguments);}return saveUserInfo;}(),

@@ -187,7 +187,7 @@
         height: 60rpx;
         text-align: center;
         margin-bottom: 10rpx;
-        background: #ffcc00;
+        background: #FF3177;
 }
 .box .box-name {
         width: 100%;

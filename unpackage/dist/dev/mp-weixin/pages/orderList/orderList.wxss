@@ -51,6 +51,7 @@
       height: 240rpx;
       background: white;
       border-radius: 27rpx;
+      margin-bottom: 20rpx;
       -webkit-box-shadow: 3rpx 2rpx 15rpx 1rpx rgba(0, 0, 0, 0.07);
               box-shadow: 3rpx 2rpx 15rpx 1rpx rgba(0, 0, 0, 0.07);
 }
@@ -75,7 +76,7 @@
           font-size: 30rpx;
 }
 .order-list .order-list-container .order-item .city-name .state {
-          color: #7C7C7C;
+          color: #FF3276;
           font-size: 28rpx;
 }
 .order-list .order-list-container .order-item .order-info .order-title {

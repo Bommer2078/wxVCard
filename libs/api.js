@@ -10,7 +10,11 @@ const exchangeCard = (params) => http.post(`/order/exchange`,params);
 const wxPay = (params) => http.post(`/payment/prepay`,params); 
 const purchase = (params) => http.post(`/order/purchase`,params); // 下单接口
 const myCardList = () => http.post(`/user/card/list`); // 拥有的权益卡列表
-const checkBusiness = () => http.get(`/venue/user/list`); // 拥有的权益卡列表
+const checkBusiness = () => http.get(`/venue/user/list`); // 是否是商家
+const getAboutInfo = () => http.get(`/config/details`); // 關於
+const loopPayOrder = (params) => http.post(`/order/loop_pay_order`,params); // 用户轮询
+const venueOrder = (params) => http.post(`/order/pay_venue`,params); // 管理员下单
+const adminLoopOrder = (params) => http.post(`/order/admin_loop_order`,params); // 管理员轮询
 let api = {
     login: login,
     saveUserInfo: saveUserInfo,
@@ -23,6 +27,10 @@ let api = {
     purchase: purchase,
     myCardList: myCardList,
     wxPay: wxPay,
-    checkBusiness: checkBusiness
+    checkBusiness: checkBusiness,
+    getAboutInfo: getAboutInfo,
+    loopPayOrder: loopPayOrder,
+    venueOrder: venueOrder,
+    adminLoopOrder: adminLoopOrder
 };
 export default api;

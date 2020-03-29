@@ -6,16 +6,13 @@ let http = {
 	post: "",
     get: ""
 };
-let typeArr = ['/user/register','/ticket/writeOffYearTicket','/ticket/writeOffSpecialTicket']
+let noLodingArr = ['/order/loop_pay_order','/order/admin_loop_order']
 http.post = (api, data) => {    
     let header = {
         'Authorization': `Bearer ${uni.getStorageSync('api_token')}`,
         'isApplet': 'true'
     }
-    if (typeArr.indexOf(api) >= 0) {              
-        header['content-type'] = 'application/x-www-form-urlencoded'
-    }
-    if (httpNum <= 0) {
+    if (httpNum <= 0 && noLodingArr.indexOf(api) < 0) {
         tip.loading();
     }
     httpNum++;
