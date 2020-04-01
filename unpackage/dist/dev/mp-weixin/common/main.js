@@ -13,6 +13,7 @@ var _App = _interopRequireDefault(__webpack_require__(/*! ./App */ 9));
 
 var _store = _interopRequireDefault(__webpack_require__(/*! ./store */ 15));
 var _api = _interopRequireDefault(__webpack_require__(/*! ./libs/api.js */ 17));
+var _serve = _interopRequireDefault(__webpack_require__(/*! ./libs/serve.js */ 18));
 var _tip = _interopRequireDefault(__webpack_require__(/*! ./utils/tip */ 19));
 var _timeText = _interopRequireDefault(__webpack_require__(/*! ./utils/timeText */ 20));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};var ownKeys = Object.keys(source);if (typeof Object.getOwnPropertySymbols === 'function') {ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {return Object.getOwnPropertyDescriptor(source, sym).enumerable;}));}ownKeys.forEach(function (key) {_defineProperty(target, key, source[key]);});}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}
 
@@ -20,6 +21,7 @@ _vue.default.config.productionTip = false;
 
 _vue.default.prototype.$store = _store.default;
 _vue.default.prototype.$api = _api.default;
+_vue.default.prototype.$http = _serve.default;
 _vue.default.prototype.$tip = _tip.default;
 _vue.default.prototype.$timeText = _timeText.default;
 

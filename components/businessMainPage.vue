@@ -1,14 +1,14 @@
 <template>
     <view class="business-banner">
         <text class="scan-tip">扫一扫来访用户的权益卡二维码，完成权益卡核实。</text>
-        <view class="scan-btn" @click="startScan">扫一扫</view> 
-        
+        <view class="scan-btn" @click="startScan">扫一扫</view>        
         <view class="loading-container" v-if="showWaiting">   
             <view class="mask"></view>             
             <view class="container">
-                <img src="/static/loading.svg" >
+                <img src="/static/loading.svg"  class="loadding">
                 <view class="loading-warning">等待用户支付</view>
                 <view class="loading-warning">请保持该页面不要关闭</view>
+                <img src="/static/close.svg" @click="closeLoading" class="close-icon">
             </view>  
         </view>
     </view>
@@ -23,8 +23,12 @@ export default {
     },
     data() {
         return {
-            showWaiting:false
+            showWaiting:false,
+            loopCount: 0
         }
+    },
+    destroyed() {
+        this.$http.abort()
     },
     methods: {
         startScan () {
@@ -59,6 +63,13 @@ export default {
             }
         },
         async adminLoopFn (id) {
+            this.loopCount++
+            if (this.loopCount >= 12) {     
+                this.showWaiting = false    
+                this.loopCount = 0       
+                this.$tip.toast('用户支付后，请在统计页查看','none')
+                return
+            }
             let params = {
                 order_id: id
             }
@@ -72,6 +83,11 @@ export default {
                 this.showWaiting = false
                 this.$tip.toast(res.msg,'none')
             } 
+        },
+        closeLoading () {
+            this.showWaiting = false
+            this.$http.abort()
+            this.loopCount = 0
         }
     },
 }
@@ -102,6 +118,7 @@ export default {
         border-radius:38rpx;
     }
     .loading-container {
+        position: fixed;top:0;
         width: 100vw;
         height: 100vh;
         .mask {
@@ -119,7 +136,7 @@ export default {
             align-items: center;
             flex-direction: column;
             width: 600rpx;
-            height: 600rpx;
+            height: 350rpx;
             position: fixed;
             top:0;
             left:0;
@@ -130,9 +147,28 @@ export default {
             z-index: 11;
             border-radius: 10rpx;
             padding-top: 40rpx;
+            .close-icon {
+                position: absolute;
+                top: -25rpx;
+                right: -25rpx;
+                width: 50rpx;
+                height: 50rpx;
+            }
+        }
+        .loadding {
+            width: 150rpx;
+            height: 150rpx;           
+            animation:turn 1s linear infinite;
         }
         .loading-warning {
             margin-top:10rpx;
+        }
+        @keyframes turn{
+            0%{-webkit-transform:rotate(0deg);}
+            25%{-webkit-transform:rotate(90deg);}
+            50%{-webkit-transform:rotate(180deg);}
+            75%{-webkit-transform:rotate(270deg);}
+            100%{-webkit-transform:rotate(360deg);}
         }
     }
 }

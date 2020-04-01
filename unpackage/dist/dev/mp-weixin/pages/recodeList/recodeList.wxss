@@ -1,4 +1,5 @@
 .recode-list {
+  padding-top: 25rpx;
   width: 100%;
   min-height: 100vh;
   background: #F5F2F5;
@@ -27,5 +28,12 @@
       margin-top: 20rpx;
       margin-left: 20rpx;
       border-bottom: 1px solid #eee;
+}
+.recode-list .recode-item-cover .recode-icon {
+      position: absolute;
+      left: 10rpx;
+      top: -25rpx;
+      width: 50rpx;
+      height: 50rpx;
 }
 

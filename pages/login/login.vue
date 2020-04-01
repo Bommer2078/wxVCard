@@ -20,6 +20,11 @@ export default {
 			title: 'Hi~ 请 登 录',
 		}
 	},	
+	onShow() {		
+		if (wx.canIUse('hideHomeButton')) {
+			wx.hideHomeButton()
+		}
+	},
     computed: {
         ...mapState(['locationObj'])
     },

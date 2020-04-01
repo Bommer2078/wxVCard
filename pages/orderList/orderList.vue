@@ -11,25 +11,25 @@
                 @click="changeTabs('vcard')">会员卡订单</view>
         </view>
         <template v-if="currentTab === 'venue'">            
-            <view class="order-list-container">
+            <view class="order-list-container" v-for="item in venueArr" :key="item.id">
                 <view class="order-item">
                     <view class="city-name">                        
-                        <text class="name">长沙</text>
+                        <text class="name">{{item.city.name}}</text>
                     </view>
                     <view class="order-info">
                         <view class="order-title">
                             <image src=""/>
-                            <view class="order-name">乐吧小镇</view>
+                            <view class="order-name">{{item.venue.name}}</view>
                         </view>
                         <view class="order-time-price">
-                            <view class="order-time">购买时间：2019.01.12</view>
+                            <view class="order-time">下单时间：{{item.create_at}}</view>
                             <view class="order-price">
                                 <text class="unit">￥</text>
-                                <text class="price">246.00</text>
+                                <text class="price">{{item.price / 100}}</text>
                             </view>
                         </view>
                         <view class="order-state">
-                            已支付
+                            {{item.paid_state | payText}}
                         </view>
                     </view>
                 </view>
@@ -54,7 +54,7 @@
                                 <text class="price">{{item.price / 100}}</text>
                             </view>
                         </view>                        
-                        <view class="vcard-order-time">购买时间：2019.01.12</view>
+                        <view class="vcard-order-time">下单时间：2019.01.12</view>
                     </view>
                 </view>
             </view>
@@ -67,7 +67,8 @@ export default {
     data() {
         return {
             currentTab: 'vcard',
-            cardList: []
+            cardList: [],
+            venueArr: []
         }
     },
     created() {
@@ -110,7 +111,11 @@ export default {
             }
             const res = await this.$api.getOrderList(params)
             if (res.code === 0) {
-                this.cardList = res.data.data
+                if (this.currentTab === 'venue') {
+                    this.venueArr = res.data.data
+                } else {                    
+                    this.cardList = res.data.data
+                }
             }
         }
     },

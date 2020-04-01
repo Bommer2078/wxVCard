@@ -36,6 +36,8 @@
     border-radius: 38rpx;
 }
 .business-banner .loading-container {
+    position: fixed;
+    top: 0;
     width: 100vw;
     height: 100vh;
 }
@@ -64,7 +66,7 @@
           -ms-flex-direction: column;
               flex-direction: column;
       width: 600rpx;
-      height: 600rpx;
+      height: 350rpx;
       position: fixed;
       top: 0;
       left: 0;
@@ -76,7 +78,54 @@
       border-radius: 10rpx;
       padding-top: 40rpx;
 }
+.business-banner .loading-container .container .close-icon {
+        position: absolute;
+        top: -25rpx;
+        right: -25rpx;
+        width: 50rpx;
+        height: 50rpx;
+}
+.business-banner .loading-container .loadding {
+      width: 150rpx;
+      height: 150rpx;
+      -webkit-animation: turn 1s linear infinite;
+              animation: turn 1s linear infinite;
+}
 .business-banner .loading-container .loading-warning {
       margin-top: 10rpx;
+}
+@-webkit-keyframes turn {
+0% {
+    -webkit-transform: rotate(0deg);
+}
+25% {
+    -webkit-transform: rotate(90deg);
+}
+50% {
+    -webkit-transform: rotate(180deg);
+}
+75% {
+    -webkit-transform: rotate(270deg);
+}
+100% {
+    -webkit-transform: rotate(360deg);
+}
+}
+@keyframes turn {
+0% {
+    -webkit-transform: rotate(0deg);
+}
+25% {
+    -webkit-transform: rotate(90deg);
+}
+50% {
+    -webkit-transform: rotate(180deg);
+}
+75% {
+    -webkit-transform: rotate(270deg);
+}
+100% {
+    -webkit-transform: rotate(360deg);
+}
 }
 

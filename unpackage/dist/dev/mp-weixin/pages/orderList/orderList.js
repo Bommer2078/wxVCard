@@ -90,7 +90,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  var l0 = _vm.__map(_vm.cardList, function(item, __i0__) {
+  var l0 = _vm.__map(_vm.venueArr, function(item, __i0__) {
     var f0 = _vm._f("payText")(item.paid_state)
 
     return {
@@ -99,11 +99,21 @@ var render = function() {
     }
   })
 
+  var l1 = _vm.__map(_vm.cardList, function(item, __i1__) {
+    var f1 = _vm._f("payText")(item.paid_state)
+
+    return {
+      $orig: _vm.__get_orig(item),
+      f1: f1
+    }
+  })
+
   _vm.$mp.data = Object.assign(
     {},
     {
       $root: {
-        l0: l0
+        l0: l0,
+        l1: l1
       }
     }
   )
@@ -208,7 +218,8 @@ var _default =
   data: function data() {
     return {
       currentTab: 'vcard',
-      cardList: [] };
+      cardList: [],
+      venueArr: [] };
 
   },
   created: function created() {
@@ -251,7 +262,11 @@ var _default =
 
                   this.$api.getOrderList(params));case 3:res = _context.sent;
                 if (res.code === 0) {
-                  this.cardList = res.data.data;
+                  if (this.currentTab === 'venue') {
+                    this.venueArr = res.data.data;
+                  } else {
+                    this.cardList = res.data.data;
+                  }
                 }case 5:case "end":return _context.stop();}}}, _callee, this);}));function getOrderList() {return _getOrderList.apply(this, arguments);}return getOrderList;}() } };exports.default = _default;
 
 /***/ }),

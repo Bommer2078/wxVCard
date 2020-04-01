@@ -155,6 +155,11 @@ __webpack_require__.r(__webpack_exports__);
       currentTab: 'home' //home 首页 ，statistics 统计，loginOut 联系
     };
   },
+  onShow: function onShow() {
+    if (wx.canIUse('hideHomeButton')) {
+      wx.hideHomeButton();
+    }
+  },
   components: {
     businessMainPage: businessMainPage,
     statisticsPage: statisticsPage },

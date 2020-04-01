@@ -130,8 +130,12 @@ var _vuex = __webpack_require__(/*! vuex */ 16);function _interopRequireDefault(
 
   data: function data() {
     return {
-      showWaiting: false };
+      showWaiting: false,
+      loopCount: 0 };
 
+  },
+  destroyed: function destroyed() {
+    this.$http.abort();
   },
   methods: {
     startScan: function startScan() {
@@ -166,10 +170,17 @@ var _vuex = __webpack_require__(/*! vuex */ 16);function _interopRequireDefault(
                 }case 6:case "end":return _context.stop();}}}, _callee, this);}));function postData(_x) {return _postData.apply(this, arguments);}return postData;}(),
 
     adminLoopFn: function () {var _adminLoopFn = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2(id) {var params, res;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:
-                params = {
-                  order_id: id };_context2.next = 3;return (
+                this.loopCount++;if (!(
+                this.loopCount >= 12)) {_context2.next = 6;break;}
+                this.showWaiting = false;
+                this.loopCount = 0;
+                this.$tip.toast('用户支付后，请在统计页查看', 'none');return _context2.abrupt("return");case 6:
 
-                  this.$api.adminLoopOrder(params));case 3:res = _context2.sent;
+
+                params = {
+                  order_id: id };_context2.next = 9;return (
+
+                  this.$api.adminLoopOrder(params));case 9:res = _context2.sent;
                 if (res.code === 0) {
                   this.$tip.alertDialog('用户支付成功');
                   this.showWaiting = false;
@@ -178,7 +189,13 @@ var _vuex = __webpack_require__(/*! vuex */ 16);function _interopRequireDefault(
                 } else {
                   this.showWaiting = false;
                   this.$tip.toast(res.msg, 'none');
-                }case 5:case "end":return _context2.stop();}}}, _callee2, this);}));function adminLoopFn(_x2) {return _adminLoopFn.apply(this, arguments);}return adminLoopFn;}() } };exports.default = _default;
+                }case 11:case "end":return _context2.stop();}}}, _callee2, this);}));function adminLoopFn(_x2) {return _adminLoopFn.apply(this, arguments);}return adminLoopFn;}(),
+
+    closeLoading: function closeLoading() {
+      this.showWaiting = false;
+      this.$http.abort();
+      this.loopCount = 0;
+    } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),

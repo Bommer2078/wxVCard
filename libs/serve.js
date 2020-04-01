@@ -5,9 +5,10 @@ let httpNum = 0;
 let http = {
 	post: "",
     get: ""
-};
+}; 
+let requestTask = null 
 let noLodingArr = ['/order/loop_pay_order','/order/admin_loop_order']
-http.post = (api, data) => {    
+http.post = (api, data) => {  
     let header = {
         'Authorization': `Bearer ${uni.getStorageSync('api_token')}`,
         'isApplet': 'true'
@@ -17,7 +18,7 @@ http.post = (api, data) => {
     }
     httpNum++;
     return new Promise((resolve, reject) => {
-        uni.request({
+        requestTask = uni.request({
             data:data,
             method:'post',
             url: baseUrl + api,
@@ -55,8 +56,12 @@ http.post = (api, data) => {
             }
         })
     });
+},
+http.abort = () => {
+    if (requestTask) {        
+        requestTask.abort()
+    }
 }
-
 http.get = (api, data) => {
     if (httpNum <= 0) {
         tip.loading()

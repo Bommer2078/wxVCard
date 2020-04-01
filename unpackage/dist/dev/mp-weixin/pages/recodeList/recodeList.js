@@ -156,9 +156,10 @@ var _vuex = __webpack_require__(/*! vuex */ 16);function _interopRequireDefault(
                 params = {
                   page: 1,
                   pageSize: 100,
-                  city_id: this.locationObj.id };_context.next = 3;return (
+                  type: 0,
+                  paid_state: 10 };_context.next = 3;return (
 
-                  this.$api.getVenueList(params));case 3:res = _context.sent;
+                  this.$api.getOrderList(params));case 3:res = _context.sent;
                 if (res.code === 0) {
                   this.venueArr = res.data.data;
                 }case 5:case "end":return _context.stop();}}}, _callee, this);}));function getArrData() {return _getArrData.apply(this, arguments);}return getArrData;}() } };exports.default = _default;

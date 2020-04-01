@@ -1,9 +1,9 @@
 <template>
     <view class="recode-list">
         <view class="recode-item-cover" v-for="(item,index) in venueArr" :key="index">
-            <img src="/static/self/foot.svg">
-            <view class="recode-time">2020.02.22 20:45</view>
-            <venue-item :venue-data="item"></venue-item>  
+            <img src="/static/self/foot.svg" class="recode-icon">
+            <view class="recode-time">{{item.update_at}}</view>
+            <venue-item :venue-data="item.venue"></venue-item>  
             <view class="venue-split"></view>  
         </view>
     </view>
@@ -32,9 +32,10 @@ export default {
             let params = {
                 page: 1,
                 pageSize: 100,
-                city_id: this.locationObj.id
+                type: 0,
+                paid_state: 10
             }
-            const res = await this.$api.getVenueList(params)
+            const res = await this.$api.getOrderList(params)
             if (res.code === 0) {
                 this.venueArr = res.data.data
             }
@@ -45,6 +46,7 @@ export default {
 
 <style lang="scss">
 .recode-list {
+    padding-top: 25rpx;
     width: 100%;
     min-height: 100vh;
     background: #F5F2F5;
@@ -71,6 +73,13 @@ export default {
             margin-top: 20rpx;
             margin-left: 20rpx;        
             border-bottom: 1px solid #eee;
+        }
+        .recode-icon {
+            position: absolute;
+            left: 10rpx;
+            top: -25rpx;
+            width: 50rpx;
+            height: 50rpx;
         }
     }
 }

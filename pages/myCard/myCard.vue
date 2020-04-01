@@ -23,7 +23,7 @@
                 <view class="part-title">                    
                     <img src="/static/rules.svg" class="list-icon">
                     <text>{{currentCard.name}}</text> 
-                    <text>还有{{currentCard.due_date && currentCard.due_date.day}}天到期</text>
+                    <text>{{currentCard | dueDateText}}</text>
                 </view>
                 <view class="part-body QR-part">
                     <img src="/static/qrCover.svg" class="qr-cover" @click="showQR">
@@ -69,15 +69,39 @@ export default {
             myCardArr: [],
             QRStr: '',
             currentTime: '',
-            showQRBox: false
+            showQRBox: false,
+            loopCount: 0
+        }
+    },
+    filters: {
+        dueDateText (val) {
+            let temp = val.due_date
+            if (temp) {
+                for (let k in temp) {
+                    temp[k] > 0
+                    return temp.day === 0 ? '即将到期' : `还有${temp.day}天到期`
+                }
+                return '已过期'
+            }
         }
     },
     onShow() {
         this.getMyCard()
     },
+    onHide() {
+        if (this.showQRBox) {   
+            this.showQRBox = false         
+            this.$http.abort()
+        }
+    },
     watch: {
         currentTime() {                  
             this.changeQR()
+        }
+    },
+    destroyed() {        
+        if (this.showQRBox) {  
+            this.$http.abort()
         }
     },
     computed: {
@@ -133,12 +157,20 @@ export default {
             this.QRStr = JSON.stringify(str)
         },
         async startLoopFn (id) {
+            this.loopCount++
+            if (this.loopCount >= 12) {     
+                this.showQRBox = false    
+                this.loopCount = 0       
+                this.$tip.toast('支付超时','none')
+                return
+            }
             let params = {
                 card_id: id
             }
             let res = await this.$api.loopPayOrder(params)
-            if (res.code === 0) {
-                this.handleWxPay(res.data.id)
+            if (res.code === 0) {               
+                this.showQRBox = false  
+                this.handleWxPay(res.data.order_id) 
             } else if (res.code === 100) {
                 this.startLoopFn(id)
             } else {
@@ -153,8 +185,7 @@ export default {
             if (res.code === 0) {
                 this.payConfirm(res.data)
             } else {  
-                this.$tip.alertDialog(res.msg) 
-                this.showQRBox = false            
+                this.$tip.alertDialog(res.msg)           
             }
         },
         payConfirm (obj) {

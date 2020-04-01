@@ -31,6 +31,11 @@ export default {
             currentTab: 'home', //home 首页 ，statistics 统计，loginOut 联系
         }
     },
+    onShow () {        
+        if (wx.canIUse('hideHomeButton')) {
+            wx.hideHomeButton()
+        }
+    },
     components: {
         businessMainPage,
         statisticsPage
