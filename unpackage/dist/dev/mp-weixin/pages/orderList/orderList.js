@@ -217,7 +217,7 @@ var _default =
 {
   data: function data() {
     return {
-      currentTab: 'vcard',
+      currentTab: 'venue',
       cardList: [],
       venueArr: [] };
 

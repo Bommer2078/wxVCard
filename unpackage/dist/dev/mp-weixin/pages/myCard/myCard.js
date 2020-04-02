@@ -287,12 +287,13 @@ var _md5Min = _interopRequireDefault(__webpack_require__(/*! ../../libs/md5.min.
       if (this.QRStr) {
         this.$refs.qrcode._clearCode();
       }
-      var str = { card_id: this.currentCard.id, user_id: this.userInfo.id };
+      var nowTime = new Date().getTime();
+      var str = { card_id: this.currentCard.id, user_id: this.userInfo.id, t: nowTime };
       this.QRStr = JSON.stringify(str);
     },
     startLoopFn: function () {var _startLoopFn = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2(id) {var params, res;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:
                 this.loopCount++;if (!(
-                this.loopCount >= 12)) {_context2.next = 6;break;}
+                this.loopCount >= 15)) {_context2.next = 6;break;}
                 this.showQRBox = false;
                 this.loopCount = 0;
                 this.$tip.toast('支付超时', 'none');return _context2.abrupt("return");case 6:

@@ -153,12 +153,13 @@ export default {
             if (this.QRStr) {
                 this.$refs.qrcode._clearCode()         
             }
-            let str = {card_id: this.currentCard.id,user_id: this.userInfo.id}
+            let nowTime = new Date().getTime()
+            let str = {card_id: this.currentCard.id,user_id: this.userInfo.id,t:nowTime}
             this.QRStr = JSON.stringify(str)
         },
         async startLoopFn (id) {
             this.loopCount++
-            if (this.loopCount >= 12) {     
+            if (this.loopCount >= 15) {     
                 this.showQRBox = false    
                 this.loopCount = 0       
                 this.$tip.toast('支付超时','none')

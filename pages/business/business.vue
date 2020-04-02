@@ -83,7 +83,7 @@ export default {
     align-items: center;
 }
 .activ-style {
-    color: #FFAF07;
+    color: #F539BB;
 }
 .tab-btn img{
     width: 55upx;

@@ -122,7 +122,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var businessMainPage = function businessMainPage() {return Promise.all(/*! import() | components/businessMainPage */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/businessMainPage")]).then(__webpack_require__.bind(null, /*! ../../components/businessMainPage */ 155));};var statisticsPage = function statisticsPage() {return __webpack_require__.e(/*! import() | components/statisticsPage */ "components/statisticsPage").then(__webpack_require__.bind(null, /*! ../../components/statisticsPage */ 162));};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var businessMainPage = function businessMainPage() {return Promise.all(/*! import() | components/businessMainPage */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/businessMainPage")]).then(__webpack_require__.bind(null, /*! ../../components/businessMainPage */ 155));};var statisticsPage = function statisticsPage() {return Promise.all(/*! import() | components/statisticsPage */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/statisticsPage")]).then(__webpack_require__.bind(null, /*! ../../components/statisticsPage */ 162));};var _default =
 
 
 

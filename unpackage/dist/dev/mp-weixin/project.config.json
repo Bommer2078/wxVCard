@@ -7,7 +7,7 @@
 		"urlCheck": false
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.7.7",
+	"libVersion": "2.7.0",
 	"appid": "wx2016b1a490fe007c",
 	"projectname": "权益卡小程序",
 	"simulatorType": "wechat",

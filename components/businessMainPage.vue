@@ -46,11 +46,11 @@ export default {
         },
         async postData (val) {
             let temp = JSON.parse(val)
-            // let now = new Date().getTime()
-            // if (now - temp.t > 120000) {
-            //     this.$tip.alertDialog('该二维码已超过两分钟有效时间，请提示用户刷新二维码后重试')
-            //     return 
-            // }
+            let now = new Date().getTime()
+            if ((now - temp.t) > 175000 || !temp.t) {
+                this.$tip.alertDialog('二维码已过期，请提示用户刷新二维码后重试')
+                return 
+            }
             let params = {
                 ...temp
             }

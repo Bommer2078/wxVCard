@@ -106,10 +106,28 @@
         color: #000;
         font-size: 30rpx;
 }
-.statistics-page .statistics-list .statistics-item .created-time {
-        color: #000;
-        margin-left: auto;
+.statistics-page .statistics-list .statistics-item .order-statu {
+        height: 155rpx;
         margin-right: 30rpx;
+        margin-left: auto;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -webkit-flex-direction: column;
+            -ms-flex-direction: column;
+                flex-direction: column;
+        -webkit-box-align: end;
+        -webkit-align-items: flex-end;
+            -ms-flex-align: end;
+                align-items: flex-end;
+        -webkit-box-pack: justify;
+        -webkit-justify-content: space-between;
+            -ms-flex-pack: justify;
+                justify-content: space-between;
         font-size: 28rpx;
+        color: #000;
 }
 

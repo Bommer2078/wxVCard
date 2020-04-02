@@ -9,16 +9,20 @@
                 @enter="handleSearch">
             <view class="search-btn" @click="handleSearch">搜索</view>
         </view>        
-        <picker mode="date" :value="date" start="2019-10-29" :end="endDate" @change="bindDateChange" class="date-select">
+        <picker mode="date" :value="date" start="2020-01-01" :end="endDate" @change="bindDateChange" class="date-select">
             <view class="uni-input">{{date}}</view>
         </picker>
-        <view class="num-conf">今日使用权益用户数量：<text>33</text></view>
-        <view class="num-conf">使用权益总量：<text>368</text></view>
+        <view class="num-conf">当日使用权益用户数量：<text>{{todayNum}}</text></view>
+        <view class="num-conf">使用权益总量：<text>{{allNum}}</text></view>
         <view class="statistics-list">
-            <view class="statistics-item">
-                <image src=""/>
-                <text class="user-name">用户名</text>
-                <text class="created-time">2019-08-11 19:46</text>
+            <view class="statistics-item" v-for="item in orderList" :key="item.id">
+                <image :src="item.avatar || '/static/avatar.svg'"/>
+                <text class="user-name">{{item.nickname}}</text>
+                <view class="order-statu">
+                    <text>{{item.card.name}}</text>
+                    <text class="created-time">{{item.paid_date}}</text>                    
+                    <text>{{item.paid_state | payText}}</text>
+                </view>
             </view>
         </view>
     </view>
@@ -27,20 +31,54 @@
 <script>
 export default {
     data () {
-        const currentDate = this.getDate()
         return {
-            searchContent: '',       
-            date: currentDate,
+            searchContent: '',  
+            currentDate: '',
+            date: this.getDate(),
+            allNum: 0,
+            todayNum: 0,
+            orderList: []
         }
     },
+    filters: {
+        //paid_state：支付状态，-1：支付失败，0：未支付，1：预支付，10：已支付
+        payText (val) {
+            let text = ''
+            switch (val) {
+                case -1:
+                    text = '支付失败'
+                    break;
+                case 0:
+                    text = '未支付'
+                    break;
+                case 1:
+                    text = '预支付'
+                    break;
+                case 10:
+                    text = '已支付'
+                    break;            
+                default:                    
+                    text = '未支付'
+                    break;
+            }
+            return text
+        }
+    },
+    created() {
+        this.getDate()
+        this.getStatisticsList(true)
+    },
     computed: {
+        startDate() {
+            return this.getDate('start');
+        },
         endDate() {
-            return this.getDate()
+            return this.getDate('end')
         }
     },
     methods: {  
         handleSearch () {
-
+            this.getStatisticsList(false)
         },
         bindDateChange(e) {
             this.searchContent = ''
@@ -60,10 +98,25 @@ export default {
             }
             month = month > 9 ? month : '0' + month;;
             day = day > 9 ? day : '0' + day;
-            return `${year}-${month}-${day}`;
+            let str = `${year}-${month}-${day}`
+            this.currentDate = str
+            return str;
         },
-        getStatisticsList () {
-
+       async getStatisticsList (b) {
+            const params  = {
+                page: 1,
+                pageSize: 100,
+                nickname: this.searchContent,
+                paid_at: this.date
+            }
+            const res = await this.$api.adminOrderList(params)
+            if (res.code === 0) {
+                this.orderList = res.data.data
+                if (b) {                    
+                    this.todayNum = res.data.total
+                }
+                this.allNum = res.order_all_num
+            }
         }
     },
 }
@@ -147,11 +200,16 @@ export default {
                 color: #000;
                 font-size: 30rpx;
             }
-            .created-time {
-                color: #000;
-                margin-left: auto;
+            .order-statu {
+                height: 155rpx;
                 margin-right: 30rpx;
+                margin-left: auto;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
+                justify-content: space-between;
                 font-size: 28rpx;
+                color: #000;
             }
         }
     }

@@ -18,7 +18,7 @@
                     </view>
                     <view class="order-info">
                         <view class="order-title">
-                            <image src=""/>
+                            <image src="/static/self/ticket.svg"/>
                             <view class="order-name">{{item.venue.name}}</view>
                         </view>
                         <view class="order-time-price">
@@ -66,7 +66,7 @@
 export default {
     data() {
         return {
-            currentTab: 'vcard',
+            currentTab: 'venue',
             cardList: [],
             venueArr: []
         }

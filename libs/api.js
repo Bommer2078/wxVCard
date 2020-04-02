@@ -15,6 +15,7 @@ const getAboutInfo = () => http.get(`/config/details`); // 關於
 const loopPayOrder = (params) => http.post(`/order/loop_pay_order`,params); // 用户轮询
 const venueOrder = (params) => http.post(`/order/pay_venue`,params); // 管理员下单
 const adminLoopOrder = (params) => http.post(`/order/admin_loop_order`,params); // 管理员轮询
+const adminOrderList = (params) => http.post(`/order/admin_list`,params); // 管理员轮询
 let api = {
     login: login,
     saveUserInfo: saveUserInfo,
@@ -31,6 +32,7 @@ let api = {
     getAboutInfo: getAboutInfo,
     loopPayOrder: loopPayOrder,
     venueOrder: venueOrder,
-    adminLoopOrder: adminLoopOrder
+    adminLoopOrder: adminLoopOrder,
+    adminOrderList: adminOrderList
 };
 export default api;

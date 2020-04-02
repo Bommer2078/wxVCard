@@ -40,7 +40,7 @@
             align-items: center;
 }
 .activ-style {
-    color: #FFAF07;
+    color: #F539BB;
 }
 .tab-btn ._img{
     width: 55rpx;

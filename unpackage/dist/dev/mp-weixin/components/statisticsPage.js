@@ -73,6 +73,23 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var l0 = _vm.__map(_vm.orderList, function(item, __i0__) {
+    var f0 = _vm._f("payText")(item.paid_state)
+
+    return {
+      $orig: _vm.__get_orig(item),
+      f0: f0
+    }
+  })
+
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        l0: l0
+      }
+    }
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -105,7 +122,11 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 27));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};} //
+//
+//
+//
+//
 //
 //
 //
@@ -134,20 +155,54 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 var _default =
 {
   data: function data() {
-    var currentDate = this.getDate();
     return {
       searchContent: '',
-      date: currentDate };
+      currentDate: '',
+      date: this.getDate(),
+      allNum: 0,
+      todayNum: 0,
+      orderList: [] };
 
   },
+  filters: {
+    //paid_state：支付状态，-1：支付失败，0：未支付，1：预支付，10：已支付
+    payText: function payText(val) {
+      var text = '';
+      switch (val) {
+        case -1:
+          text = '支付失败';
+          break;
+        case 0:
+          text = '未支付';
+          break;
+        case 1:
+          text = '预支付';
+          break;
+        case 10:
+          text = '已支付';
+          break;
+        default:
+          text = '未支付';
+          break;}
+
+      return text;
+    } },
+
+  created: function created() {
+    this.getDate();
+    this.getStatisticsList(true);
+  },
   computed: {
+    startDate: function startDate() {
+      return this.getDate('start');
+    },
     endDate: function endDate() {
-      return this.getDate();
+      return this.getDate('end');
     } },
 
   methods: {
     handleSearch: function handleSearch() {
-
+      this.getStatisticsList(false);
     },
     bindDateChange: function bindDateChange(e) {
       this.searchContent = '';
@@ -167,11 +222,25 @@ var _default =
       }
       month = month > 9 ? month : '0' + month;;
       day = day > 9 ? day : '0' + day;
-      return "".concat(year, "-").concat(month, "-").concat(day);
+      var str = "".concat(year, "-").concat(month, "-").concat(day);
+      this.currentDate = str;
+      return str;
     },
-    getStatisticsList: function getStatisticsList() {
+    getStatisticsList: function () {var _getStatisticsList = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee(b) {var params, res;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
+                params = {
+                  page: 1,
+                  pageSize: 100,
+                  nickname: this.searchContent,
+                  paid_at: this.date };_context.next = 3;return (
 
-    } } };exports.default = _default;
+                  this.$api.adminOrderList(params));case 3:res = _context.sent;
+                if (res.code === 0) {
+                  this.orderList = res.data.data;
+                  if (b) {
+                    this.todayNum = res.data.total;
+                  }
+                  this.allNum = res.order_all_num;
+                }case 5:case "end":return _context.stop();}}}, _callee, this);}));function getStatisticsList(_x) {return _getStatisticsList.apply(this, arguments);}return getStatisticsList;}() } };exports.default = _default;
 
 /***/ }),
 

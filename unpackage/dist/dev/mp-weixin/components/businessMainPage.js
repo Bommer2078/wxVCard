@@ -151,23 +151,23 @@ var _vuex = __webpack_require__(/*! vuex */ 16);function _interopRequireDefault(
         } });
 
     },
-    postData: function () {var _postData = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee(val) {var temp, params, res;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
+    postData: function () {var _postData = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee(val) {var temp, now, params, res;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
                 temp = JSON.parse(val);
-                // let now = new Date().getTime()
-                // if (now - temp.t > 120000) {
-                //     this.$tip.alertDialog('该二维码已超过两分钟有效时间，请提示用户刷新二维码后重试')
-                //     return 
-                // }
-                params = _objectSpread({},
-                temp);_context.next = 4;return (
+                now = new Date().getTime();if (!(
+                now - temp.t > 175000 || !temp.t)) {_context.next = 5;break;}
+                this.$tip.alertDialog('二维码已过期，请提示用户刷新二维码后重试');return _context.abrupt("return");case 5:
 
-                  this.$api.venueOrder(params));case 4:res = _context.sent;
+
+                params = _objectSpread({},
+                temp);_context.next = 8;return (
+
+                  this.$api.venueOrder(params));case 8:res = _context.sent;
                 if (res.code === 0) {
                   this.showWaiting = true;
                   this.adminLoopFn(res.data.id);
                 } else {
                   this.$tip.alertDialog('扫描失败，请重试', '知道了');
-                }case 6:case "end":return _context.stop();}}}, _callee, this);}));function postData(_x) {return _postData.apply(this, arguments);}return postData;}(),
+                }case 10:case "end":return _context.stop();}}}, _callee, this);}));function postData(_x) {return _postData.apply(this, arguments);}return postData;}(),
 
     adminLoopFn: function () {var _adminLoopFn = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2(id) {var params, res;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:
                 this.loopCount++;if (!(
