@@ -46,7 +46,8 @@
         </view>
         <view class="QR-container" v-if="showQRBox">   
             <view class="mask"></view>       
-            <view class="container">
+            <view class="container">                
+                <img src="/static/close.svg" @click="closeQR" class="close-icon">
                 <tki-qrcode size="400" unit="upx" background="transparent" :onval="true" @result="getQRBack" :val="QRStr"  ref="qrcode"></tki-qrcode>
                 <view class="QR-warning">请向场馆工作人员出示该二维码</view>
                 <view class="QR-warning">并保持该页面不要关闭</view>
@@ -135,6 +136,11 @@ export default {
             this.creatQrcode()
             this.showQRBox = true                 
             this.startLoopFn(this.currentCard.id)
+        },
+        closeQR () {            
+            this.$tip.toast('取消出示','none')
+            this.$http.abort()
+            this.showQRBox = false
         },
         getQRBack (res) {
 
@@ -313,6 +319,7 @@ export default {
             z-index: 10;
         }
         .container {
+            position: relative;
             display: flex;
             align-items: center;
             flex-direction: column;
@@ -328,6 +335,13 @@ export default {
             z-index: 11;
             border-radius: 10rpx;
             padding-top: 40rpx;
+            .close-icon {
+                position: absolute;
+                top: -25rpx;
+                right: -25rpx;
+                width: 50rpx;
+                height: 50rpx;
+            }
         }
         .QR-warning {
             margin-top:10rpx;

@@ -12,11 +12,11 @@
         <picker mode="date" :value="date" start="2020-01-01" :end="endDate" @change="bindDateChange" class="date-select">
             <view class="uni-input">{{date}}</view>
         </picker>
-        <view class="num-conf">当日使用权益用户数量：<text>{{todayNum}}</text></view>
-        <view class="num-conf">使用权益总量：<text>{{allNum}}</text></view>
+        <view class="num-conf">当日使用权益用户数量：<text class="text">{{todayNum}}</text></view>
+        <view class="num-conf">使用权益总量：<text class="text">{{allNum}}</text></view>
         <view class="statistics-list">
             <view class="statistics-item" v-for="item in orderList" :key="item.id">
-                <image :src="item.avatar || '/static/avatar.svg'"/>
+                <image :src="item.avatar || '/static/avatar.svg'" class="user-header"/>
                 <text class="user-name">{{item.nickname}}</text>
                 <view class="order-statu">
                     <text>{{item.card.name}}</text>
@@ -169,7 +169,7 @@ export default {
         color: #666666;
         margin-right: 30rpx;
         margin-bottom: 30rpx;
-        text {
+        .text {
             color: #FF324A;            
             font-size: 33rpx;
         }
@@ -189,7 +189,7 @@ export default {
             background: #fff;
             border-radius:8rpx;
             margin-bottom: 5rpx;
-            image {
+            .user-header {
                 width: 130rpx;
                 height: 130rpx;
                 border-radius: 50%;

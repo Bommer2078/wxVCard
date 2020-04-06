@@ -55,7 +55,7 @@
     margin-right: 30rpx;
     margin-bottom: 30rpx;
 }
-.statistics-page .num-conf text {
+.statistics-page .num-conf .text {
       color: #FF324A;
       font-size: 33rpx;
 }
@@ -95,7 +95,7 @@
       border-radius: 8rpx;
       margin-bottom: 5rpx;
 }
-.statistics-page .statistics-list .statistics-item image {
+.statistics-page .statistics-list .statistics-item .user-header {
         width: 130rpx;
         height: 130rpx;
         border-radius: 50%;

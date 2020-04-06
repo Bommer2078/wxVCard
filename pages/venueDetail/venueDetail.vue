@@ -168,7 +168,7 @@ export default {
 .detail-page {
     position: relative;
     width: 100%;
-    padding-top: 720rpx;
+    padding-top: 740rpx;
     background: #F3F3F3;
     .navigator-title {
         position: absolute;
@@ -193,7 +193,7 @@ export default {
         left: 50%;
         margin-left: -360rpx;
         width: 720rpx;
-        height:551rpx;
+        height:570rpx;
         padding-top: 40rpx;
         padding-bottom: 30rpx;
         border-radius:20rpx;
@@ -202,13 +202,13 @@ export default {
         .swiper {
             height: 335rpx;
             .swiper-item {
-                padding-left: 25rpx;
+                padding-left: 15rpx;
                 padding-right: 15rpx;
                 background: #fff;
                 .swiper-imgs {
                     width:600rpx;
                     height:310rpx;
-                    border-radius:28rpx;
+                    border-radius:20rpx;
                 }
                 .scale-img {
                     transform: scale(0.9);
@@ -250,7 +250,6 @@ export default {
             .venue-info1,.venue-info2 {
                 display: flex;
                 width: 100%;
-                height: 52rpx;
                 flex-direction: row;
                 justify-content: space-between;
                 font-size: 0rpx;
@@ -318,28 +317,6 @@ export default {
             padding-top: 10rpx;
             .content-name-text {
                 position: relative;
-                &::before {
-                    position: absolute;
-                    top: 16px;
-                    left: 12px;
-                    content: '';
-                    width: 82rpx;
-                    height: 6px;
-                    background: #FF3276;
-                    border-radius: 3px;
-                    z-index: 2;
-                }
-                &::after {
-                    position: absolute;    
-                    top: 20px;
-                    left: 24px;
-                    content: '';
-                    width: 60rpx;
-                    height: 6px;
-                    background: #FFA8C5;
-                    border-radius: 3px;
-                    z-index: 1;
-                }
             }
             .location-icon {
                 margin-right: 10rpx;

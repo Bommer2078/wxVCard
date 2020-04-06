@@ -230,28 +230,6 @@ export default {
             padding-top: 10rpx;
             .content-name-text {
                 position: relative;
-                &::before {
-                    position: absolute;
-                    top: 16px;
-                    left: 12px;
-                    content: '';
-                    width: 82rpx;
-                    height: 6px;
-                    background: #FF3276;
-                    border-radius: 3px;
-                    z-index: 2;
-                }
-                &::after {
-                    position: absolute;    
-                    top: 20px;
-                    left: 24px;
-                    content: '';
-                    width: 60rpx;
-                    height: 6px;
-                    background: #FFA8C5;
-                    border-radius: 3px;
-                    z-index: 1;
-                }
             }
             .location-icon {
                 margin-right: 10rpx;

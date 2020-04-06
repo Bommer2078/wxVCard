@@ -1,6 +1,6 @@
 import tip from '@/utils/tip'
 import store from '@/store'
-let baseUrl = 'http://hugo.lingqi100.cn/api'
+let baseUrl = 'https://hugo.lingqi100.cn/api'
 let httpNum = 0;
 let http = {
 	post: "",

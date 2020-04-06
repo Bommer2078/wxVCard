@@ -150,28 +150,6 @@
 .card-detail .info-content .content-name .content-name-text {
         position: relative;
 }
-.card-detail .info-content .content-name .content-name-text::before {
-          position: absolute;
-          top: 16px;
-          left: 12px;
-          content: '';
-          width: 82rpx;
-          height: 6px;
-          background: #FF3276;
-          border-radius: 3px;
-          z-index: 2;
-}
-.card-detail .info-content .content-name .content-name-text::after {
-          position: absolute;
-          top: 20px;
-          left: 24px;
-          content: '';
-          width: 60rpx;
-          height: 6px;
-          background: #FFA8C5;
-          border-radius: 3px;
-          z-index: 1;
-}
 .card-detail .info-content .content-name .location-icon {
         margin-right: 10rpx;
         width: 32rpx;
