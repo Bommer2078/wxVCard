@@ -7,23 +7,23 @@
                     <input type="text" placeholder="请输入券码 不区分大小写" v-model.trim="exchangeCode" maxlength="20">
                 </view>
                 <view class="exchange-btn" @click="handleExchange">兑换</view>
-                <view class="exchange-tip">优惠优惠优惠优惠优惠优惠优惠优惠优惠优惠优惠优惠</view>
+                <view class="exchange-tip">请输入{{vCardBaseInfo && vCardBaseInfo.name}}的兑换码</view>
             </view>
         </view>
     </view>
 </template>
 
 <script>
-export default {    
-    onLoad (option) {
-        this.vCardId = option.id
-    },
+import { mapState } from 'vuex'
+export default { 
     data() {
         return {
             exchangeCode: '',
-            forbidClick: false,
-            vCardId: ''
+            forbidClick: false
         }
+    },
+    computed: {
+        ...mapState(['vCardBaseInfo'])
     },
     methods: {
         async handleExchange () {
@@ -32,14 +32,15 @@ export default {
             this.forbidClick = true
             let params = {
                 code: this.exchangeCode,
-                card_id: this.vCardId
+                card_id: this.vCardBaseInfo.id || ''
             }
             const res = await this.$api.exchangeCard(params)
             this.forbidClick = false
             if (res.code === 0) {
                 this.$tip.toast('兑换成功')
+                wx.navigateBack();
             } else {
-                this.$tip.toast(res.msg)
+                this.$tip.toast(res.msg,'none')
             }
         },
         checkForm () {
@@ -108,7 +109,7 @@ export default {
             }
             .exchange-tip {
                 width: 516rpx;
-                font-size: 18rpx;
+                font-size: 22rpx;
                 color: #999999;
                 margin-left: 28rpx;
             }

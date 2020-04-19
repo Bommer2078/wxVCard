@@ -17,10 +17,35 @@
                     </view>
                     <view class="search-btn">搜 索</view>
                 </view>
-                <view class="banner-cover" @click="intoVCard">                    
-                    <view class="banner">
+                <view class="banner-cover" @click="intoVCard">    
+                    <swiper 
+                        class="swiper-cover" 
+                        :indicator-dots="false" 
+                        :autoplay="false" 
+                        :interval="5000" 
+                        :duration="500"
+                        :circular="false"
+                        next-margin="36rpx"
+                        previous-margin="36rpx"            
+                        @change="handleBannerChange">
+                        <swiper-item v-for="(item,index) in vCardBaseInfo.banner" :key="item">
+                            <view class="swiper-item">
+                                <image 
+                                    class="swiper-imgs"
+                                    :src="item"
+                                    :class="{'scale-img': index !== currentBannerIndex}"/>
+                            </view>
+                        </swiper-item>
+                    </swiper>                                 
+                    <view class="indicator-dots" >
+                        <view 
+                            class="dots" 
+                            :class="{'dot-active':index === currentBannerIndex }"
+                            v-for="(item,index) in vCardBaseInfo.banner" :key="index"></view>
+                    </view>           
+                    <!-- <view class="banner">
                         <img :src="vCardBaseInfo.banner ? vCardBaseInfo.banner[0] : ''">
-                    </view>
+                    </view> -->
                 </view>
             </view>            
         </view>
@@ -58,7 +83,8 @@
             return {
                 total: 0,
                 venueArr: [],
-                phoneCall :'4006099109'
+                phoneCall :'4006099109',
+                currentBannerIndex: 0
             }
         },
         computed: {
@@ -74,7 +100,10 @@
         onShow() {                     
             // this.initGlobalData()    
         },
-        methods: {
+        methods: {       
+            handleBannerChange (e) {
+                this.currentBannerIndex = e.detail.current
+            },
             initParams () {
                 if (this.roleType === 'business') {
                     uni.reLaunch({
@@ -174,7 +203,7 @@
         position: relative;
         width: 100%;
         height: 510rpx;
-        margin-bottom: 5px;
+        margin-bottom: 4px;
         .ticket-container {
             position: absolute;
             display: flex;
@@ -230,16 +259,41 @@
                 padding-top: 13rpx; 
                 background: #fff;
                 margin-bottom: 8rpx;
-                .banner {
-                    width: 85%;
+                .swiper-cover {
+                    width: 100%;
                     height: 300rpx;
-                    margin: 0 auto;
-                    background: #F6F6F6;
+                }
+                .swiper-item {                    
+                    padding-left: 15rpx;
+                    padding-right: 15rpx;
                     border-radius: 6px;
                     overflow: hidden;
-                    img{
-                        width: 100%;
-                        height: 310rpx;
+                    .swiper-imgs {
+                        width: 640rpx;
+                        height: 300rpx;                        
+                        border-radius:20rpx;
+                    }
+                }
+                .indicator-dots {  
+                    margin-top: 20rpx;
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    .dots + .dots {
+                        margin-left: 10rpx;
+                    }
+                    .dots {
+                        width:34rpx;
+                        height:8rpx;
+                        background:rgba(203,203,203,1);
+                        border-radius:4rpx;
+                    }
+                    .dot-active {
+                        width:42rpx;
+                        height:10rpx;
+                        background:rgba(45,45,45,1);
+                        border-radius:5rpx;
                     }
                 }
             }            
@@ -265,9 +319,9 @@
                    .search-img {
                         position: absolute;
                         left: 15rpx;
-                        top: 10rpx;
-                        width: 30rpx;
-                        height: 30rpx;
+                        top: 15rpx;
+                        width: 22rpx;
+                        height: 22rpx;
                     }
                 }
                 .search-btn {
@@ -311,6 +365,28 @@
                     text {
                         position: absolute;
                         z-index: 3;
+                    }
+                    &::after {
+                        content: '';
+                        position: absolute;
+                        bottom: 0;
+                        left: 22rpx;
+                        width:82rpx;
+                        height:12rpx;
+                        background:rgba(255,50,118,1);
+                        border-radius:6rpx;
+                        z-index: 2;
+                    }
+                    &::before {
+                        content: '';
+                        position: absolute;
+                        bottom: -6rpx;
+                        left: 45rpx;
+                        width:60rpx;
+                        height:12rpx;
+                        background:rgba(255,168,197,1);
+                        border-radius:6rpx;
+                        z-index: 1;
                     }
                 }                
                 .more {
@@ -363,8 +439,8 @@
                 }
             }
             .border-split {
-                width: 100%;
-                height: 6rpx;
+                width: calc(100% + 28rpx);
+                height: 4px;
                 background: #F7F7F7;;
             }
         }

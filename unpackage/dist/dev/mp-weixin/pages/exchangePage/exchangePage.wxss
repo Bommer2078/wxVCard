@@ -78,7 +78,7 @@
 }
 .exchange-page .exchange-cover .exchange-box .exchange-tip {
         width: 516rpx;
-        font-size: 18rpx;
+        font-size: 22rpx;
         color: #999999;
         margin-left: 28rpx;
 }

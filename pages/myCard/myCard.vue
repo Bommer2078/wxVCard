@@ -12,14 +12,32 @@
             @change="handleBannerChange">
             <swiper-item v-for="(item,index) in myCardArr" :key="item">
                 <view class="swiper-item">
-                    <image 
-                        :src="vCardBaseInfo.banner[0]"
-                        :class="{'scale-img': index !== currentBannerIndex}"/>
+                    <div :class="{'scale-img': index !== currentBannerIndex}" class="card-cover">                         
+                        <text class="location-name">长沙</text>
+                        <text class="user-name">{{userInfo.nickname}}</text>
+                        <text class="due-date">{{item.due_date | timeText}}</text>
+                        <image class="user-header" :src="userInfo.avatar">                    
+                        <image src="/static/mycard/locationIcon.png" class="location-icon">                    
+                        <image src="/static/mycard/QRIcon.png" class="QR-icon" @click="showQR">                     
+                        <image src="/static/mycard/vipIcon.png" class="vip-icon">                     
+                        <image 
+                            class="bg-icon"
+                            v-if="index % 3 === 0"
+                            src="/static/mycard/cardBg1.png"/>
+                        <image 
+                            class="bg-icon"
+                            v-if="index % 3 === 1"
+                            src="/static/mycard/cardBg2.png"/>
+                        <image 
+                            class="bg-icon"
+                            v-if="index % 3 === 2"
+                            src="/static/mycard/cardBg3.png"/>
+                    </div>
                 </view>
             </swiper-item>
         </swiper>
         <view class="my-card-container">
-            <view class="part-container">                
+            <!-- <view class="part-container">                
                 <view class="part-title">                    
                     <img src="/static/rules.svg" class="list-icon">
                     <text>{{currentCard.name}}</text> 
@@ -28,19 +46,14 @@
                 <view class="part-body QR-part">
                     <img src="/static/qrCover.svg" class="qr-cover" @click="showQR">
                     <view class="qr-tip">点击上方图标，出示权益卡二维码</view> </view>
-            </view>
+            </view> -->
             <view class="part-container">                
                 <view class="part-title">
                     <img src="/static/rules.svg" class="list-icon">
-                    <text>使用规则</text> 
+                    <text>权益介绍</text> 
                 </view>
                 <view class="part-body">                    
-                    <text>1.xxxxxxxx</text>
-                    <text>1.xxxxxxxx</text>
-                    <text>1.xxxxxxxx</text>
-                    <text>1.xxxxxxxx</text>
-                    <text>1.xxxxxxxx</text>
-                    <text>1.xxxxxxxx</text>
+                    <rich-text :nodes="processImg"></rich-text>
                 </view>
             </view>
         </view>
@@ -49,8 +62,10 @@
             <view class="container">                
                 <img src="/static/close.svg" @click="closeQR" class="close-icon">
                 <tki-qrcode size="400" unit="upx" background="transparent" :onval="true" @result="getQRBack" :val="QRStr"  ref="qrcode"></tki-qrcode>
-                <view class="QR-warning">请向场馆工作人员出示该二维码</view>
-                <view class="QR-warning">并保持该页面不要关闭</view>
+                <view class="QR-warning">
+                    <view>请向场馆工作人员出示该二维码</view>
+                    <view>并保持该页面不要关闭</view>
+                </view>
             </view>  
         </view>
     </view>
@@ -86,6 +101,18 @@ export default {
             }
         }
     },
+    filters: {
+        timeText (val) {
+            if (val.day + val.sec + val.hour + val.min === 0) {
+                return '权益已过期'
+            }
+            let now = new Date().getTime()
+            let str = val.day * 8.64e7 +   val.hour * 3.6e6 + val.min * 6e4 + val.sec * 1000
+            let thenT = new Date(str + now)
+            let temp = `${thenT.getFullYear()}-${thenT.getMonth() + 1}-${thenT.getDate()}`
+            return `${temp}到期`
+        }
+    },
     onShow() {
         this.getMyCard()
     },
@@ -115,6 +142,12 @@ export default {
         }
     },
     methods: {
+        processImg () {
+            if (!this.currentCard) return
+            console.log(this.currentCard)
+            let val = this.currentCard.remark
+            return val.replace(/\<img/g, '<img style="max-width:100%;height:auto" ')
+        },
         async getMyCard() {
             const res = await this.$api.myCardList()
             if (res.code === 0) {
@@ -135,7 +168,7 @@ export default {
         showQR () {            
             this.creatQrcode()
             this.showQRBox = true                 
-            this.startLoopFn(this.currentCard.id)
+            // this.startLoopFn(this.currentCard.id)
         },
         closeQR () {            
             this.$tip.toast('取消出示','none')
@@ -180,7 +213,8 @@ export default {
                 this.handleWxPay(res.data.order_id) 
             } else if (res.code === 100) {
                 this.startLoopFn(id)
-            } else {
+            } else {           
+                this.showQRBox = false
                 this.$tip.toast(res.msg,'none')
             }
         },
@@ -237,7 +271,56 @@ export default {
                padding-left: 20rpx;
                padding-right: 20rpx;
                padding-top: 20rpx;
-                image {
+                .card-cover {
+                    position: relative;                    
+                    .location-name, .user-name, .due-date, .user-header, .location-icon, .QR-icon, .vip-icon{
+                        position: absolute;
+                    }
+                    .location-name {
+                        color: #fff;
+                        font-size: 28rpx;
+                        bottom: 16rpx;
+                        right: 16rpx;
+                    }
+                    .user-name {
+                        font-size: 22rpx;
+                        color: #fff;
+                        top: 32rpx;
+                        left: 105rpx;
+                    }
+                    .due-date {
+                        font-size: 24rpx;
+                        color: #fff;
+                        bottom: 24rpx;
+                        left: 30rpx;
+                    }
+                    .user-header {
+                        border-radius: 50%;
+                        width: 76rpx;
+                        height: 76rpx;
+                        left: 20rpx;
+                        top: 20rpx;
+                    }
+                    .location-icon {
+                        bottom: 15rpx;
+                        right: 70rpx;
+                        width:26rpx;
+                        height:26rpx;
+                    }
+                    .QR-icon {
+                        right: 20rpx;                      
+                        top: 20rpx; 
+                        width:40rpx;
+                        height:40rpx;
+                    }
+                    .vip-icon {               
+                        left: 108rpx;                      
+                        top: 71rpx;                      
+                        width:20rpx;
+                        height:20rpx;
+                    }
+                }
+                .bg-icon {
                     width: 100%;
                     height: 325rpx;
                     margin-left:auto;
@@ -315,7 +398,7 @@ export default {
             right:0;
             bottom:0;
             background: #888;
-            opacity: .5;
+            opacity: .7;
             z-index: 10;
         }
         .container {
@@ -323,10 +406,10 @@ export default {
             display: flex;
             align-items: center;
             flex-direction: column;
-            width: 600rpx;
-            height: 600rpx;
+            width: 460rpx;
+            height: 460rpx;
             position: fixed;
-            top:0;
+            top: -100rpx;
             left:0;
             right:0;
             bottom:0;
@@ -334,17 +417,25 @@ export default {
             background: #fff;
             z-index: 11;
             border-radius: 10rpx;
-            padding-top: 40rpx;
+            padding-top: 30rpx;
             .close-icon {
                 position: absolute;
-                top: -25rpx;
-                right: -25rpx;
-                width: 50rpx;
-                height: 50rpx;
+                bottom: -120rpx;
+                right: auto;
+                left: auto;
+                width: 68rpx;
+                height: 68rpx;
             }
         }
         .QR-warning {
-            margin-top:10rpx;
+            position: absolute;
+            top: -100rpx;
+            text-align: center;
+            view {
+                font-size: 28rpx;
+                color: #fff;
+                margin-bottom: 10rpx;
+            }
         }
     }
 </style>

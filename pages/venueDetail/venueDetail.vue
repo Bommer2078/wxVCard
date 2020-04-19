@@ -317,6 +317,7 @@ export default {
             padding-top: 10rpx;
             .content-name-text {
                 position: relative;
+                font-size: 32rpx;
             }
             .location-icon {
                 margin-right: 10rpx;

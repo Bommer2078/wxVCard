@@ -4,7 +4,30 @@
         <template v-if="vCardData">            
             <image :src="vCardData.banner[0]" class="bg-imgs"/>
             <view class="vCard-info-cover">
-                <image class="vCard-banner" :src="vCardData.banner[0]" />
+                <swiper class="swiper" 
+                    :indicator-dots="false" 
+                    :autoplay="true" 
+                    :interval="5000" 
+                    :duration="500"
+                    :circular="true"
+                    @change="handleBannerChange"
+                    next-margin="100rpx">
+                    <swiper-item v-for="(item,index) in vCardData.banner" :key="item">
+                        <view class="swiper-item" @click="handleImgClick(index)">
+                            <image 
+                                :src="item" 
+                                class="swiper-imgs" 
+                                :class="{'scale-img': index !== currentBannerIndex}"/>
+                        </view>
+                    </swiper-item>
+                </swiper>                
+                <view class="indicator-dots" >
+                    <view 
+                        class="dots" 
+                        :class="{'dot-active':index === currentBannerIndex }"
+                        v-for="(item,index) in vCardData.banner" :key="index"></view>
+                </view>
+                <!-- <image class="vCard-banner" :src="vCardData.banner[0]" /> -->
                 <view class="vCard-summray-cover">                    
                     <view class="vCard-title">{{vCardData.name}}</view>
                     <view class="vCard-info">
@@ -53,6 +76,7 @@ export default {
         return {
             vCardData: null,
             vCardId: '',
+            currentBannerIndex: 0
         }
     },
     computed: {
@@ -83,7 +107,10 @@ export default {
             }
         }
     },
-    methods: {
+    methods: {        
+        handleBannerChange (e) {
+            this.currentBannerIndex = e.detail.current
+        },
         handleImgClick (index) {
             const current = this.vCardData.banner[index]
                 wx.previewImage({
@@ -142,20 +169,58 @@ export default {
         z-index: 1;
     }
     .vCard-info-cover {    
-        display: flex;
-        flex-direction: column; 
-        align-items: center;   
         position: absolute;
         top: 140rpx;
         left: 50%;
         margin-left: -360rpx;
         width: 720rpx;
         height:551rpx;
+        display: flex;
+        flex-direction: column; 
+        align-items: center;   
         padding-top: 30rpx;
         padding-bottom: 30rpx;
         border-radius:20rpx;
         background: #fff;
         z-index: 2;
+        .swiper {
+            width: 100%;
+            height: 335rpx;
+            .swiper-item {
+                background: #fff;
+                padding-left: 20rpx;
+                padding-right: 20rpx;
+                .swiper-imgs {
+                    width:600rpx;
+                    height:310rpx;
+                    border-radius:20rpx;
+                }
+                .scale-img {
+                    transform: scale(0.9);
+                }
+            }
+        }
+        .indicator-dots {  
+            margin-top: -10rpx;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            .dots + .dots {
+                margin-left: 10rpx;
+            }
+            .dots {
+                width: 12rpx;
+                height: 8rpx;
+                background: #CBCBCB;
+                border-radius: 4rpx;
+            }
+            .dot-active {
+                width: 22rpx;
+                height: 8rpx;
+                background: #2D2D2D;
+            }
+        }
         .vCard-banner {
             display: inline-block;
             width: 680rpx;
@@ -230,6 +295,7 @@ export default {
             padding-top: 10rpx;
             .content-name-text {
                 position: relative;
+                font-size: 32rpx;
             }
             .location-icon {
                 margin-right: 10rpx;

@@ -38,6 +38,11 @@
                     </view>
                 </view>
                 <view class="user-body user-body-end">
+                    <view class="item" @tap="gotoExchangePage">
+                        <img src="/static/self/edit.svg">
+                        <text class="lable">兑换码/优惠券</text>
+                        <view class="icon-arrow"></view>
+                    </view>
                     <view class="item" @tap="showAbout">
                         <img src="/static/self/edit.svg">
                         <text class="lable">关于</text>
@@ -111,6 +116,11 @@
                             this.isBusiness = true
                         }
                     }
+                })
+            },
+            gotoExchangePage () {                
+                uni.navigateTo({
+                    url: `/pages/exchangePage/exchangePage`
                 })
             },
             showAbout () {

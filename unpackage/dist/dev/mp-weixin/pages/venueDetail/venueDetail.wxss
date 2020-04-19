@@ -203,6 +203,7 @@
 }
 .detail-page .info-content .content-name .content-name-text {
         position: relative;
+        font-size: 32rpx;
 }
 .detail-page .info-content .content-name .location-icon {
         margin-right: 10rpx;

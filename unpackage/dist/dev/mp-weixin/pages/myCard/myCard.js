@@ -90,13 +90,20 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  var f0 = _vm._f("dueDateText")(_vm.currentCard)
+  var l0 = _vm.__map(_vm.myCardArr, function(item, index) {
+    var f0 = _vm._f("timeText")(item.due_date)
+
+    return {
+      $orig: _vm.__get_orig(item),
+      f0: f0
+    }
+  })
 
   _vm.$mp.data = Object.assign(
     {},
     {
       $root: {
-        f0: f0
+        l0: l0
       }
     }
   )
@@ -191,10 +198,25 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var _vuex = __webpack_require__(/*! vuex */ 16);
-var _md5Min = _interopRequireDefault(__webpack_require__(/*! ../../libs/md5.min.js */ 62));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};var ownKeys = Object.keys(source);if (typeof Object.getOwnPropertySymbols === 'function') {ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {return Object.getOwnPropertyDescriptor(source, sym).enumerable;}));}ownKeys.forEach(function (key) {_defineProperty(target, key, source[key]);});}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var tkiQrcode = function tkiQrcode() {return Promise.all(/*! import() | components/tki-qrcode */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/tki-qrcode")]).then(__webpack_require__.bind(null, /*! ../../components/tki-qrcode */ 169));};var _default =
 
-{
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var _vuex = __webpack_require__(/*! vuex */ 16);
+var _md5Min = _interopRequireDefault(__webpack_require__(/*! ../../libs/md5.min.js */ 62));var _components$data$filt;function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};var ownKeys = Object.keys(source);if (typeof Object.getOwnPropertySymbols === 'function') {ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {return Object.getOwnPropertyDescriptor(source, sym).enumerable;}));}ownKeys.forEach(function (key) {_defineProperty(target, key, source[key]);});}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var tkiQrcode = function tkiQrcode() {return Promise.all(/*! import() | components/tki-qrcode */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/tki-qrcode")]).then(__webpack_require__.bind(null, /*! ../../components/tki-qrcode */ 169));};var _default = (_components$data$filt = {
+
+
   components: {
     tkiQrcode: tkiQrcode },
 
@@ -218,145 +240,164 @@ var _md5Min = _interopRequireDefault(__webpack_require__(/*! ../../libs/md5.min.
         }
         return '已过期';
       }
-    } },
+    } } }, _defineProperty(_components$data$filt, "filters",
 
-  onShow: function onShow() {
-    this.getMyCard();
-  },
-  onHide: function onHide() {
-    if (this.showQRBox) {
-      this.showQRBox = false;
-      this.$http.abort();
+{
+  timeText: function timeText(val) {
+    if (val.day + val.sec + val.hour + val.min === 0) {
+      return '权益已过期';
     }
-  },
-  watch: {
-    currentTime: function currentTime() {
-      this.changeQR();
-    } },
+    var now = new Date().getTime();
+    var str = val.day * 8.64e7 + val.hour * 3.6e6 + val.min * 6e4 + val.sec * 1000;
+    var thenT = new Date(str + now);
+    var temp = "".concat(thenT.getFullYear(), "-").concat(thenT.getMonth() + 1, "-").concat(thenT.getDate());
+    return "".concat(temp, "\u5230\u671F");
+  } }), _defineProperty(_components$data$filt, "onShow", function onShow()
 
-  destroyed: function destroyed() {
-    if (this.showQRBox) {
-      this.$http.abort();
+{
+  this.getMyCard();
+}), _defineProperty(_components$data$filt, "onHide", function onHide()
+{
+  if (this.showQRBox) {
+    this.showQRBox = false;
+    this.$http.abort();
+  }
+}), _defineProperty(_components$data$filt, "watch",
+{
+  currentTime: function currentTime() {
+    this.changeQR();
+  } }), _defineProperty(_components$data$filt, "destroyed", function destroyed()
+
+{
+  if (this.showQRBox) {
+    this.$http.abort();
+  }
+}), _defineProperty(_components$data$filt, "computed", _objectSpread({},
+
+(0, _vuex.mapState)(['vCardBaseInfo', 'userInfo']), {
+  currentCard: function currentCard() {
+    if (this.myCardArr.length === 0) {
+      return {};
     }
+    return JSON.parse(JSON.stringify(this.myCardArr[this.currentBannerIndex]));
+  } })), _defineProperty(_components$data$filt, "methods",
+
+{
+  processImg: function processImg() {
+    if (!this.currentCard) return;
+    console.log(this.currentCard);
+    var val = this.currentCard.remark;
+    return val.replace(/\<img/g, '<img style="max-width:100%;height:auto" ');
   },
-  computed: _objectSpread({},
-  (0, _vuex.mapState)(['vCardBaseInfo', 'userInfo']), {
-    currentCard: function currentCard() {
-      if (this.myCardArr.length === 0) {
-        return {};
-      }
-      return JSON.parse(JSON.stringify(this.myCardArr[this.currentBannerIndex]));
-    } }),
+  getMyCard: function () {var _getMyCard = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var _this = this;var res, myCardArr;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:_context.next = 2;return (
+                this.$api.myCardList());case 2:res = _context.sent;if (!(
+              res.code === 0)) {_context.next = 9;break;}
+              myCardArr = res.data.data;if (!(
+              myCardArr.length === 0)) {_context.next = 8;break;}
+              this.$tip.alertDialog(
+              '还没有权益卡，快去加入吧',
+              '去购买').then(function () {
+                uni.navigateTo({
+                  url: "/pages/buyPage/buyPage?id=".concat(_this.vCardBaseInfo.id) });
 
-  methods: {
-    getMyCard: function () {var _getMyCard = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var _this = this;var res, myCardArr;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:_context.next = 2;return (
-                  this.$api.myCardList());case 2:res = _context.sent;if (!(
-                res.code === 0)) {_context.next = 9;break;}
-                myCardArr = res.data.data;if (!(
-                myCardArr.length === 0)) {_context.next = 8;break;}
-                this.$tip.alertDialog(
-                '还没有权益卡，快去加入吧',
-                '去购买').then(function () {
-                  uni.navigateTo({
-                    url: "/pages/buyPage/buyPage?id=".concat(_this.vCardBaseInfo.id) });
-
-                });return _context.abrupt("return");case 8:
+              });return _context.abrupt("return");case 8:
 
 
-                this.myCardArr = myCardArr;case 9:case "end":return _context.stop();}}}, _callee, this);}));function getMyCard() {return _getMyCard.apply(this, arguments);}return getMyCard;}(),
+              this.myCardArr = myCardArr;case 9:case "end":return _context.stop();}}}, _callee, this);}));function getMyCard() {return _getMyCard.apply(this, arguments);}return getMyCard;}(),
 
 
-    showQR: function showQR() {
-      this.creatQrcode();
-      this.showQRBox = true;
-      this.startLoopFn(this.currentCard.id);
-    },
-    closeQR: function closeQR() {
-      this.$tip.toast('取消出示', 'none');
-      this.$http.abort();
-      this.showQRBox = false;
-    },
-    getQRBack: function getQRBack(res) {
+  showQR: function showQR() {
+    this.creatQrcode();
+    this.showQRBox = true;
+    // this.startLoopFn(this.currentCard.id)
+  },
+  closeQR: function closeQR() {
+    this.$tip.toast('取消出示', 'none');
+    this.$http.abort();
+    this.showQRBox = false;
+  },
+  getQRBack: function getQRBack(res) {
 
-    },
-    handleBannerChange: function handleBannerChange(e) {
-      this.currentBannerIndex = e.detail.current;
-    },
-    creatQrcode: function creatQrcode() {var _this2 = this;
-      var temp = new Date();
-      this.currentTime = new Date().getTime();
-      this.$nextTick(function () {
-        _this2.$refs.qrcode._makeCode();
-      });
-    },
-    changeQR: function changeQR() {
-      if (this.QRStr) {
-        this.$refs.qrcode._clearCode();
-      }
-      var nowTime = new Date().getTime();
-      var str = { card_id: this.currentCard.id, user_id: this.userInfo.id, t: nowTime };
-      this.QRStr = JSON.stringify(str);
-    },
-    startLoopFn: function () {var _startLoopFn = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2(id) {var params, res;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:
-                this.loopCount++;if (!(
-                this.loopCount >= 15)) {_context2.next = 6;break;}
+  },
+  handleBannerChange: function handleBannerChange(e) {
+    this.currentBannerIndex = e.detail.current;
+  },
+  creatQrcode: function creatQrcode() {var _this2 = this;
+    var temp = new Date();
+    this.currentTime = new Date().getTime();
+    this.$nextTick(function () {
+      _this2.$refs.qrcode._makeCode();
+    });
+  },
+  changeQR: function changeQR() {
+    if (this.QRStr) {
+      this.$refs.qrcode._clearCode();
+    }
+    var nowTime = new Date().getTime();
+    var str = { card_id: this.currentCard.id, user_id: this.userInfo.id, t: nowTime };
+    this.QRStr = JSON.stringify(str);
+  },
+  startLoopFn: function () {var _startLoopFn = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2(id) {var params, res;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:
+              this.loopCount++;if (!(
+              this.loopCount >= 15)) {_context2.next = 6;break;}
+              this.showQRBox = false;
+              this.loopCount = 0;
+              this.$tip.toast('支付超时', 'none');return _context2.abrupt("return");case 6:
+
+
+              params = {
+                card_id: id };_context2.next = 9;return (
+
+                this.$api.loopPayOrder(params));case 9:res = _context2.sent;
+              if (res.code === 0) {
                 this.showQRBox = false;
-                this.loopCount = 0;
-                this.$tip.toast('支付超时', 'none');return _context2.abrupt("return");case 6:
+                this.handleWxPay(res.data.order_id);
+              } else if (res.code === 100) {
+                this.startLoopFn(id);
+              } else {
+                this.showQRBox = false;
+                this.$tip.toast(res.msg, 'none');
+              }case 11:case "end":return _context2.stop();}}}, _callee2, this);}));function startLoopFn(_x) {return _startLoopFn.apply(this, arguments);}return startLoopFn;}(),
 
+  handleWxPay: function () {var _handleWxPay = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee3(id) {var pramas, res;return _regenerator.default.wrap(function _callee3$(_context3) {while (1) {switch (_context3.prev = _context3.next) {case 0:
+              pramas = {
+                order_id: id };_context3.next = 3;return (
 
-                params = {
-                  card_id: id };_context2.next = 9;return (
+                this.$api.wxPay(pramas));case 3:res = _context3.sent;
+              if (res.code === 0) {
+                this.payConfirm(res.data);
+              } else {
+                this.$tip.alertDialog(res.msg);
+              }case 5:case "end":return _context3.stop();}}}, _callee3, this);}));function handleWxPay(_x2) {return _handleWxPay.apply(this, arguments);}return handleWxPay;}(),
 
-                  this.$api.loopPayOrder(params));case 9:res = _context2.sent;
-                if (res.code === 0) {
-                  this.showQRBox = false;
-                  this.handleWxPay(res.data.order_id);
-                } else if (res.code === 100) {
-                  this.startLoopFn(id);
-                } else {
-                  this.$tip.toast(res.msg, 'none');
-                }case 11:case "end":return _context2.stop();}}}, _callee2, this);}));function startLoopFn(_x) {return _startLoopFn.apply(this, arguments);}return startLoopFn;}(),
+  payConfirm: function payConfirm(obj) {
+    var timeStamp = new Date().getTime();
+    var paySign = "appId=wx2016b1a490fe007c&nonceStr=".concat(obj.nonce_str, "&package=prepay_id=").concat(obj.prepay_id, "&signType=MD5&timeStamp=").concat(timeStamp, "&key=X69wh8eS7GRTLvvJzBzfEFEwiKkilfWf");
+    paySign = (0, _md5Min.default)(paySign);
+    var that = this;
+    uni.requestPayment({
+      timeStamp: String(timeStamp),
+      nonceStr: obj.nonce_str,
+      package: "prepay_id=".concat(obj.prepay_id),
+      signType: 'MD5',
+      paySign: paySign,
+      success: function success() {
+        that.$tip.alertDialog(
+        '支付成功，请跳转订单查看',
+        '好的', '不用了').then(function () {
+          uni.redirectTo({
+            url: '/pages/orderList/orderList' });
 
-    handleWxPay: function () {var _handleWxPay = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee3(id) {var pramas, res;return _regenerator.default.wrap(function _callee3$(_context3) {while (1) {switch (_context3.prev = _context3.next) {case 0:
-                pramas = {
-                  order_id: id };_context3.next = 3;return (
-
-                  this.$api.wxPay(pramas));case 3:res = _context3.sent;
-                if (res.code === 0) {
-                  this.payConfirm(res.data);
-                } else {
-                  this.$tip.alertDialog(res.msg);
-                }case 5:case "end":return _context3.stop();}}}, _callee3, this);}));function handleWxPay(_x2) {return _handleWxPay.apply(this, arguments);}return handleWxPay;}(),
-
-    payConfirm: function payConfirm(obj) {
-      var timeStamp = new Date().getTime();
-      var paySign = "appId=wx2016b1a490fe007c&nonceStr=".concat(obj.nonce_str, "&package=prepay_id=").concat(obj.prepay_id, "&signType=MD5&timeStamp=").concat(timeStamp, "&key=X69wh8eS7GRTLvvJzBzfEFEwiKkilfWf");
-      paySign = (0, _md5Min.default)(paySign);
-      var that = this;
-      uni.requestPayment({
-        timeStamp: String(timeStamp),
-        nonceStr: obj.nonce_str,
-        package: "prepay_id=".concat(obj.prepay_id),
-        signType: 'MD5',
-        paySign: paySign,
-        success: function success() {
-          that.$tip.alertDialog(
-          '支付成功，请跳转订单查看',
-          '好的', '不用了').then(function () {
-            uni.redirectTo({
-              url: '/pages/orderList/orderList' });
-
-          }).catch(function () {
-            uni.navigateBack();
-          });
-        },
-        fail: function fail(err) {
-          that.$tip.toast("\u652F\u4ED8\u5931\u8D25\uFF0C\u8BF7\u67E5\u770B\u8BA2\u5355", 'none');
+        }).catch(function () {
           uni.navigateBack();
-        } });
+        });
+      },
+      fail: function fail(err) {
+        that.$tip.toast("\u652F\u4ED8\u5931\u8D25\uFF0C\u8BF7\u67E5\u770B\u8BA2\u5355", 'none');
+        uni.navigateBack();
+      } });
 
-    } } };exports.default = _default;
+  } }), _components$data$filt);exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
