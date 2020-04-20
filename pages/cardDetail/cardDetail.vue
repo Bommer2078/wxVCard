@@ -2,9 +2,9 @@
     <view class="card-detail">
         <view class="navigator-title">权益卡详情</view>
         <template v-if="vCardData">            
-            <image :src="vCardData.banner[0]" class="bg-imgs"/>
+            <image src="/static/mycard/cardBg1.png" class="bg-imgs"/>
             <view class="vCard-info-cover">
-                <swiper class="swiper" 
+                <!-- <swiper class="swiper" 
                     :indicator-dots="false" 
                     :autoplay="true" 
                     :interval="5000" 
@@ -20,14 +20,24 @@
                                 :class="{'scale-img': index !== currentBannerIndex}"/>
                         </view>
                     </swiper-item>
-                </swiper>                
-                <view class="indicator-dots" >
+                </swiper>                 -->
+                <!-- <view class="indicator-dots" >
                     <view 
                         class="dots" 
                         :class="{'dot-active':index === currentBannerIndex }"
                         v-for="(item,index) in vCardData.banner" :key="index"></view>
-                </view>
-                <!-- <image class="vCard-banner" :src="vCardData.banner[0]" /> -->
+                </view> -->
+                <!-- <image class="vCard-banner" src="/static/mycard/cardBg1.png" /> -->
+                <div class="vCard-banner card-cover">                         
+                    <text class="location-name">长沙</text>
+                    <text class="user-name">{{userInfo.nickname}}</text>
+                    <text class="due-date" v-if="vipCardObj">{{vipCardObj.due_date | timeText}}</text>
+                    <text class="due-date" v-else>未激活</text>
+                    <image class="user-header" :src="userInfo.avatar">                    
+                    <image src="/static/mycard/locationIcon.png" class="location-icon"/>                  
+                    <image src="/static/mycard/vipIcon.png" class="vip-icon"/>                 
+                    <image src="/static/mycard/cardBg1.png" class="bg-icon" />
+                </div>
                 <view class="vCard-summray-cover">                    
                     <view class="vCard-title">{{vCardData.name}}</view>
                     <view class="vCard-info">
@@ -76,11 +86,25 @@ export default {
         return {
             vCardData: null,
             vCardId: '',
-            currentBannerIndex: 0
+            currentBannerIndex: 0,
+            myCardArr: [],
+            vipCardObj: null // 用户是否激活过当前卡
+        }
+    },    
+    filters: {
+        timeText (val) {
+            if (val.day + val.sec + val.hour + val.min === 0) {
+                return '权益已过期'
+            }
+            let now = new Date().getTime()
+            let str = val.day * 8.64e7 +   val.hour * 3.6e6 + val.min * 6e4 + val.sec * 1000
+            let thenT = new Date(str + now)
+            let temp = `${thenT.getFullYear()}-${thenT.getMonth() + 1}-${thenT.getDate()}`
+            return `${temp}到期`
         }
     },
     computed: {
-         ...mapState(['vCardBaseInfo']),
+         ...mapState(['vCardBaseInfo','userInfo']),
         venueText () {
             if (!this.vCardData) {
                 return '暂无优惠场馆'
@@ -106,6 +130,9 @@ export default {
                 return '免费'
             }
         }
+    },    
+    onShow() {
+        this.getMyCard()
     },
     methods: {        
         handleBannerChange (e) {
@@ -139,6 +166,30 @@ export default {
                     url: `/pages/buyPage/buyPage?id=${this.vCardId}`
                 });
             }
+        },
+        async getMyCard() {
+            const res = await this.$api.myCardList()
+            if (res.code === 0) {
+                let myCardArr = res.data.data
+                if (myCardArr.length === 0) {                                     
+                    this.$tip.alertDialog(
+                        '还没有权益卡，快去加入吧',
+                        '去购买').then(() => {
+                            uni.navigateTo({
+                                url: `/pages/buyPage/buyPage?id=${this.vCardBaseInfo.id}`
+                            });
+                        })
+                    return
+                }
+                this.myCardArr = myCardArr
+                this.checkVipStatus()
+            }
+        },  
+        checkVipStatus () {
+            let temp = this.myCardArr.find(item => {
+                return item.id === this.vCardId
+            })
+            this.vipCardObj = temp || null
         }
     },
 }
@@ -150,6 +201,7 @@ export default {
     position: relative;
     width: 100%;
     padding-top: 720rpx;
+    min-height:100vh;
     background: #F3F3F3;
     .navigator-title {
         position: absolute;
@@ -338,6 +390,60 @@ export default {
             text-align: center;
             border-radius:0px 35px 35px 0px;
         }
+    }
+    .card-cover {
+        position: relative;                    
+        .location-name, .user-name, .due-date, .user-header, .location-icon, .QR-icon, .vip-icon{
+            position: absolute;
+        }
+        .location-name {
+            color: #fff;
+            font-size: 28rpx;
+            bottom: 16rpx;
+            right: 16rpx;
+        }
+        .user-name {
+            font-size: 22rpx;
+            color: #fff;
+            top: 32rpx;
+            left: 105rpx;
+        }
+        .due-date {
+            font-size: 24rpx;
+            color: #fff;
+            bottom: 24rpx;
+            left: 30rpx;
+        }
+        .user-header {
+            border-radius: 50%;
+            width: 76rpx;
+            height: 76rpx;
+            left: 20rpx;
+            top: 20rpx;
+        }
+        .location-icon {
+            bottom: 15rpx;
+            right: 70rpx;
+            width:26rpx;
+            height:26rpx;
+        }
+        .QR-icon {
+            right: 20rpx;                      
+            top: 20rpx; 
+            width:40rpx;
+            height:40rpx;
+        }
+        .vip-icon {               
+            left: 108rpx;                      
+            top: 71rpx;                      
+            width:20rpx;
+            height:20rpx;
+        }
+    }
+    .bg-icon {
+        width: 680rpx;
+        height: 351rpx;
+        border-radius:27rpx;
     }
 }
 </style>

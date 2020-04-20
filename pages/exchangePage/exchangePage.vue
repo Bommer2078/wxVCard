@@ -7,7 +7,7 @@
                     <input type="text" placeholder="请输入券码 不区分大小写" v-model.trim="exchangeCode" maxlength="20">
                 </view>
                 <view class="exchange-btn" @click="handleExchange">兑换</view>
-                <view class="exchange-tip">请输入{{vCardBaseInfo && vCardBaseInfo.name}}的兑换码</view>
+                <view class="exchange-tip">不区分大小写</view>
             </view>
         </view>
     </view>
@@ -31,8 +31,7 @@ export default {
             if (!this.checkForm()) return
             this.forbidClick = true
             let params = {
-                code: this.exchangeCode,
-                card_id: this.vCardBaseInfo.id || ''
+                code: this.exchangeCode
             }
             const res = await this.$api.exchangeCard(params)
             this.forbidClick = false

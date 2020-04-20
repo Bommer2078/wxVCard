@@ -90,11 +90,14 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var f0 = _vm._f("timeText")(_vm.vipCardObj.due_date)
+
   var m0 = _vm.processImg(_vm.vCardData)
   _vm.$mp.data = Object.assign(
     {},
     {
       $root: {
+        f0: f0,
         m0: m0
       }
     }
@@ -195,6 +198,16 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
+
+
+
+
 var _vuex = __webpack_require__(/*! vuex */ 16);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};var ownKeys = Object.keys(source);if (typeof Object.getOwnPropertySymbols === 'function') {ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {return Object.getOwnPropertyDescriptor(source, sym).enumerable;}));}ownKeys.forEach(function (key) {_defineProperty(target, key, source[key]);});}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var _default =
 {
   created: function created() {var _this = this;
@@ -209,11 +222,25 @@ var _vuex = __webpack_require__(/*! vuex */ 16);function _interopRequireDefault(
     return {
       vCardData: null,
       vCardId: '',
-      currentBannerIndex: 0 };
-
+      currentBannerIndex: 0,
+      myCardArr: [],
+      vipCardObj: null // 用户是否激活过当前卡
+    };
   },
+  filters: {
+    timeText: function timeText(val) {
+      if (val.day + val.sec + val.hour + val.min === 0) {
+        return '权益已过期';
+      }
+      var now = new Date().getTime();
+      var str = val.day * 8.64e7 + val.hour * 3.6e6 + val.min * 6e4 + val.sec * 1000;
+      var thenT = new Date(str + now);
+      var temp = "".concat(thenT.getFullYear(), "-").concat(thenT.getMonth() + 1, "-").concat(thenT.getDate());
+      return "".concat(temp, "\u5230\u671F");
+    } },
+
   computed: _objectSpread({},
-  (0, _vuex.mapState)(['vCardBaseInfo']), {
+  (0, _vuex.mapState)(['vCardBaseInfo', 'userInfo']), {
     venueText: function venueText() {
       if (!this.vCardData) {
         return '暂无优惠场馆';
@@ -240,6 +267,9 @@ var _vuex = __webpack_require__(/*! vuex */ 16);function _interopRequireDefault(
       }
     } }),
 
+  onShow: function onShow() {
+    this.getMyCard();
+  },
   methods: {
     handleBannerChange: function handleBannerChange(e) {
       this.currentBannerIndex = e.detail.current;
@@ -272,6 +302,30 @@ var _vuex = __webpack_require__(/*! vuex */ 16);function _interopRequireDefault(
           url: "/pages/buyPage/buyPage?id=".concat(this.vCardId) });
 
       }
+    },
+    getMyCard: function () {var _getMyCard = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var _this2 = this;var res, myCardArr;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:_context2.next = 2;return (
+                  this.$api.myCardList());case 2:res = _context2.sent;if (!(
+                res.code === 0)) {_context2.next = 10;break;}
+                myCardArr = res.data.data;if (!(
+                myCardArr.length === 0)) {_context2.next = 8;break;}
+                this.$tip.alertDialog(
+                '还没有权益卡，快去加入吧',
+                '去购买').then(function () {
+                  uni.navigateTo({
+                    url: "/pages/buyPage/buyPage?id=".concat(_this2.vCardBaseInfo.id) });
+
+                });return _context2.abrupt("return");case 8:
+
+
+                this.myCardArr = myCardArr;
+                this.checkVipStatus();case 10:case "end":return _context2.stop();}}}, _callee2, this);}));function getMyCard() {return _getMyCard.apply(this, arguments);}return getMyCard;}(),
+
+
+    checkVipStatus: function checkVipStatus() {var _this3 = this;
+      var temp = this.myCardArr.find(function (item) {
+        return item.id === _this3.vCardId;
+      });
+      this.vipCardObj = temp || null;
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

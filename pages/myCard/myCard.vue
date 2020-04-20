@@ -2,7 +2,7 @@
     <view class="my-card">
         <swiper 
             class="swiper" 
-            :indicator-dots="true" 
+            :indicator-dots="false" 
             :autoplay="false" 
             :interval="5000" 
             :duration="500"
@@ -12,13 +12,13 @@
             @change="handleBannerChange">
             <swiper-item v-for="(item,index) in myCardArr" :key="item">
                 <view class="swiper-item">
-                    <div :class="{'scale-img': index !== currentBannerIndex}" class="card-cover">                         
+                    <div :class="{'scale-img': index !== currentBannerIndex}" class="card-cover"  @click="showQR(index)">                         
                         <text class="location-name">长沙</text>
                         <text class="user-name">{{userInfo.nickname}}</text>
                         <text class="due-date">{{item.due_date | timeText}}</text>
                         <image class="user-header" :src="userInfo.avatar">                    
                         <image src="/static/mycard/locationIcon.png" class="location-icon">                    
-                        <image src="/static/mycard/QRIcon.png" class="QR-icon" @click="showQR">                     
+                        <image src="/static/mycard/QRIcon.png" class="QR-icon">                     
                         <image src="/static/mycard/vipIcon.png" class="vip-icon">                     
                         <image 
                             class="bg-icon"
@@ -34,9 +34,16 @@
                             src="/static/mycard/cardBg3.png"/>
                     </div>
                 </view>
-            </swiper-item>
-        </swiper>
-        <view class="my-card-container">
+            </swiper-item>    
+        </swiper>        
+        <view class="indicator-dots" v-show="myCardArr.length > 1">
+            <view 
+                class="dots" 
+                :class="{'dot-active':index === currentBannerIndex }"
+                v-for="(item,index) in myCardArr" :key="index"></view>
+        </view>
+        <view class="card-tip">请点击卡片生成二维码，并出示给场馆工作人员</view>
+        <view class="my-card-container" v-if="false">
             <!-- <view class="part-container">                
                 <view class="part-title">                    
                     <img src="/static/rules.svg" class="list-icon">
@@ -165,10 +172,12 @@ export default {
                 this.myCardArr = myCardArr
             }
         },  
-        showQR () {            
-            this.creatQrcode()
-            this.showQRBox = true                 
-            // this.startLoopFn(this.currentCard.id)
+        showQR (index) {  
+            if (this.currentBannerIndex === index) {                
+                this.creatQrcode()
+                this.showQRBox = true                 
+                this.startLoopFn(this.currentCard.id)
+            }          
         },
         closeQR () {            
             this.$tip.toast('取消出示','none')
@@ -267,6 +276,7 @@ export default {
         background: #F5F2F5;
         .swiper {
             height: 411rpx;
+            padding-top: 20vh;
             .swiper-item {
                padding-left: 20rpx;
                padding-right: 20rpx;
@@ -332,6 +342,34 @@ export default {
                 }
             }
         }
+    }    
+    .indicator-dots {  
+        position: relative;
+        bottom: 40rpx;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .dots + .dots {
+            margin-left: 10rpx;
+        }
+        .dots {
+            width: 12rpx;
+            height: 8rpx;
+            background: #CBCBCB;
+            border-radius: 4rpx;
+        }
+        .dot-active {
+            width: 22rpx;
+            height: 8rpx;
+            background: #2D2D2D;
+        }
+    }
+    .card-tip {
+        width: 100%;
+        font-size: 24rpx;
+        color: f3f3f3;
+        text-align: center;
     }
     .my-card-container {
         padding-left: 14rpx;

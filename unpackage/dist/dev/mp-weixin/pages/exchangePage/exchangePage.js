@@ -155,8 +155,7 @@ var _vuex = __webpack_require__(/*! vuex */ 16);function _interopRequireDefault(
                 this.checkForm()) {_context.next = 4;break;}return _context.abrupt("return");case 4:
                 this.forbidClick = true;
                 params = {
-                  code: this.exchangeCode,
-                  card_id: this.vCardBaseInfo.id || '' };_context.next = 8;return (
+                  code: this.exchangeCode };_context.next = 8;return (
 
                   this.$api.exchangeCard(params));case 8:res = _context.sent;
                 this.forbidClick = false;

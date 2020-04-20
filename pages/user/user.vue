@@ -44,7 +44,7 @@
                         <view class="icon-arrow"></view>
                     </view>
                     <view class="item" @tap="showAbout">
-                        <img src="/static/self/edit.svg">
+                        <img src="/static/self/about.svg">
                         <text class="lable">关于</text>
                         <view class="icon-arrow"></view>
                     </view>

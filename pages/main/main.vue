@@ -17,7 +17,7 @@
                     </view>
                     <view class="search-btn">搜 索</view>
                 </view>
-                <view class="banner-cover" @click="intoVCard">    
+                <view class="banner-cover" @click="intoVCard" v-if="vCardBaseInfo && vCardBaseInfo.banner && vCardBaseInfo.banner.length !== 1">    
                     <swiper 
                         class="swiper-cover" 
                         :indicator-dots="false" 
@@ -37,15 +37,15 @@
                             </view>
                         </swiper-item>
                     </swiper>                                 
-                    <view class="indicator-dots" >
+                    <view class="indicator-dots" v-show="vCardBaseInfo.banner.length > 1">
                         <view 
                             class="dots" 
                             :class="{'dot-active':index === currentBannerIndex }"
                             v-for="(item,index) in vCardBaseInfo.banner" :key="index"></view>
-                    </view>           
-                    <!-- <view class="banner">
-                        <img :src="vCardBaseInfo.banner ? vCardBaseInfo.banner[0] : ''">
-                    </view> -->
+                    </view>  
+                </view>                         
+                <view class="banner-cover main-img" v-if="vCardBaseInfo.banner.length === 1" @click="intoVCard">
+                    <img :src="vCardBaseInfo.banner ? vCardBaseInfo.banner[0] : ''">
                 </view>
             </view>            
         </view>
@@ -296,7 +296,14 @@
                         border-radius:5rpx;
                     }
                 }
-            }            
+            }      
+            .main-img image{
+                display: block;
+                width: 670rpx;
+                height: 315rpx;
+                border-radius: 14rpx;
+                margin:0 auto;
+            }      
             .search-container {
                 display: flex;
                 align-items: center;
@@ -365,28 +372,6 @@
                     text {
                         position: absolute;
                         z-index: 3;
-                    }
-                    &::after {
-                        content: '';
-                        position: absolute;
-                        bottom: 0;
-                        left: 22rpx;
-                        width:82rpx;
-                        height:12rpx;
-                        background:rgba(255,50,118,1);
-                        border-radius:6rpx;
-                        z-index: 2;
-                    }
-                    &::before {
-                        content: '';
-                        position: absolute;
-                        bottom: -6rpx;
-                        left: 45rpx;
-                        width:60rpx;
-                        height:12rpx;
-                        background:rgba(255,168,197,1);
-                        border-radius:6rpx;
-                        z-index: 1;
                     }
                 }                
                 .more {

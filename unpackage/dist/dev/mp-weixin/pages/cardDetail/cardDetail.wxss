@@ -2,6 +2,7 @@
   position: relative;
   width: 100%;
   padding-top: 720rpx;
+  min-height: 100vh;
   background: #F3F3F3;
 }
 .card-detail .navigator-title {
@@ -245,5 +246,59 @@
       color: #fff;
       text-align: center;
       border-radius: 0px 35px 35px 0px;
+}
+.card-detail .card-cover {
+    position: relative;
+}
+.card-detail .card-cover .location-name, .card-detail .card-cover .user-name, .card-detail .card-cover .due-date, .card-detail .card-cover .user-header, .card-detail .card-cover .location-icon, .card-detail .card-cover .QR-icon, .card-detail .card-cover .vip-icon {
+      position: absolute;
+}
+.card-detail .card-cover .location-name {
+      color: #fff;
+      font-size: 28rpx;
+      bottom: 16rpx;
+      right: 16rpx;
+}
+.card-detail .card-cover .user-name {
+      font-size: 22rpx;
+      color: #fff;
+      top: 32rpx;
+      left: 105rpx;
+}
+.card-detail .card-cover .due-date {
+      font-size: 24rpx;
+      color: #fff;
+      bottom: 24rpx;
+      left: 30rpx;
+}
+.card-detail .card-cover .user-header {
+      border-radius: 50%;
+      width: 76rpx;
+      height: 76rpx;
+      left: 20rpx;
+      top: 20rpx;
+}
+.card-detail .card-cover .location-icon {
+      bottom: 15rpx;
+      right: 70rpx;
+      width: 26rpx;
+      height: 26rpx;
+}
+.card-detail .card-cover .QR-icon {
+      right: 20rpx;
+      top: 20rpx;
+      width: 40rpx;
+      height: 40rpx;
+}
+.card-detail .card-cover .vip-icon {
+      left: 108rpx;
+      top: 71rpx;
+      width: 20rpx;
+      height: 20rpx;
+}
+.card-detail .bg-icon {
+    width: 680rpx;
+    height: 351rpx;
+    border-radius: 27rpx;
 }
 
