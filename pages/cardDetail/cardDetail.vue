@@ -31,7 +31,7 @@
                 <div class="vCard-banner card-cover">                         
                     <text class="location-name">长沙</text>
                     <text class="user-name">{{userInfo.nickname}}</text>
-                    <text class="due-date" v-if="vipCardObj">{{vipCardObj.due_date | timeText}}</text>
+                    <text class="due-date" v-if="vipCardObj">{{vipCardObj | timeText}}</text>
                     <text class="due-date" v-else>未激活</text>
                     <image class="user-header" :src="userInfo.avatar">                    
                     <image src="/static/mycard/locationIcon.png" class="location-icon"/>                  
@@ -92,7 +92,9 @@ export default {
         }
     },    
     filters: {
-        timeText (val) {
+        timeText (obj) {
+            if (!obj) return '权益已过期'
+            let val = obj.due_date
             if (val.day + val.sec + val.hour + val.min === 0) {
                 return '权益已过期'
             }

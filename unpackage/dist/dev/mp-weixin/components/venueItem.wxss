@@ -18,7 +18,7 @@
   background: #fff;
   border-radius: 8rpx;
 }
-.venue-item image {
+.venue-item .venue-item-img {
     width: 150rpx;
     height: 150rpx;
     border-radius: 8rpx;

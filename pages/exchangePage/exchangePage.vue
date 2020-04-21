@@ -4,10 +4,10 @@
             <view class="exchange-box">
                 <view class="exchange-title">兑换码/优惠券</view>
                 <view class="exchange-frame">
-                    <input type="text" placeholder="请输入券码 不区分大小写" v-model.trim="exchangeCode" maxlength="20">
+                    <input type="text" placeholder="请输入券码" v-model.trim="exchangeCode" maxlength="20">
                 </view>
                 <view class="exchange-btn" @click="handleExchange">兑换</view>
-                <view class="exchange-tip">不区分大小写</view>
+                <view class="exchange-tip">* 不区分大小写</view>
             </view>
         </view>
     </view>

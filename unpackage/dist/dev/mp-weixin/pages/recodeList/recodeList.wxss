@@ -36,4 +36,11 @@
       width: 50rpx;
       height: 50rpx;
 }
+.recode-list .no-data {
+    width: 100%;
+    font-size: 32rpx;
+    color: #333;
+    margin-top: 40vh;
+    text-align: center;
+}
 

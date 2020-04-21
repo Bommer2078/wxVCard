@@ -90,7 +90,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  var f0 = _vm._f("timeText")(_vm.vipCardObj.due_date)
+  var f0 = _vm._f("timeText")(_vm.vipCardObj)
 
   var m0 = _vm.processImg(_vm.vCardData)
   _vm.$mp.data = Object.assign(
@@ -228,7 +228,9 @@ var _vuex = __webpack_require__(/*! vuex */ 16);function _interopRequireDefault(
     };
   },
   filters: {
-    timeText: function timeText(val) {
+    timeText: function timeText(obj) {
+      if (!obj) return '权益已过期';
+      var val = obj.due_date;
       if (val.day + val.sec + val.hour + val.min === 0) {
         return '权益已过期';
       }

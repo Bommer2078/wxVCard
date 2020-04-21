@@ -15,7 +15,7 @@
                     <div :class="{'scale-img': index !== currentBannerIndex}" class="card-cover"  @click="showQR(index)">                         
                         <text class="location-name">长沙</text>
                         <text class="user-name">{{userInfo.nickname}}</text>
-                        <text class="due-date">{{item.due_date | timeText}}</text>
+                        <text class="due-date">{{timeText(item.due_date)}}</text>
                         <image class="user-header" :src="userInfo.avatar">                    
                         <image src="/static/mycard/locationIcon.png" class="location-icon">                    
                         <image src="/static/mycard/QRIcon.png" class="QR-icon">                     
@@ -93,7 +93,8 @@ export default {
             QRStr: '',
             currentTime: '',
             showQRBox: false,
-            loopCount: 0
+            loopCount: 0,
+            currentCardStatus: 0 // 0 未激活， 1 会员，-1会员过期
         }
     },
     filters: {
@@ -106,18 +107,6 @@ export default {
                 }
                 return '已过期'
             }
-        }
-    },
-    filters: {
-        timeText (val) {
-            if (val.day + val.sec + val.hour + val.min === 0) {
-                return '权益已过期'
-            }
-            let now = new Date().getTime()
-            let str = val.day * 8.64e7 +   val.hour * 3.6e6 + val.min * 6e4 + val.sec * 1000
-            let thenT = new Date(str + now)
-            let temp = `${thenT.getFullYear()}-${thenT.getMonth() + 1}-${thenT.getDate()}`
-            return `${temp}到期`
         }
     },
     onShow() {
@@ -154,6 +143,18 @@ export default {
             console.log(this.currentCard)
             let val = this.currentCard.remark
             return val.replace(/\<img/g, '<img style="max-width:100%;height:auto" ')
+        },        
+        timeText (val) {
+            if (val.day + val.sec + val.hour + val.min === 0) {
+                this.currentCardStatus = -1
+                return '权益已过期'
+            }
+            this.currentCardStatus = 1
+            let now = new Date().getTime()
+            let str = val.day * 8.64e7 +   val.hour * 3.6e6 + val.min * 6e4 + val.sec * 1000
+            let thenT = new Date(str + now)
+            let temp = `${thenT.getFullYear()}-${thenT.getMonth() + 1}-${thenT.getDate()}`
+            return `${temp}到期`
         },
         async getMyCard() {
             const res = await this.$api.myCardList()
@@ -172,8 +173,12 @@ export default {
                 this.myCardArr = myCardArr
             }
         },  
-        showQR (index) {  
-            if (this.currentBannerIndex === index) {                
+        showQR (index) {
+            if (this.currentBannerIndex === index) {                  
+                if (this.currentCardStatus < 1) {
+                    this.$tip.toast('会员已过期','none')
+                    return
+                }               
                 this.creatQrcode()
                 this.showQRBox = true                 
                 this.startLoopFn(this.currentCard.id)

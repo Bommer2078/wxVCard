@@ -7,7 +7,7 @@
             <view class="user-container">
                 <view class="user-header">
                     <img :src="userInfo.avatar" v-if="userInfo">
-                    <img src="/static/log1o.png" v-else>
+                    <img src="/static/header.svg" v-else>
                     <view class="info">
                         <text>欢迎，</text>
                         <text class="tip">{{userInfo ? userInfo.nickname : '游客'}}</text>

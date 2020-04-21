@@ -1,6 +1,6 @@
 <template>
     <view class="venue-item" @click="handleItemClick">
-        <image :src="venueData.banner[0]"/>
+        <image :src="venueData.banner[0]" class="venue-item-img"/>
         <view class="venue-info">
             <view class="venue-title">{{venueData.name}}</view>
             <view class="venue-summray">{{venueData.introduce}}</view>
@@ -37,7 +37,7 @@ export default {
         font-size: 0;
         background: #fff;
         border-radius:8rpx;
-        image {
+        .venue-item-img {
             width:150rpx;
             height:150rpx;
             border-radius:8rpx;

@@ -1,10 +1,15 @@
 <template>
     <view class="recode-list">
-        <view class="recode-item-cover" v-for="(item,index) in venueArr" :key="index">
-            <img src="/static/self/foot.svg" class="recode-icon">
-            <view class="recode-time">{{item.update_at}}</view>
-            <venue-item :venue-data="item.venue"></venue-item>  
-            <view class="venue-split"></view>  
+        <template v-if="venueArr.length > 0">            
+            <view class="recode-item-cover" v-for="(item,index) in venueArr" :key="index">
+                <img src="/static/self/foot.svg" class="recode-icon">
+                <view class="recode-time">{{item.update_at}}</view>
+                <venue-item :venue-data="item.venue"></venue-item>  
+                <view class="venue-split"></view>  
+            </view>
+        </template>
+        <view v-else class="no-data">
+            暂无足迹
         </view>
     </view>
 </template>
@@ -81,6 +86,13 @@ export default {
             width: 50rpx;
             height: 50rpx;
         }
+    }
+    .no-data {
+        width: 100%;
+        font-size: 32rpx;
+        color: #333;
+        margin-top: 40vh;
+        text-align: center;
     }
 }
 </style>
