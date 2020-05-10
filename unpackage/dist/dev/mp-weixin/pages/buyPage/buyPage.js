@@ -240,7 +240,7 @@ var _md5Min = _interopRequireDefault(__webpack_require__(/*! ../../libs/md5.min.
 
     payConfirm: function payConfirm(obj) {
       var timeStamp = new Date().getTime();
-      var paySign = "appId=wx2016b1a490fe007c&nonceStr=".concat(obj.nonce_str, "&package=prepay_id=").concat(obj.prepay_id, "&signType=MD5&timeStamp=").concat(timeStamp, "&key=X69wh8eS7GRTLvvJzBzfEFEwiKkilfWf");
+      var paySign = "appId=wx1e383d6c91e8432f&nonceStr=".concat(obj.nonce_str, "&package=prepay_id=").concat(obj.prepay_id, "&signType=MD5&timeStamp=").concat(timeStamp, "&key=0cd82b0fa72de1948bfee7d277c42053");
       paySign = (0, _md5Min.default)(paySign);
       var that = this;
       uni.requestPayment({

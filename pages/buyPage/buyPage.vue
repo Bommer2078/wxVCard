@@ -99,7 +99,7 @@ export default {
         },
         payConfirm (obj) {
             let timeStamp = new Date().getTime()
-            let paySign = `appId=wx2016b1a490fe007c&nonceStr=${obj.nonce_str}&package=prepay_id=${obj.prepay_id}&signType=MD5&timeStamp=${timeStamp}&key=X69wh8eS7GRTLvvJzBzfEFEwiKkilfWf`
+            let paySign = `appId=wx1e383d6c91e8432f&nonceStr=${obj.nonce_str}&package=prepay_id=${obj.prepay_id}&signType=MD5&timeStamp=${timeStamp}&key=0cd82b0fa72de1948bfee7d277c42053`
             paySign = md5(paySign)
             let that = this
             uni.requestPayment({
