@@ -27,7 +27,7 @@
                         :class="{'dot-active':index === currentBannerIndex }"
                         v-for="(item,index) in vCardData.banner" :key="index"></view>
                 </view> -->
-                <!-- <image class="vCard-banner" src="/static/mycard/cardBg1.png" /> -->
+                <!-- <image class="vCard-banner" src="/static/mycard/cardBg1.png"  /> -->
                 <div class="vCard-banner card-cover">                         
                     <text class="location-name">长沙</text>
                     <text class="user-name">{{userInfo.nickname}}</text>

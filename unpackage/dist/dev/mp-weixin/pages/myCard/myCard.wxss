@@ -3,74 +3,73 @@
   background: #F5F2F5;
 }
 .my-card .swiper {
-    height: 411rpx;
-    padding-top: 20vh;
+  height: 411rpx;
+  padding-top: 20vh;
 }
 .my-card .swiper .swiper-item {
-      padding-left: 20rpx;
-      padding-right: 20rpx;
-      padding-top: 20rpx;
+  padding-left: 20rpx;
+  padding-right: 20rpx;
+  padding-top: 20rpx;
 }
 .my-card .swiper .swiper-item .card-cover {
-        position: relative;
+  position: relative;
 }
 .my-card .swiper .swiper-item .card-cover .location-name, .my-card .swiper .swiper-item .card-cover .user-name, .my-card .swiper .swiper-item .card-cover .due-date, .my-card .swiper .swiper-item .card-cover .user-header, .my-card .swiper .swiper-item .card-cover .location-icon, .my-card .swiper .swiper-item .card-cover .QR-icon, .my-card .swiper .swiper-item .card-cover .vip-icon {
-          position: absolute;
+  position: absolute;
 }
 .my-card .swiper .swiper-item .card-cover .location-name {
-          color: #fff;
-          font-size: 28rpx;
-          bottom: 16rpx;
-          right: 16rpx;
+  color: #fff;
+  font-size: 28rpx;
+  bottom: 16rpx;
+  right: 16rpx;
 }
 .my-card .swiper .swiper-item .card-cover .user-name {
-          font-size: 22rpx;
-          color: #fff;
-          top: 32rpx;
-          left: 105rpx;
+  font-size: 22rpx;
+  color: #fff;
+  top: 32rpx;
+  left: 105rpx;
 }
 .my-card .swiper .swiper-item .card-cover .due-date {
-          font-size: 24rpx;
-          color: #fff;
-          bottom: 24rpx;
-          left: 30rpx;
+  font-size: 24rpx;
+  color: #fff;
+  bottom: 24rpx;
+  left: 30rpx;
 }
 .my-card .swiper .swiper-item .card-cover .user-header {
-          border-radius: 50%;
-          width: 76rpx;
-          height: 76rpx;
-          left: 20rpx;
-          top: 20rpx;
+  border-radius: 50%;
+  width: 76rpx;
+  height: 76rpx;
+  left: 20rpx;
+  top: 20rpx;
 }
 .my-card .swiper .swiper-item .card-cover .location-icon {
-          bottom: 15rpx;
-          right: 70rpx;
-          width: 26rpx;
-          height: 26rpx;
+  bottom: 15rpx;
+  right: 70rpx;
+  width: 26rpx;
+  height: 26rpx;
 }
 .my-card .swiper .swiper-item .card-cover .QR-icon {
-          right: 20rpx;
-          top: 20rpx;
-          width: 40rpx;
-          height: 40rpx;
+  right: 20rpx;
+  top: 20rpx;
+  width: 40rpx;
+  height: 40rpx;
 }
 .my-card .swiper .swiper-item .card-cover .vip-icon {
-          left: 108rpx;
-          top: 71rpx;
-          width: 20rpx;
-          height: 20rpx;
+  left: 108rpx;
+  top: 71rpx;
+  width: 20rpx;
+  height: 20rpx;
 }
 .my-card .swiper .swiper-item .bg-icon {
-        width: 100%;
-        height: 325rpx;
-        margin-left: auto;
-        margin-right: auto;
-        border-radius: 27rpx;
+  width: 100%;
+  height: 325rpx;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 27rpx;
 }
 .my-card .swiper .swiper-item .scale-img {
-        -webkit-transform: scale(0.9);
-            -ms-transform: scale(0.9);
-                transform: scale(0.9);
+  -webkit-transform: scale(0.9);
+          transform: scale(0.9);
 }
 .indicator-dots {
   position: relative;
@@ -78,30 +77,27 @@
   width: 100%;
   display: -webkit-box;
   display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
   -webkit-align-items: center;
-      -ms-flex-align: center;
           align-items: center;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
-      -ms-flex-pack: center;
           justify-content: center;
 }
 .indicator-dots .dots + .dots {
-    margin-left: 10rpx;
+  margin-left: 10rpx;
 }
 .indicator-dots .dots {
-    width: 12rpx;
-    height: 8rpx;
-    background: #CBCBCB;
-    border-radius: 4rpx;
+  width: 12rpx;
+  height: 8rpx;
+  background: #CBCBCB;
+  border-radius: 4rpx;
 }
 .indicator-dots .dot-active {
-    width: 22rpx;
-    height: 8rpx;
-    background: #2D2D2D;
+  width: 22rpx;
+  height: 8rpx;
+  background: #2D2D2D;
 }
 .card-tip {
   width: 100%;
@@ -114,131 +110,122 @@
   padding-right: 14rpx;
 }
 .my-card-container .part-container {
-    width: 100%;
-    border-radius: 20rpx;
-    background: #fff;
-    font-size: 0;
-    margin-bottom: 40rpx;
+  width: 100%;
+  border-radius: 20rpx;
+  background: #fff;
+  font-size: 0;
+  margin-bottom: 40rpx;
 }
 .my-card-container .part-container .part-title {
-      height: 70rpx;
-      width: 100%;
-      display: -webkit-box;
-      display: -webkit-flex;
-      display: -ms-flexbox;
-      display: flex;
-      -webkit-box-align: center;
-      -webkit-align-items: center;
-          -ms-flex-align: center;
-              align-items: center;
+  height: 70rpx;
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
 }
 .my-card-container .part-container .part-title image {
-        width: 40rpx;
-        height: 42rpx;
-        margin-left: 38rpx;
-        margin-right: 9rpx;
+  width: 40rpx;
+  height: 42rpx;
+  margin-left: 38rpx;
+  margin-right: 9rpx;
 }
 .my-card-container .part-container .part-title text {
-        font-size: 32rpx;
-        color: #000;
-        font-weight: 700;
+  font-size: 32rpx;
+  color: #000;
+  font-weight: 700;
 }
 .my-card-container .part-container .part-body > text {
-      padding-left: 38rpx;
-      display: block;
-      font-size: 24rpx;
-      color: #666666;
+  padding-left: 38rpx;
+  display: block;
+  font-size: 24rpx;
+  color: #666666;
 }
 .my-card-container .part-container .QR-part {
-      display: -webkit-box;
-      display: -webkit-flex;
-      display: -ms-flexbox;
-      display: flex;
-      -webkit-box-orient: vertical;
-      -webkit-box-direction: normal;
-      -webkit-flex-direction: column;
-          -ms-flex-direction: column;
-              flex-direction: column;
-      -webkit-box-align: center;
-      -webkit-align-items: center;
-          -ms-flex-align: center;
-              align-items: center;
-      -webkit-box-pack: center;
-      -webkit-justify-content: center;
-          -ms-flex-pack: center;
-              justify-content: center;
-      width: 100%;
-      height: 290rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+  width: 100%;
+  height: 290rpx;
 }
 .my-card-container .part-container .QR-part .qr-tip {
-        font-size: 24rpx;
-        color: #353535;
-        text-align: center;
-        padding-bottom: 20rpx;
+  font-size: 24rpx;
+  color: #353535;
+  text-align: center;
+  padding-bottom: 20rpx;
 }
 .my-card-container .qr-cover {
-    width: 300rpx;
-    height: 300rpx;
-    margin-bottom: 10rpx;
+  width: 300rpx;
+  height: 300rpx;
+  margin-bottom: 10rpx;
 }
 .QR-container {
   width: 100vw;
   height: 100vh;
 }
 .QR-container .mask {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: #888;
-    opacity: .7;
-    z-index: 10;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #888;
+  opacity: .7;
+  z-index: 10;
 }
 .QR-container .container {
-    position: relative;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-        -ms-flex-align: center;
-            align-items: center;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -webkit-flex-direction: column;
-        -ms-flex-direction: column;
-            flex-direction: column;
-    width: 460rpx;
-    height: 460rpx;
-    position: fixed;
-    top: -100rpx;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    margin: auto;
-    background: #fff;
-    z-index: 11;
-    border-radius: 10rpx;
-    padding-top: 30rpx;
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+          flex-direction: column;
+  width: 460rpx;
+  height: 460rpx;
+  position: fixed;
+  top: -100rpx;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  background: #fff;
+  z-index: 11;
+  border-radius: 10rpx;
+  padding-top: 30rpx;
 }
 .QR-container .container .close-icon {
-      position: absolute;
-      bottom: -120rpx;
-      right: auto;
-      left: auto;
-      width: 68rpx;
-      height: 68rpx;
+  position: absolute;
+  bottom: -120rpx;
+  right: auto;
+  left: auto;
+  width: 68rpx;
+  height: 68rpx;
 }
 .QR-container .QR-warning {
-    position: absolute;
-    top: -100rpx;
-    text-align: center;
+  position: absolute;
+  top: -100rpx;
+  text-align: center;
 }
 .QR-container .QR-warning view {
-      font-size: 28rpx;
-      color: #fff;
-      margin-bottom: 10rpx;
+  font-size: 28rpx;
+  color: #fff;
+  margin-bottom: 10rpx;
 }
 

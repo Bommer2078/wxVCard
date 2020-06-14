@@ -1,1 +1,1 @@
-<view class="more-page"><block wx:for="{{venueArr}}" wx:for-item="item" wx:for-index="index" wx:key="index"><venue-item vue-id="{{'1-'+index}}" venue-data="{{item}}" bind:__l="__l"></venue-item></block></view>
+<view class="more-page"><block wx:for="{{venueArr}}" wx:for-item="item" wx:for-index="index" wx:key="index"><venue-item vue-id="{{'c97058c0-1-'+index}}" venue-data="{{item}}" bind:__l="__l"></venue-item></block></view>

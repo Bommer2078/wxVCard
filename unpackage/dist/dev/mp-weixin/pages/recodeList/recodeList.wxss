@@ -5,42 +5,42 @@
   background: #F5F2F5;
 }
 .recode-list .recode-item-cover {
-    position: relative;
-    background: #fff;
-    padding-left: 50rpx;
-    padding-right: 20rpx;
+  position: relative;
+  background: #fff;
+  padding-left: 50rpx;
+  padding-right: 20rpx;
 }
 .recode-list .recode-item-cover::before {
-      content: '';
-      position: absolute;
-      height: 220rpx;
-      left: 35rpx;
-      width: 1px;
-      background: #eee;
-      height: 300rpx;
+  content: '';
+  position: absolute;
+  height: 220rpx;
+  left: 35rpx;
+  width: 1px;
+  background: #eee;
+  height: 300rpx;
 }
 .recode-list .recode-item-cover .recode-time {
-      color: #FF7474;
-      font-size: 28rpx;
-      margin-left: 20rpx;
+  color: #FF7474;
+  font-size: 28rpx;
+  margin-left: 20rpx;
 }
 .recode-list .recode-item-cover .venue-split {
-      margin-top: 20rpx;
-      margin-left: 20rpx;
-      border-bottom: 1px solid #eee;
+  margin-top: 20rpx;
+  margin-left: 20rpx;
+  border-bottom: 1px solid #eee;
 }
 .recode-list .recode-item-cover .recode-icon {
-      position: absolute;
-      left: 10rpx;
-      top: -25rpx;
-      width: 50rpx;
-      height: 50rpx;
+  position: absolute;
+  left: 10rpx;
+  top: -25rpx;
+  width: 50rpx;
+  height: 50rpx;
 }
 .recode-list .no-data {
-    width: 100%;
-    font-size: 32rpx;
-    color: #333;
-    margin-top: 40vh;
-    text-align: center;
+  width: 100%;
+  font-size: 32rpx;
+  color: #333;
+  margin-top: 40vh;
+  text-align: center;
 }
 

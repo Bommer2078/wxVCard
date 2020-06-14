@@ -6,299 +6,283 @@
   background: #F3F3F3;
 }
 .card-detail .navigator-title {
-    position: absolute;
-    width: 100%;
-    font-size: 32rpx;
-    text-align: center;
-    top: 60rpx;
-    color: #fff;
-    z-index: 2;
+  position: absolute;
+  width: 100%;
+  font-size: 32rpx;
+  text-align: center;
+  top: 60rpx;
+  color: #fff;
+  z-index: 2;
 }
 .card-detail .bg-imgs {
-    position: absolute;
-    top: -40rpx;
-    width: 100%;
-    height: 630rpx;
-    -webkit-filter: blur(20px);
-            filter: blur(20px);
-    z-index: 1;
+  position: absolute;
+  top: -40rpx;
+  width: 100%;
+  height: 630rpx;
+  -webkit-filter: blur(20px);
+          filter: blur(20px);
+  z-index: 1;
 }
 .card-detail .vCard-info-cover {
-    position: absolute;
-    top: 140rpx;
-    left: 50%;
-    margin-left: -360rpx;
-    width: 720rpx;
-    height: 551rpx;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -webkit-flex-direction: column;
-        -ms-flex-direction: column;
-            flex-direction: column;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-        -ms-flex-align: center;
-            align-items: center;
-    padding-top: 30rpx;
-    padding-bottom: 30rpx;
-    border-radius: 20rpx;
-    background: #fff;
-    z-index: 2;
+  position: absolute;
+  top: 140rpx;
+  left: 50%;
+  margin-left: -360rpx;
+  width: 720rpx;
+  height: 551rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  padding-top: 30rpx;
+  padding-bottom: 30rpx;
+  border-radius: 20rpx;
+  background: #fff;
+  z-index: 2;
 }
 .card-detail .vCard-info-cover .swiper {
-      width: 100%;
-      height: 335rpx;
+  width: 100%;
+  height: 335rpx;
 }
 .card-detail .vCard-info-cover .swiper .swiper-item {
-        background: #fff;
-        padding-left: 20rpx;
-        padding-right: 20rpx;
+  background: #fff;
+  padding-left: 20rpx;
+  padding-right: 20rpx;
 }
 .card-detail .vCard-info-cover .swiper .swiper-item .swiper-imgs {
-          width: 600rpx;
-          height: 310rpx;
-          border-radius: 20rpx;
+  width: 600rpx;
+  height: 310rpx;
+  border-radius: 20rpx;
 }
 .card-detail .vCard-info-cover .swiper .swiper-item .scale-img {
-          -webkit-transform: scale(0.9);
-              -ms-transform: scale(0.9);
-                  transform: scale(0.9);
+  -webkit-transform: scale(0.9);
+          transform: scale(0.9);
 }
 .card-detail .vCard-info-cover .indicator-dots {
-      margin-top: -10rpx;
-      width: 100%;
-      display: -webkit-box;
-      display: -webkit-flex;
-      display: -ms-flexbox;
-      display: flex;
-      -webkit-box-align: center;
-      -webkit-align-items: center;
-          -ms-flex-align: center;
-              align-items: center;
-      -webkit-box-pack: center;
-      -webkit-justify-content: center;
-          -ms-flex-pack: center;
-              justify-content: center;
+  margin-top: -10rpx;
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
 }
 .card-detail .vCard-info-cover .indicator-dots .dots + .dots {
-        margin-left: 10rpx;
+  margin-left: 10rpx;
 }
 .card-detail .vCard-info-cover .indicator-dots .dots {
-        width: 12rpx;
-        height: 8rpx;
-        background: #CBCBCB;
-        border-radius: 4rpx;
+  width: 12rpx;
+  height: 8rpx;
+  background: #CBCBCB;
+  border-radius: 4rpx;
 }
 .card-detail .vCard-info-cover .indicator-dots .dot-active {
-        width: 22rpx;
-        height: 8rpx;
-        background: #2D2D2D;
+  width: 22rpx;
+  height: 8rpx;
+  background: #2D2D2D;
 }
 .card-detail .vCard-info-cover .vCard-banner {
-      display: inline-block;
-      width: 680rpx;
-      height: 351rpx;
-      border-radius: 20rpx;
+  display: inline-block;
+  width: 680rpx;
+  height: 351rpx;
+  border-radius: 20rpx;
 }
 .card-detail .vCard-info-cover .vCard-summray-cover {
-      width: 100%;
-      display: -webkit-box;
-      display: -webkit-flex;
-      display: -ms-flexbox;
-      display: flex;
-      -webkit-box-orient: vertical;
-      -webkit-box-direction: normal;
-      -webkit-flex-direction: column;
-          -ms-flex-direction: column;
-              flex-direction: column;
-      padding-left: 25rpx;
-      padding-right: 25rpx;
-      font-size: 0rpx;
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+          flex-direction: column;
+  padding-left: 25rpx;
+  padding-right: 25rpx;
+  font-size: 0rpx;
 }
 .card-detail .vCard-info-cover .vCard-summray-cover .vCard-title {
-        font-size: 36rpx;
-        font-weight: 700;
-        margin-bottom: 19rpx;
+  font-size: 36rpx;
+  font-weight: 700;
+  margin-bottom: 19rpx;
 }
 .card-detail .vCard-info-cover .vCard-summray-cover .vCard-info {
-        display: -webkit-box;
-        display: -webkit-flex;
-        display: -ms-flexbox;
-        display: flex;
-        width: 100%;
-        height: 52rpx;
-        -webkit-box-orient: horizontal;
-        -webkit-box-direction: normal;
-        -webkit-flex-direction: row;
-            -ms-flex-direction: row;
-                flex-direction: row;
-        -webkit-box-pack: justify;
-        -webkit-justify-content: space-between;
-            -ms-flex-pack: justify;
-                justify-content: space-between;
-        font-size: 0rpx;
-        color: #9D9D9D;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  width: 100%;
+  height: 52rpx;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+  font-size: 0rpx;
+  color: #9D9D9D;
 }
 .card-detail .vCard-info-cover .vCard-summray-cover .vCard-info .vCard-summray {
-          max-width: 358rpx;
-          font-size: 24rpx;
+  max-width: 358rpx;
+  font-size: 24rpx;
 }
 .card-detail .vCard-info-cover .vCard-summray-cover .vCard-info .price-info {
-          font-size: 24rpx;
-          color: #232323;
+  font-size: 24rpx;
+  color: #232323;
 }
 .card-detail .vCard-info-cover .vCard-summray-cover .vCard-info .price-info .price-unit {
-            font-size: 32rpx;
+  font-size: 32rpx;
 }
 .card-detail .vCard-info-cover .vCard-summray-cover .vCard-info .price-info .price-num {
-            font-size: 42rpx;
-            color: #FF3276;
-            font-style: italic;
-            font-weight: 700;
+  font-size: 42rpx;
+  color: #FF3276;
+  font-style: italic;
+  font-weight: 700;
 }
 .card-detail .info-content {
-    width: 720rpx;
-    margin: 0 auto;
-    background: #fff;
-    border-radius: 20rpx;
-    margin-bottom: 20rpx;
+  width: 720rpx;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 20rpx;
+  margin-bottom: 20rpx;
 }
 .card-detail .info-content .route-detail {
-      padding-bottom: 15rpx;
+  padding-bottom: 15rpx;
 }
 .card-detail .info-content .route-row {
-      margin-left: 25rpx;
-      font-size: 12px;
-      color: #888;
+  margin-left: 25rpx;
+  font-size: 12px;
+  color: #888;
 }
-.card-detail .info-content .content-body /deep/ ._img {
-      max-width: 550rpx !important;
+.card-detail .info-content .content-body ._img {
+  max-width: 550rpx !important;
 }
 .card-detail .info-content .content-body {
-      padding-left: 25rpx;
-      padding-right: 25rpx;
+  padding-left: 25rpx;
+  padding-right: 25rpx;
 }
 .card-detail .info-content .content-name {
-      display: -webkit-box;
-      display: -webkit-flex;
-      display: -ms-flexbox;
-      display: flex;
-      -webkit-box-align: center;
-      -webkit-align-items: center;
-          -ms-flex-align: center;
-              align-items: center;
-      font-size: 16px;
-      font-weight: 700;
-      margin-bottom: 20rpx;
-      padding-left: 12px;
-      padding-top: 10rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 20rpx;
+  padding-left: 12px;
+  padding-top: 10rpx;
 }
 .card-detail .info-content .content-name .content-name-text {
-        position: relative;
-        font-size: 32rpx;
+  position: relative;
+  font-size: 32rpx;
 }
 .card-detail .info-content .content-name .location-icon {
-        margin-right: 10rpx;
-        width: 32rpx;
-        height: 50rpx;
+  margin-right: 10rpx;
+  width: 32rpx;
+  height: 50rpx;
 }
 .card-detail .info-content .content-name .list-icon {
-        width: 40rpx;
-        height: 40rpx;
-        margin-right: 10rpx;
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 10rpx;
 }
 .card-detail .pay-btn {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-        -ms-flex-align: center;
-            align-items: center;
-    position: fixed;
-    bottom: 60rpx;
-    left: 50%;
-    width: 590rpx;
-    height: 80rpx;
-    font-size: 0;
-    overflow: hidden;
-    margin-left: -295rpx;
-    border-radius: 20px 35px 35px 20px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  position: fixed;
+  bottom: 60rpx;
+  left: 50%;
+  width: 590rpx;
+  height: 80rpx;
+  font-size: 0;
+  overflow: hidden;
+  margin-left: -295rpx;
+  border-radius: 20px 35px 35px 20px;
 }
 .card-detail .pay-btn .left-part {
-      font-size: 30rpx;
-      width: 450rpx;
-      line-height: 80rpx;
-      color: #fff;
-      background: #292929;
-      padding-left: 20rpx;
+  font-size: 30rpx;
+  width: 450rpx;
+  line-height: 80rpx;
+  color: #fff;
+  background: #292929;
+  padding-left: 20rpx;
 }
 .card-detail .pay-btn .right-part {
-      width: 140rpx;
-      font-size: 30rpx;
-      line-height: 80rpx;
-      background: #FF3276;
-      color: #fff;
-      text-align: center;
-      border-radius: 0px 35px 35px 0px;
+  width: 140rpx;
+  font-size: 30rpx;
+  line-height: 80rpx;
+  background: #FF3276;
+  color: #fff;
+  text-align: center;
+  border-radius: 0px 35px 35px 0px;
 }
 .card-detail .card-cover {
-    position: relative;
+  position: relative;
 }
 .card-detail .card-cover .location-name, .card-detail .card-cover .user-name, .card-detail .card-cover .due-date, .card-detail .card-cover .user-header, .card-detail .card-cover .location-icon, .card-detail .card-cover .QR-icon, .card-detail .card-cover .vip-icon {
-      position: absolute;
+  position: absolute;
 }
 .card-detail .card-cover .location-name {
-      color: #fff;
-      font-size: 28rpx;
-      bottom: 16rpx;
-      right: 16rpx;
+  color: #fff;
+  font-size: 28rpx;
+  bottom: 16rpx;
+  right: 16rpx;
 }
 .card-detail .card-cover .user-name {
-      font-size: 22rpx;
-      color: #fff;
-      top: 32rpx;
-      left: 105rpx;
+  font-size: 22rpx;
+  color: #fff;
+  top: 32rpx;
+  left: 105rpx;
 }
 .card-detail .card-cover .due-date {
-      font-size: 24rpx;
-      color: #fff;
-      bottom: 24rpx;
-      left: 30rpx;
+  font-size: 24rpx;
+  color: #fff;
+  bottom: 24rpx;
+  left: 30rpx;
 }
 .card-detail .card-cover .user-header {
-      border-radius: 50%;
-      width: 76rpx;
-      height: 76rpx;
-      left: 20rpx;
-      top: 20rpx;
+  border-radius: 50%;
+  width: 76rpx;
+  height: 76rpx;
+  left: 20rpx;
+  top: 20rpx;
 }
 .card-detail .card-cover .location-icon {
-      bottom: 15rpx;
-      right: 70rpx;
-      width: 26rpx;
-      height: 26rpx;
+  bottom: 15rpx;
+  right: 70rpx;
+  width: 26rpx;
+  height: 26rpx;
 }
 .card-detail .card-cover .QR-icon {
-      right: 20rpx;
-      top: 20rpx;
-      width: 40rpx;
-      height: 40rpx;
+  right: 20rpx;
+  top: 20rpx;
+  width: 40rpx;
+  height: 40rpx;
 }
 .card-detail .card-cover .vip-icon {
-      left: 108rpx;
-      top: 71rpx;
-      width: 20rpx;
-      height: 20rpx;
+  left: 108rpx;
+  top: 71rpx;
+  width: 20rpx;
+  height: 20rpx;
 }
 .card-detail .bg-icon {
-    width: 680rpx;
-    height: 351rpx;
-    border-radius: 27rpx;
+  width: 680rpx;
+  height: 351rpx;
+  border-radius: 27rpx;
 }
 

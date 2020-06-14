@@ -212,7 +212,7 @@ export default {
         },
         async startLoopFn (id) {
             this.loopCount++
-            if (this.loopCount >= 15) {     
+            if (this.loopCount >= 55) {     
                 this.showQRBox = false    
                 this.loopCount = 0       
                 this.$tip.toast('支付超时','none')
@@ -226,7 +226,9 @@ export default {
                 this.showQRBox = false  
                 this.handleWxPay(res.data.order_id) 
             } else if (res.code === 100) {
-                this.startLoopFn(id)
+                setTimeout(() => {                    
+                    this.startLoopFn(id)
+                },1000)
             } else {           
                 this.showQRBox = false
                 this.$tip.toast(res.msg,'none')
@@ -245,7 +247,7 @@ export default {
         },
         payConfirm (obj) {
             let timeStamp = new Date().getTime()
-            let paySign = `appId=wx2016b1a490fe007c&nonceStr=${obj.nonce_str}&package=prepay_id=${obj.prepay_id}&signType=MD5&timeStamp=${timeStamp}&key=X69wh8eS7GRTLvvJzBzfEFEwiKkilfWf`
+            let paySign = `appId=wx1e383d6c91e8432f&nonceStr=${obj.nonce_str}&package=prepay_id=${obj.prepay_id}&signType=MD5&timeStamp=${timeStamp}&key=0cd82b0fa72de1948bfee7d277c42053`
             paySign = md5(paySign)
             let that = this
             uni.requestPayment({

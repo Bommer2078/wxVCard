@@ -11,8 +11,8 @@
                 @click="changeTabs('vcard')">会员卡订单</view>
         </view>
         <template v-if="currentTab === 'venue'">            
-            <view class="order-list-container" v-for="item in venueArr" :key="item.id">
-                <view class="order-item">
+            <view class="order-list-container">
+                <view class="order-item" v-for="item in venueArr" :key="item.id">
                     <view class="city-name">                        
                         <text class="name">{{item.city.name}}</text>
                     </view>
@@ -33,6 +33,7 @@
                         </view>
                     </view>
                 </view>
+                <view v-if="venueArr.length === 0" class="no-data">暂无数据</view>
             </view>
         </template>
         <template v-if="currentTab === 'vcard'">            
@@ -54,9 +55,10 @@
                                 <text class="price">{{item.price / 100}}</text>
                             </view>
                         </view>                        
-                        <view class="vcard-order-time">下单时间：2019.01.12</view>
+                        <view class="vcard-order-time">下单时间：{{item.update_at || item.create_at}}</view>
                     </view>
-                </view>
+                </view>                
+                <view v-if="cardList.length === 0" class="no-data">暂无数据</view>
             </view>
         </template>
     </view>
@@ -233,6 +235,11 @@ export default {
                     font-size: 28rpx;
                 }
             }
+        }
+        .no-data {
+            width: 100%;
+            text-align: center;
+            margin-top: 30vh;
         }
     }
 }    

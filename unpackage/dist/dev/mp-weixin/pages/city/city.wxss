@@ -5,34 +5,33 @@
   background: #F3F3F3;
 }
 .city-page .city-grid-cover {
-    display: grid;
-    grid-template-columns: repeat(4, 20%);
-    grid-column-gap: 7%;
-    grid-row-gap: 20rpx;
+  display: grid;
+  grid-template-columns: repeat(4, 20%);
+  grid-column-gap: 7%;
+  grid-row-gap: 20rpx;
 }
 .city-page .city-grid-cover .city-item {
-      position: relative;
-      max-width: 138rpx;
-      height: 90rpx;
-      line-height: 90rpx;
-      text-align: center;
-      font-size: 26rpx;
-      background: #fff;
+  position: relative;
+  max-width: 138rpx;
+  height: 90rpx;
+  line-height: 90rpx;
+  text-align: center;
+  font-size: 26rpx;
+  background: #fff;
 }
 .city-page .city-grid-cover .city-item.active::before {
-        border-color: transparent transparent transparent #FF3276;
+  border-color: transparent transparent transparent #FF3276;
 }
 .city-page .city-grid-cover .city-item::before {
-        content: '';
-        position: absolute;
-        top: -8rpx;
-        left: -8rpx;
-        width: 0;
-        height: 0;
-        border: 10rpx solid;
-        border-color: transparent transparent transparent #C1C1C1;
-        -webkit-transform: rotate(-135deg);
-            -ms-transform: rotate(-135deg);
-                transform: rotate(-135deg);
+  content: '';
+  position: absolute;
+  top: -8rpx;
+  left: -8rpx;
+  width: 0;
+  height: 0;
+  border: 10rpx solid;
+  border-color: transparent transparent transparent #C1C1C1;
+  -webkit-transform: rotate(-135deg);
+          transform: rotate(-135deg);
 }
 
