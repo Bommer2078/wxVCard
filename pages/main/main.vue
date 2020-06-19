@@ -8,7 +8,7 @@
                         <text class="city-tip">可享受{{total}}家场馆权益</text>
                     </view>
                     <view>                        
-                        <text class="welcome-tip">{{userInfo.nickname}},早上好!</text> 
+                        <text class="welcome-tip">{{userInfo && userInfo.nickname || '游客'}},早上好!</text> 
                     </view>
                 </view>
                 <view class="search-container" @click="gotoSearchPage">
@@ -111,12 +111,12 @@
                     });
                     return
                 }
-                if (!this.userInfo) {                				
-                    uni.redirectTo({
-                        url: '/pages/login/login'
-                    })
-                    return
-                }
+                // if (!this.userInfo) {                				
+                //     uni.redirectTo({
+                //         url: '/pages/login/login'
+                //     })
+                //     return
+                // }
                 // 后期迭代开放多个城市后需要进行城市得选择
                 // if (!this.locationObj) {                				
                 //     uni.redirectTo({

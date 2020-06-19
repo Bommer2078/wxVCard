@@ -8,8 +8,8 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.9.2",
-	"appid": "wx1e383d6c91e8432f",
-	"projectname": "mp-weixin",
+	"appid": "wx2016b1a490fe007c",
+	"projectname": "权益卡小程序",
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},
 	"condition": {

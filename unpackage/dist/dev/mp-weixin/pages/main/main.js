@@ -254,12 +254,12 @@ var _vuex = __webpack_require__(/*! vuex */ 12);function _interopRequireDefault(
 
         return;
       }
-      if (!this.userInfo) {
-        uni.redirectTo({
-          url: '/pages/login/login' });
-
-        return;
-      }
+      // if (!this.userInfo) {                				
+      //     uni.redirectTo({
+      //         url: '/pages/login/login'
+      //     })
+      //     return
+      // }
       // 后期迭代开放多个城市后需要进行城市得选择
       // if (!this.locationObj) {                				
       //     uni.redirectTo({
