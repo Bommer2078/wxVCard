@@ -198,6 +198,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+var _tip = _interopRequireDefault(__webpack_require__(/*! @/utils/tip */ 15));
+var _store = _interopRequireDefault(__webpack_require__(/*! @/store */ 11));
 var _vuex = __webpack_require__(/*! vuex */ 12);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var _default =
 {
   data: function data() {
@@ -208,23 +214,28 @@ var _vuex = __webpack_require__(/*! vuex */ 12);function _interopRequireDefault(
 
   },
   onShow: function onShow() {
-    this.checkBusiness();
+    if (this.userInfo && this.userInfo.id) {
+      this.checkBusiness();
+    }
   },
   computed: _objectSpread({},
   (0, _vuex.mapState)(['userInfo'])),
 
   methods: {
     intoOrder: function intoOrder() {
+      if (!this.goLogin()) return;
       uni.navigateTo({
         url: '/pages/orderList/orderList' });
 
     },
     intoMyCard: function intoMyCard() {
+      if (!this.goLogin()) return;
       uni.switchTab({
         url: '/pages/myCard/myCard' });
 
     },
     intoRecodeList: function intoRecodeList() {
+      if (!this.goLogin()) return;
       uni.navigateTo({
         url: '/pages/recodeList/recodeList' });
 
@@ -236,6 +247,7 @@ var _vuex = __webpack_require__(/*! vuex */ 12);function _interopRequireDefault(
                 }case 4:case "end":return _context.stop();}}}, _callee);}))();
     },
     intoBusiness: function intoBusiness() {
+      if (!this.goLogin()) return;
       this.$store.commit('SET_ROLE_TYPE', 'business');
       uni.reLaunch({
         url: '/pages/business/business' });
@@ -251,6 +263,7 @@ var _vuex = __webpack_require__(/*! vuex */ 12);function _interopRequireDefault(
                   }));case 2:res = _context2.sent;case 3:case "end":return _context2.stop();}}}, _callee2);}))();
     },
     gotoExchangePage: function gotoExchangePage() {
+      if (!this.goLogin()) return;
       uni.navigateTo({
         url: "/pages/exchangePage/exchangePage" });
 
@@ -261,6 +274,24 @@ var _vuex = __webpack_require__(/*! vuex */ 12);function _interopRequireDefault(
     },
     closeBox: function closeBox() {
       this.showBox = false;
+    },
+    gotoLogin: function gotoLogin() {
+      uni.navigateTo({
+        url: '/pages/login/login' });
+
+    },
+    goLogin: function goLogin() {var _this3 = this;
+      if (this.userInfo) {
+        return true;
+      }
+      _tip.default.alertDialog('您还未登录，请登录后体验更多服务').then(function (val) {
+        setTimeout(function () {
+          _store.default.commit('SET_USER_INFO', null);
+          _store.default.commit('SET_ROLE_TYPE', null);
+          uni.removeStorageSync('api_token');
+        }, 1000);
+        _this3.gotoLogin();
+      });
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

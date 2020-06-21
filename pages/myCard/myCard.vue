@@ -1,80 +1,88 @@
 <template>
-    <view class="my-card">
-        <swiper 
-            class="swiper" 
-            :indicator-dots="false" 
-            :autoplay="false" 
-            :interval="5000" 
-            :duration="500"
-            :circular="true"
-            next-margin="80rpx"
-            previous-margin="80rpx"            
-            @change="handleBannerChange">
-            <swiper-item v-for="(item,index) in myCardArr" :key="item">
-                <view class="swiper-item">
-                    <div :class="{'scale-img': index !== currentBannerIndex}" class="card-cover"  @click="showQR(index)">                         
-                        <text class="location-name">长沙</text>
-                        <text class="user-name">{{userInfo.nickname}}</text>
-                        <text class="due-date">{{timeText(item.due_date)}}</text>
-                        <image class="user-header" :src="userInfo.avatar">                    
-                        <image src="/static/mycard/locationIcon.png" class="location-icon">                    
-                        <image src="/static/mycard/QRIcon.png" class="QR-icon">                     
-                        <image src="/static/mycard/vipIcon.png" class="vip-icon">                     
-                        <image 
-                            class="bg-icon"
-                            v-if="index % 3 === 0"
-                            src="/static/mycard/cardBg1.png"/>
-                        <image 
-                            class="bg-icon"
-                            v-if="index % 3 === 1"
-                            src="/static/mycard/cardBg2.png"/>
-                        <image 
-                            class="bg-icon"
-                            v-if="index % 3 === 2"
-                            src="/static/mycard/cardBg3.png"/>
-                    </div>
-                </view>
-            </swiper-item>    
-        </swiper>        
-        <view class="indicator-dots" v-show="myCardArr.length > 1">
-            <view 
-                class="dots" 
-                :class="{'dot-active':index === currentBannerIndex }"
-                v-for="(item,index) in myCardArr" :key="index"></view>
-        </view>
-        <view class="card-tip">请点击卡片生成二维码，并出示给场馆工作人员</view>
-        <view class="my-card-container" v-if="false">
-            <!-- <view class="part-container">                
-                <view class="part-title">                    
-                    <img src="/static/rules.svg" class="list-icon">
-                    <text>{{currentCard.name}}</text> 
-                    <text>{{currentCard | dueDateText}}</text>
-                </view>
-                <view class="part-body QR-part">
-                    <img src="/static/qrCover.svg" class="qr-cover" @click="showQR">
-                    <view class="qr-tip">点击上方图标，出示权益卡二维码</view> </view>
-            </view> -->
-            <view class="part-container">                
-                <view class="part-title">
-                    <img src="/static/rules.svg" class="list-icon">
-                    <text>权益介绍</text> 
-                </view>
-                <view class="part-body">                    
-                    <rich-text :nodes="processImg"></rich-text>
+    <view class="my-card" :class="{'no-info' : !userInfo || !userInfo.id}">
+        <template v-if="userInfo && userInfo.id">            
+            <swiper 
+                class="swiper" 
+                :indicator-dots="false" 
+                :autoplay="false" 
+                :interval="5000" 
+                :duration="500"
+                :circular="true"
+                next-margin="80rpx"
+                previous-margin="80rpx"            
+                @change="handleBannerChange">
+                <swiper-item v-for="(item,index) in myCardArr" :key="item">
+                    <view class="swiper-item">
+                        <div :class="{'scale-img': index !== currentBannerIndex}" class="card-cover"  @click="showQR(index)">                         
+                            <text class="location-name">长沙</text>
+                            <text class="user-name">{{userInfo.nickname}}</text>
+                            <text class="due-date">{{timeText(item.due_date)}}</text>
+                            <image class="user-header" :src="userInfo.avatar">                    
+                            <image src="/static/mycard/locationIcon.png" class="location-icon">                    
+                            <image src="/static/mycard/QRIcon.png" class="QR-icon">                     
+                            <image src="/static/mycard/vipIcon.png" class="vip-icon">                     
+                            <image 
+                                class="bg-icon"
+                                v-if="index % 3 === 0"
+                                src="/static/mycard/cardBg1.png"/>
+                            <image 
+                                class="bg-icon"
+                                v-if="index % 3 === 1"
+                                src="/static/mycard/cardBg2.png"/>
+                            <image 
+                                class="bg-icon"
+                                v-if="index % 3 === 2"
+                                src="/static/mycard/cardBg3.png"/>
+                        </div>
+                    </view>
+                </swiper-item>    
+            </swiper>        
+            <view class="indicator-dots" v-show="myCardArr.length > 1">
+                <view 
+                    class="dots" 
+                    :class="{'dot-active':index === currentBannerIndex }"
+                    v-for="(item,index) in myCardArr" :key="index"></view>
+            </view>
+            <view class="card-tip">请点击卡片生成二维码，并出示给场馆工作人员</view>
+            <view class="my-card-container" v-if="false">
+                <!-- <view class="part-container">                
+                    <view class="part-title">                    
+                        <img src="/static/rules.svg" class="list-icon">
+                        <text>{{currentCard.name}}</text> 
+                        <text>{{currentCard | dueDateText}}</text>
+                    </view>
+                    <view class="part-body QR-part">
+                        <img src="/static/qrCover.svg" class="qr-cover" @click="showQR">
+                        <view class="qr-tip">点击上方图标，出示权益卡二维码</view> </view>
+                </view> -->
+                <view class="part-container">                
+                    <view class="part-title">
+                        <img src="/static/rules.svg" class="list-icon">
+                        <text>权益介绍</text> 
+                    </view>
+                    <view class="part-body">                    
+                        <rich-text :nodes="processImg"></rich-text>
+                    </view>
                 </view>
             </view>
-        </view>
-        <view class="QR-container" v-if="showQRBox">   
-            <view class="mask"></view>       
-            <view class="container">                
-                <img src="/static/close.svg" @click="closeQR" class="close-icon">
-                <tki-qrcode size="400" unit="upx" background="transparent" :onval="true" @result="getQRBack" :val="QRStr"  ref="qrcode"></tki-qrcode>
-                <view class="QR-warning">
-                    <view>请向场馆工作人员出示该二维码</view>
-                    <view>并保持该页面不要关闭</view>
-                </view>
-            </view>  
-        </view>
+            <view class="QR-container" v-if="showQRBox">   
+                <view class="mask"></view>       
+                <view class="container">                
+                    <img src="/static/close.svg" @click="closeQR" class="close-icon">
+                    <tki-qrcode size="400" unit="upx" background="transparent" :onval="true" @result="getQRBack" :val="QRStr"  ref="qrcode"></tki-qrcode>
+                    <view class="QR-warning">
+                        <view>请向场馆工作人员出示该二维码</view>
+                        <view>并保持该页面不要关闭</view>
+                    </view>
+                </view>  
+            </view>
+        </template>        
+        <template v-else>
+            <div class="card-tip">
+                游客您好，请登录后查看
+            </div>            
+            <view class="open-btn" @click="gotoLogin">跳转登录页</view>
+        </template>
     </view>
 </template>
 
@@ -110,7 +118,9 @@ export default {
         }
     },
     onShow() {
-        this.getMyCard()
+        if (this.userInfo && this.userInfo.id) {            
+            this.getMyCard()
+        }
     },
     onHide() {
         if (this.showQRBox) {   
@@ -138,6 +148,11 @@ export default {
         }
     },
     methods: {
+        gotoLogin () {                
+            uni.navigateTo({
+                url: '/pages/login/login'
+            })
+        },
         processImg () {
             if (!this.currentCard) return
             console.log(this.currentCard)
@@ -278,6 +293,12 @@ export default {
 </script>
 
 <style lang="scss">
+.no-info{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
     .my-card {
         min-height: 100vh;
         background: #F5F2F5;
@@ -348,6 +369,16 @@ export default {
                     transform: scale(0.9);
                 }
             }
+        }       
+        .open-btn {
+            width: 563rpx;
+            height: 80rpx;
+            color: #fff;
+            font-size: 34rpx;
+            line-height: 80rpx;
+            text-align: center;
+            border-radius:20px;
+            background: #FF3276;
         }
     }    
     .indicator-dots {  

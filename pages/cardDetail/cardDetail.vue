@@ -29,11 +29,11 @@
                 </view> -->
                 <!-- <image class="vCard-banner" src="/static/mycard/cardBg1.png"  /> -->
                 <div class="vCard-banner card-cover">                         
-                    <text class="location-name">长沙</text>
-                    <text class="user-name">{{userInfo.nickname}}</text>
+                    <text class="location-name">{{locationObj.name}}</text>
+                    <text class="user-name">{{userInfo ? userInfo.nickname : '游客'}}</text>
                     <text class="due-date" v-if="vipCardObj">{{vipCardObj | timeText}}</text>
-                    <text class="due-date" v-else>未激活</text>
-                    <image class="user-header" :src="userInfo.avatar">                    
+                    <text class="due-date" v-else>{{userInfo ? '未激活' : '未登录'}}</text>
+                    <image class="user-header" :src="userInfo ? userInfo.avatar : '../../static/avatar-pink.svg'">                    
                     <image src="/static/mycard/locationIcon.png" class="location-icon"/>                  
                     <image src="/static/mycard/vipIcon.png" class="vip-icon"/>                 
                     <image src="/static/mycard/cardBg1.png" class="bg-icon" />
@@ -72,7 +72,9 @@
 </template>
 
 <script>
+import tip from '@/utils/tip'
 import { mapState } from 'vuex'
+import store from '@/store'
 export default {
     created() {
         this.$nextTick(() => {            
@@ -106,7 +108,7 @@ export default {
         }
     },
     computed: {
-         ...mapState(['vCardBaseInfo','userInfo']),
+         ...mapState(['vCardBaseInfo','userInfo','locationObj']),
         venueText () {
             if (!this.vCardData) {
                 return '暂无优惠场馆'
@@ -134,7 +136,9 @@ export default {
         }
     },    
     onShow() {
-        this.getMyCard()
+        if (this.userInfo && this.userInfo.id) {            
+            this.getMyCard()
+        }
     },
     methods: {        
         handleBannerChange (e) {
@@ -163,11 +167,27 @@ export default {
             return val.replace(/\<img/g, '<img style="max-width:100%;height:auto" ')
         },
         gotoPay () {
+            if (!this.goLogin()) return
             if (this.vCardData.sell_type === 1) {
                 uni.navigateTo({
                     url: `/pages/buyPage/buyPage?id=${this.vCardId}`
                 });
             }
+        },
+        goLogin () {
+            if (this.userInfo) {
+                return true
+            }
+            tip.alertDialog('您还未登录，请登录后体验更多服务').then((val) => {
+                setTimeout(() => {                                
+                    store.commit('SET_USER_INFO', null)
+                    store.commit('SET_ROLE_TYPE', null)
+                    uni.removeStorageSync('api_token')
+                },1000)                              
+                uni.navigateTo({
+                    url: '/pages/login/login'
+                })
+            })
         },
         async getMyCard() {
             const res = await this.$api.myCardList()

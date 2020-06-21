@@ -5,12 +5,16 @@
             <img class="bg" src="/static/bannerBg.png">
             <view class="user-bottom"></view>
             <view class="user-container">
-                <view class="user-header">
-                    <img :src="userInfo.avatar" v-if="userInfo">
-                    <img src="/static/header.svg" v-else>
+                <view class="user-header"  v-if="userInfo">
+                    <img :src="userInfo.avatar">
                     <view class="info">
                         <text>欢迎，</text>
                         <text class="tip">{{userInfo ? userInfo.nickname : '游客'}}</text>
+                    </view>
+                </view>
+                <view class="user-header"  v-else>
+                    <view class="no-login info" @click="gotoLogin">
+                        <text>游客，请登录</text>
                     </view>
                 </view>
                 <view class="user-body">
@@ -66,7 +70,9 @@
 </template>
 
 <script>
-    import { mapState } from 'vuex'
+import tip from '@/utils/tip'
+import store from '@/store'
+import { mapState } from 'vuex'
     export default {
         data() {
             return {
@@ -76,23 +82,28 @@
             }
         },
         onShow() {
-            this.checkBusiness()
+            if (this.userInfo && this.userInfo.id) {   
+                this.checkBusiness()
+            }
         },
         computed: {
             ...mapState(['userInfo'])
         },
         methods: {
             intoOrder () {
+                if (!this.goLogin()) return
                 uni.navigateTo({
                     url: '/pages/orderList/orderList',
                 });
             },
-            intoMyCard () {                		
+            intoMyCard () { 
+                if (!this.goLogin()) return
 				uni.switchTab({
 					url: '/pages/myCard/myCard'
 				})
             },
-            intoRecodeList () {                		
+            intoRecodeList () {
+                if (!this.goLogin()) return                		
 				uni.navigateTo({
 					url: '/pages/recodeList/recodeList'
 				})
@@ -104,6 +115,7 @@
                 }                
             },
             intoBusiness () {
+                if (!this.goLogin()) return
                 this.$store.commit('SET_ROLE_TYPE','business')
                 uni.reLaunch({
                     url: '/pages/business/business'
@@ -118,7 +130,8 @@
                     }
                 })
             },
-            gotoExchangePage () {                
+            gotoExchangePage () {
+                if (!this.goLogin()) return                
                 uni.navigateTo({
                     url: `/pages/exchangePage/exchangePage`
                 })
@@ -129,7 +142,25 @@
             },
             closeBox () {
                 this.showBox = false
-            }
+            },
+            gotoLogin () {                
+                uni.navigateTo({
+                    url: '/pages/login/login'
+                })
+            },
+            goLogin () {
+                if (this.userInfo) {
+                    return true
+                }
+                tip.alertDialog('您还未登录，请登录后体验更多服务').then((val) => {
+                    setTimeout(() => {                                
+                        store.commit('SET_USER_INFO', null)
+                        store.commit('SET_ROLE_TYPE', null)
+                        uni.removeStorageSync('api_token')
+                    },1000)
+                    this.gotoLogin()
+                })
+            }            
         }
     }
 </script>
@@ -196,6 +227,9 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+}
+.user-header .no-login {
+    left: 40rpx;
 }
 .user-container .user-header image {
     position: absolute;

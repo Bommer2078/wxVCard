@@ -2813,7 +2813,7 @@ http.post = function (api, data) {
         }
         if (res.statusCode == 200) {
           if (res.data.code == '401') {
-            _tip.default.alertDialog('请重新登录').then(function (val) {
+            _tip.default.alertDialog('您还未登录，请登录后体验更多服务').then(function (val) {
               setTimeout(function () {
                 _store.default.commit('SET_USER_INFO', null);
                 _store.default.commit('SET_ROLE_TYPE', null);

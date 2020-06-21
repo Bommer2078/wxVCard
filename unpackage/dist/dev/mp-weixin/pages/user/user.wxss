@@ -79,6 +79,9 @@
     -webkit-align-items: flex-start;
             align-items: flex-start;
 }
+.user-header .no-login {
+    left: 40rpx;
+}
 .user-container .user-header image {
     position: absolute;
     top: -33rpx;

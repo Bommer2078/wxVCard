@@ -32,7 +32,7 @@ http.post = (api, data) => {
                 }
                 if(res.statusCode == 200) {
                     if(res.data.code == '401') {
-                        tip.alertDialog('请重新登录').then((val) => {
+                        tip.alertDialog('您还未登录，请登录后体验更多服务').then((val) => {
                             setTimeout(() => {                                
                                 store.commit('SET_USER_INFO', null)
                                 store.commit('SET_ROLE_TYPE', null)
