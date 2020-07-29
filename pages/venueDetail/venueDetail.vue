@@ -30,7 +30,7 @@
                 <view class="venue-summray">                    
                     <view class="venue-title">{{venueData.name}}</view>
                     <view class="venue-info1">
-                        <view @click="gotoMap">{{venueData.address}}></view>
+                        <view @click="gotoMap" class="venue-address">{{venueData.address}}></view>
                         <view>
                             <view class="phone-btn" @click="callPhone">
                                 <image src="/static/phone.png"/>
@@ -258,6 +258,10 @@ export default {
                     max-width: 358rpx;
                     font-size: 24rpx;
                 }
+            }
+            .venue-address {
+                max-height: 80rpx;
+                overflow: hidden;
             }
             .venue-info1 {
                 align-items: flex-start;

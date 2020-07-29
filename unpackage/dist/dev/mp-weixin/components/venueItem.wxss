@@ -20,6 +20,8 @@
   height: 150rpx;
   border-radius: 8rpx;
   margin-right: 19rpx;
+  -webkit-flex-shrink: 0;
+          flex-shrink: 0;
 }
 .venue-item .venue-info {
   display: -webkit-box;
@@ -49,6 +51,8 @@
   font-family: PingFang SC;
   font-weight: 400;
   color: #666666;
+  max-height: 60rpx;
+  overflow: hidden;
 }
 .venue-item .venue-info .created-time {
   font-size: 22rpx;

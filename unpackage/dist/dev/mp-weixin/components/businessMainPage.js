@@ -191,7 +191,11 @@ var _vuex = __webpack_require__(/*! vuex */ 12);function _interopRequireDefault(
 
                   _this2.$api.adminLoopOrder(params));case 9:res = _context2.sent;
                 if (res.code === 0) {
-                  _this2.$tip.alertDialog('用户支付成功');
+                  if (res.msg === '无须支付') {
+                    _this2.$tip.alertDialog('核销成功');
+                  } else {
+                    _this2.$tip.alertDialog('用户支付成功');
+                  }
                   _this2.showWaiting = false;
                 } else if (res.code === 100) {
                   _this2.adminLoopFn(id);

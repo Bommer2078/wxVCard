@@ -196,12 +196,13 @@ export default {
                 if (myCardArr.length === 0) {                                     
                     this.$tip.alertDialog(
                         '还没有权益卡，快去加入吧',
-                        '去购买').then(() => {
-                            uni.navigateTo({
-                                url: `/pages/buyPage/buyPage?id=${this.vCardBaseInfo.id}`
-                            });
-                        })
-                    return
+                        '去购买',
+                        '先看看').then(() => {
+                        uni.navigateTo({
+                            url: `/pages/buyPage/buyPage?id=${this.vCardBaseInfo.id}`
+                        });                            
+                        return
+                    })
                 }
                 this.myCardArr = myCardArr
                 this.checkVipStatus()

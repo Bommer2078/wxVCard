@@ -75,7 +75,11 @@ export default {
             }
             const res = await this.$api.adminLoopOrder(params)
             if (res.code === 0) {
-                this.$tip.alertDialog('用户支付成功')
+                if (res.msg === '无须支付') {                    
+                    this.$tip.alertDialog('核销成功')
+                } else {
+                    this.$tip.alertDialog('用户支付成功')
+                }
                 this.showWaiting = false
             } else if (res.code === 100) {
                 this.adminLoopFn(id)

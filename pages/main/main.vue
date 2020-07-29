@@ -127,22 +127,20 @@
                 // this.getVenueTypeList()
                 this.initGlobalData()
             },
-            async initGlobalData () {
-                if (!this.locationObj || !this.vCardBaseInfo.id) {    
-                    // 后期迭代之后不在此页请求城市接口          
-                    const res1 = await this.$api.getPlaceList()
-                    const cityObj = res1.data.data[0]
-                    if (res1.code === 0) {
-                        this.$store.commit('SET_LOCATION_OBJ',cityObj)
-                    }                     
-                    let params = {
-                        id: cityObj.card_id
-                    }               
-                    const res2 = await this.$api.getCardDetail(params)
-                    if (res2.code === 0) {
-                        this.$store.commit('SET_TICKET_OBJ',res2.data)
-                    }          
-                }                 
+            async initGlobalData () { 
+                // 后期迭代之后不在此页请求城市接口          
+                const res1 = await this.$api.getPlaceList()
+                const cityObj = res1.data.data[0]
+                if (res1.code === 0) {
+                    this.$store.commit('SET_LOCATION_OBJ',cityObj)
+                }                     
+                let params = {
+                    id: cityObj.card_id
+                }               
+                const res2 = await this.$api.getCardDetail(params)
+                if (res2.code === 0) {
+                    this.$store.commit('SET_TICKET_OBJ',res2.data)
+                }             
                 this.getVenueData()
             },
             async getVenueData () {                       

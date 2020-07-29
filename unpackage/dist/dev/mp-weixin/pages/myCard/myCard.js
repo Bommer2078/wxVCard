@@ -250,6 +250,7 @@ var _md5Min = _interopRequireDefault(__webpack_require__(/*! ../../libs/md5.min.
       currentTime: '',
       showQRBox: false,
       loopCount: 0,
+      abortHttp: false,
       currentCardStatus: 0 // 0 未激活， 1 会员，-1会员过期
     };
   },
@@ -274,6 +275,7 @@ var _md5Min = _interopRequireDefault(__webpack_require__(/*! ../../libs/md5.min.
     if (this.showQRBox) {
       this.showQRBox = false;
       this.$http.abort();
+      this.abortHttp = true;
     }
   },
   watch: {
@@ -284,6 +286,7 @@ var _md5Min = _interopRequireDefault(__webpack_require__(/*! ../../libs/md5.min.
   destroyed: function destroyed() {
     if (this.showQRBox) {
       this.$http.abort();
+      this.abortHttp = true;
     }
   },
   computed: _objectSpread({},
@@ -344,12 +347,14 @@ var _md5Min = _interopRequireDefault(__webpack_require__(/*! ../../libs/md5.min.
         }
         this.creatQrcode();
         this.showQRBox = true;
+        this.abortHttp = false;
         this.startLoopFn(this.currentCard.id);
       }
     },
     closeQR: function closeQR() {
       this.$tip.toast('取消出示', 'none');
       this.$http.abort();
+      this.abortHttp = true;
       this.showQRBox = false;
     },
     getQRBack: function getQRBack(res) {
@@ -384,18 +389,22 @@ var _md5Min = _interopRequireDefault(__webpack_require__(/*! ../../libs/md5.min.
                 params = {
                   card_id: id };_context2.next = 9;return (
 
-                  _this3.$api.loopPayOrder(params));case 9:res = _context2.sent;
-                if (res.code === 0) {
+                  _this3.$api.loopPayOrder(params));case 9:res = _context2.sent;if (!(
+                res.code === 0)) {_context2.next = 15;break;}
+                _this3.showQRBox = false;
+                _this3.handleWxPay(res.data.order_id);_context2.next = 22;break;case 15:if (!(
+                res.code === 100)) {_context2.next = 21;break;}if (!
+                _this3.abortHttp) {_context2.next = 18;break;}return _context2.abrupt("return");case 18:
+                setTimeout(function () {
+                  _this3.startLoopFn(id);
+                }, 1000);_context2.next = 22;break;case 21:
+                if (res.code === 1) {
                   _this3.showQRBox = false;
-                  _this3.handleWxPay(res.data.order_id);
-                } else if (res.code === 100) {
-                  setTimeout(function () {
-                    _this3.startLoopFn(id);
-                  }, 1000);
+                  _this3.$tip.toast('核销成功！', 'none');
                 } else {
                   _this3.showQRBox = false;
                   _this3.$tip.toast(res.msg, 'none');
-                }case 11:case "end":return _context2.stop();}}}, _callee2);}))();
+                }case 22:case "end":return _context2.stop();}}}, _callee2);}))();
     },
     handleWxPay: function handleWxPay(id) {var _this4 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee3() {var pramas, res;return _regenerator.default.wrap(function _callee3$(_context3) {while (1) {switch (_context3.prev = _context3.next) {case 0:
                 pramas = {

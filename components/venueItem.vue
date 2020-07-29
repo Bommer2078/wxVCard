@@ -42,6 +42,7 @@ export default {
             height:150rpx;
             border-radius:8rpx;
             margin-right: 19rpx;
+            flex-shrink: 0;
         }
         .venue-info {
             display: flex;
@@ -61,6 +62,8 @@ export default {
                 font-family:PingFang SC;
                 font-weight:400;
                 color:rgba(102,102,102,1);
+                max-height: 60rpx;
+                overflow: hidden;
             }
             .created-time {
                 font-size:22rpx;

@@ -102,6 +102,7 @@ export default {
             currentTime: '',
             showQRBox: false,
             loopCount: 0,
+            abortHttp: false,
             currentCardStatus: 0 // 0 未激活， 1 会员，-1会员过期
         }
     },
@@ -126,6 +127,7 @@ export default {
         if (this.showQRBox) {   
             this.showQRBox = false         
             this.$http.abort()
+            this.abortHttp = true
         }
     },
     watch: {
@@ -136,6 +138,7 @@ export default {
     destroyed() {        
         if (this.showQRBox) {  
             this.$http.abort()
+            this.abortHttp = true
         }
     },
     computed: {
@@ -196,12 +199,14 @@ export default {
                 }               
                 this.creatQrcode()
                 this.showQRBox = true                 
+                this.abortHttp = false                 
                 this.startLoopFn(this.currentCard.id)
             }          
         },
         closeQR () {            
             this.$tip.toast('取消出示','none')
             this.$http.abort()
+            this.abortHttp = true
             this.showQRBox = false
         },
         getQRBack (res) {
@@ -241,9 +246,13 @@ export default {
                 this.showQRBox = false  
                 this.handleWxPay(res.data.order_id) 
             } else if (res.code === 100) {
-                setTimeout(() => {                    
+                if (this.abortHttp) return
+                setTimeout(() => {                  
                     this.startLoopFn(id)
-                },1000)
+                },1000)          
+            } else if (res.code === 1) {
+                this.showQRBox = false
+                this.$tip.toast('核销成功！','none')
             } else {           
                 this.showQRBox = false
                 this.$tip.toast(res.msg,'none')

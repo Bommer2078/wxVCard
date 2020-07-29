@@ -115,6 +115,10 @@
   max-width: 358rpx;
   font-size: 24rpx;
 }
+.detail-page .venue-info-cover .venue-summray .venue-address {
+  max-height: 80rpx;
+  overflow: hidden;
+}
 .detail-page .venue-info-cover .venue-summray .venue-info1 {
   -webkit-box-align: start;
   -webkit-align-items: flex-start;

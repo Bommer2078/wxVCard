@@ -270,23 +270,21 @@ var _vuex = __webpack_require__(/*! vuex */ 12);function _interopRequireDefault(
       // this.getVenueTypeList()
       this.initGlobalData();
     },
-    initGlobalData: function initGlobalData() {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var res1, cityObj, params, res2;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:if (!(
-                !_this.locationObj || !_this.vCardBaseInfo.id)) {_context.next = 11;break;}_context.next = 3;return (
+    initGlobalData: function initGlobalData() {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var res1, cityObj, params, res2;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:_context.next = 2;return (
 
-                  _this.$api.getPlaceList());case 3:res1 = _context.sent;
+                  _this.$api.getPlaceList());case 2:res1 = _context.sent;
                 cityObj = res1.data.data[0];
                 if (res1.code === 0) {
                   _this.$store.commit('SET_LOCATION_OBJ', cityObj);
                 }
                 params = {
-                  id: cityObj.card_id };_context.next = 9;return (
+                  id: cityObj.card_id };_context.next = 8;return (
 
-                  _this.$api.getCardDetail(params));case 9:res2 = _context.sent;
+                  _this.$api.getCardDetail(params));case 8:res2 = _context.sent;
                 if (res2.code === 0) {
                   _this.$store.commit('SET_TICKET_OBJ', res2.data);
-                }case 11:
-
-                _this.getVenueData();case 12:case "end":return _context.stop();}}}, _callee);}))();
+                }
+                _this.getVenueData();case 11:case "end":return _context.stop();}}}, _callee);}))();
     },
     getVenueData: function getVenueData() {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var params, res;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:
                 params = {

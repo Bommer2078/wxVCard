@@ -334,22 +334,23 @@ var _store = _interopRequireDefault(__webpack_require__(/*! @/store */ 11));func
       });
     },
     getMyCard: function getMyCard() {var _this3 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var res, myCardArr;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:_context2.next = 2;return (
-                  _this3.$api.myCardList());case 2:res = _context2.sent;if (!(
-                res.code === 0)) {_context2.next = 10;break;}
-                myCardArr = res.data.data;if (!(
-                myCardArr.length === 0)) {_context2.next = 8;break;}
-                _this3.$tip.alertDialog(
-                '还没有权益卡，快去加入吧',
-                '去购买').then(function () {
-                  uni.navigateTo({
-                    url: "/pages/buyPage/buyPage?id=".concat(_this3.vCardBaseInfo.id) });
+                  _this3.$api.myCardList());case 2:res = _context2.sent;
+                if (res.code === 0) {
+                  myCardArr = res.data.data;
+                  if (myCardArr.length === 0) {
+                    _this3.$tip.alertDialog(
+                    '还没有权益卡，快去加入吧',
+                    '去购买',
+                    '先看看').then(function () {
+                      uni.navigateTo({
+                        url: "/pages/buyPage/buyPage?id=".concat(_this3.vCardBaseInfo.id) });
 
-                });return _context2.abrupt("return");case 8:
-
-
-                _this3.myCardArr = myCardArr;
-                _this3.checkVipStatus();case 10:case "end":return _context2.stop();}}}, _callee2);}))();
-
+                      return;
+                    });
+                  }
+                  _this3.myCardArr = myCardArr;
+                  _this3.checkVipStatus();
+                }case 4:case "end":return _context2.stop();}}}, _callee2);}))();
     },
     checkVipStatus: function checkVipStatus() {var _this4 = this;
       var temp = this.myCardArr.find(function (item) {
