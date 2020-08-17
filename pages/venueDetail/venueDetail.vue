@@ -41,10 +41,13 @@
                     </view>
                     <view class="venue-info2">
                         <view>{{ venueData.business_hours }}</view>
-                        <view class="price-info">
-                            当前权益价 
+                        <view class="price-info" v-if="venueData.card_vunue.price">
+                            当前权益价
                             <text class="price-unit">￥</text>
                             <text class="price-num">{{venueData.card_vunue.price/100}}</text>
+                        </view>
+                        <view class="price-info" v-else>
+                            <text class="price-num">线下优惠</text>
                         </view>
                     </view>
                 </view>
