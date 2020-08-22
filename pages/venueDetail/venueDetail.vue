@@ -13,11 +13,11 @@
                     @change="handleBannerChange"
                     next-margin="100rpx">
                     <swiper-item v-for="(item,index) in venueData.banner" :key="item">
-                        <view class="swiper-item" @click="handleImgClick(index)">
+                        <view class="swiper-item" @click="handleImgClick(index)"
+                                :class="{'scale-img': index !== currentBannerIndex}">
                             <image 
                                 :src="item" 
-                                class="swiper-imgs" 
-                                :class="{'scale-img': index !== currentBannerIndex}"/>
+                                class="swiper-imgs"/>
                         </view>
                     </swiper-item>
                 </swiper>
@@ -205,17 +205,20 @@ export default {
         .swiper {
             height: 335rpx;
             .swiper-item {
-                padding-left: 15rpx;
-                padding-right: 15rpx;
+                margin-left: 15rpx;
+                margin-right: 15rpx;
                 background: #fff;
+                height:310rpx;
+                border-radius:20rpx;
+                overflow: hidden;
+                width:600rpx;
                 .swiper-imgs {
-                    width:600rpx;
-                    height:310rpx;
+                    width: 100%;
                     border-radius:20rpx;
                 }
-                .scale-img {
-                    transform: scale(0.9);
-                }
+            }            
+            .scale-img {
+                transform: scale(0.9);
             }
         }
         .indicator-dots {  

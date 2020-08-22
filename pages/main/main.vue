@@ -61,7 +61,7 @@
                 </view>
                 <template v-for="item in venueArr" >                
                     <view class="card" @click="intoVenueDetail(item)" :key='item'>
-                        <img :src="item.banner[0]" >
+                        <image :src="item.banner[0]" >
                         <view class="card-tip">
                             <view class="mask">                          
                             </view>
@@ -380,14 +380,15 @@
             .card {
                 position: relative;
                 width: 100%;
-                height: 410rpx;
-                padding-top: 30rpx;
-                padding-bottom: 30rpx;
+                height: 350rpx;
+                margin-top: 30rpx;
+                margin-bottom: 30rpx;
                 background: #fff;
                 overflow: hidden;
-                img{
+                border-radius: 12px;
+                image{
                     width: 100%;
-                    height: 350rpx;
+                    // height: 350rpx;
                     border-radius: 12px;
                 }
                     .card-tip{
@@ -395,7 +396,7 @@
                     flex-direction: column;
                     align-items: flex-start;
                     position: absolute;
-                    bottom: 30rpx;
+                    bottom: 0rpx;
                     padding: 0;
                     padding-left: 30rpx;
                     padding-bottom: 10rpx;

@@ -39,16 +39,19 @@
   height: 335rpx;
 }
 .detail-page .venue-info-cover .swiper .swiper-item {
-  padding-left: 15rpx;
-  padding-right: 15rpx;
+  margin-left: 15rpx;
+  margin-right: 15rpx;
   background: #fff;
-}
-.detail-page .venue-info-cover .swiper .swiper-item .swiper-imgs {
-  width: 600rpx;
   height: 310rpx;
   border-radius: 20rpx;
+  overflow: hidden;
+  width: 600rpx;
 }
-.detail-page .venue-info-cover .swiper .swiper-item .scale-img {
+.detail-page .venue-info-cover .swiper .swiper-item .swiper-imgs {
+  width: 100%;
+  border-radius: 20rpx;
+}
+.detail-page .venue-info-cover .swiper .scale-img {
   -webkit-transform: scale(0.9);
           transform: scale(0.9);
 }
