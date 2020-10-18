@@ -6,13 +6,14 @@
 			<view class="tip">登录后权益卡将为您更好的服务</view>
 		</view>
 		<view class="login-btn-part">
-        	<button class="login-btn" type="primary" open-type="getUserInfo" lang="zh_CN" @getuserinfo="handleLogin">微信用户快速登录</button>
+        	<login-btn btn-txt="微信用户快速登录" @saveUserInfoDone="saveUserInfoDone"></login-btn>
 		</view>
 	</view>
 </template>
 
 <script>
 import { mapState } from 'vuex'
+import loginBtn from '../../components/loginBtn'
 export default {
 	name: 'login',
 	data() {
@@ -20,6 +21,9 @@ export default {
 			title: 'Hi~ 请 登 录',
 		}
 	},	
+	components: {
+		loginBtn
+	},
 	onShow() {		
 		if (wx.canIUse('hideHomeButton')) {
 			wx.hideHomeButton()
@@ -28,64 +32,14 @@ export default {
     computed: {
         ...mapState(['locationObj'])
     },
-	methods: {
-		handleLogin () {
-			wx.login({
-				success: (res) => {
-					if (res.code) {
-						let params = {
-							code: res.code
-						}
-						//发起网络请求
-						this.wxLogin(params)
-					} else {
-						console.log('登录失败！' + res.errMsg)
-					}
-				}
-			})
-		},
-		async wxLogin (params) {
-			const res = await this.$api.login(params)				
-			if (res.code === 0) {				          
-                uni.setStorageSync('api_token',res.data.api_token)									
-				this.getUserInfo(res.data.api_token)
-			}
-		},
-		async getUserInfo (token) {
-			wx.getSetting({
-				success: (res) => {
-					if (res.authSetting['scope.userInfo']) {
-						wx.getUserInfo({
-							success: (data) => {
-								data.api_token = token
-								this.saveUserInfo(data)
-							}
-						})
-					} else {
-						this.$tip.alertDialog('请允许登录授权')
-					}
-				}
-			})
-		},
-		async saveUserInfo (params) {
-			const res = await this.$api.saveUserInfo(params)
-			if (res.code === 0) {
-				this.$store.commit('SET_USER_INFO', res.data)
-				uni.switchTab({
-					url: '/pages/main/main'
-				})
-			}			
-				
-			// if (!this.locationObj) {				
-			// 	uni.redirectTo({
-			// 		url: '/pages/city/city'
-			// 	})
-			// } else {				
-				
-			// }
-		},									
+	methods: {								
 		handleCheckBoxClick () {
 			this.agreeGetLocationInfo = !this.agreeGetLocationInfo
+		},
+		saveUserInfoDone () {			
+			uni.switchTab({
+				url: '/pages/main/main'
+			})
 		}
 	}
 }
@@ -122,17 +76,6 @@ export default {
 		.login-btn-part {
 			position: fixed;
 			bottom: 0;
-			.login-btn {
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				width:563rpx;
-				height:80rpx;
-				color: #fff;
-				background:rgba(255,50,118,1);
-				border-radius:20rpx;
-				margin-bottom: 180rpx;
-			}
 		}
 	}	
 </style>

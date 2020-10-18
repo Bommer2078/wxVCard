@@ -1,4 +1,6 @@
 {
   "navigationBarTitleText": "请登录",
-  "usingComponents": {}
+  "usingComponents": {
+    "login-btn": "/components/loginBtn"
+  }
 }

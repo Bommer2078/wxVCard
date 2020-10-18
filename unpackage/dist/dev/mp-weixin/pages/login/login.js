@@ -24,7 +24,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@vue/babel-preset-app/node_modules/@babel/runtime/regenerator */ 23));
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
 
 
@@ -38,7 +38,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var _vuex = __webpack_require__(/*! vuex */ 12);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var _default =
+var _vuex = __webpack_require__(/*! vuex */ 12);function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var loginBtn = function loginBtn() {Promise.all(/*! require.ensure | components/loginBtn */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/loginBtn")]).then((function () {return resolve(__webpack_require__(/*! ../../components/loginBtn */ 202));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+
 {
   name: 'login',
   data: function data() {
@@ -46,6 +47,9 @@ var _vuex = __webpack_require__(/*! vuex */ 12);function _interopRequireDefault(
       title: 'Hi~ 请 登 录' };
 
   },
+  components: {
+    loginBtn: loginBtn },
+
   onShow: function onShow() {
     if (wx.canIUse('hideHomeButton')) {
       wx.hideHomeButton();
@@ -55,63 +59,13 @@ var _vuex = __webpack_require__(/*! vuex */ 12);function _interopRequireDefault(
   (0, _vuex.mapState)(['locationObj'])),
 
   methods: {
-    handleLogin: function handleLogin() {var _this = this;
-      wx.login({
-        success: function success(res) {
-          if (res.code) {
-            var params = {
-              code: res.code };
-
-            //发起网络请求
-            _this.wxLogin(params);
-          } else {
-            console.log('登录失败！' + res.errMsg);
-          }
-        } });
-
-    },
-    wxLogin: function wxLogin(params) {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var res;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:_context.next = 2;return (
-                  _this2.$api.login(params));case 2:res = _context.sent;
-                if (res.code === 0) {
-                  uni.setStorageSync('api_token', res.data.api_token);
-                  _this2.getUserInfo(res.data.api_token);
-                }case 4:case "end":return _context.stop();}}}, _callee);}))();
-    },
-    getUserInfo: function getUserInfo(token) {var _this3 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:
-                wx.getSetting({
-                  success: function success(res) {
-                    if (res.authSetting['scope.userInfo']) {
-                      wx.getUserInfo({
-                        success: function success(data) {
-                          data.api_token = token;
-                          _this3.saveUserInfo(data);
-                        } });
-
-                    } else {
-                      _this3.$tip.alertDialog('请允许登录授权');
-                    }
-                  } });case 1:case "end":return _context2.stop();}}}, _callee2);}))();
-
-    },
-    saveUserInfo: function saveUserInfo(params) {var _this4 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee3() {var res;return _regenerator.default.wrap(function _callee3$(_context3) {while (1) {switch (_context3.prev = _context3.next) {case 0:_context3.next = 2;return (
-                  _this4.$api.saveUserInfo(params));case 2:res = _context3.sent;
-                if (res.code === 0) {
-                  _this4.$store.commit('SET_USER_INFO', res.data);
-                  uni.switchTab({
-                    url: '/pages/main/main' });
-
-                }
-
-                // if (!this.locationObj) {				
-                // 	uni.redirectTo({
-                // 		url: '/pages/city/city'
-                // 	})
-                // } else {				
-
-                // }
-              case 4:case "end":return _context3.stop();}}}, _callee3);}))();},
     handleCheckBoxClick: function handleCheckBoxClick() {
       this.agreeGetLocationInfo = !this.agreeGetLocationInfo;
+    },
+    saveUserInfoDone: function saveUserInfoDone() {
+      uni.switchTab({
+        url: '/pages/main/main' });
+
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

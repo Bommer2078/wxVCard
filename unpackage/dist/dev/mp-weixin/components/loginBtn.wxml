@@ -1,0 +1,1 @@
+<button class="login-btn" type="primary" open-type="getUserInfo" lang="zh_CN" data-event-opts="{{[['getuserinfo',[['handleLogin',['$event']]]]]}}" bindgetuserinfo="__e">{{btnTxt}}</button>

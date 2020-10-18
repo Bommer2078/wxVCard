@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "加入会员",
+  "navigationBarBackgroundColor": "#ffffff",
+  "usingComponents": {
+    "login-btn": "/components/loginBtn"
+  }
+}
